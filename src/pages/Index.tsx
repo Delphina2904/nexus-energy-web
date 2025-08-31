@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AboutContent } from "./About";
+import { VisionMissionContent } from "./VisionMission";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
@@ -226,6 +227,11 @@ const Index = () => {
       {/* About Content Section */}
       <div className="relative z-10 bg-white">
         <AboutContent />
+      </div>
+      
+      {/* Vision Mission Section */}
+      <div className="relative z-10 bg-white">
+        <VisionMissionContent />
       </div>
       
       {/* Footer */}

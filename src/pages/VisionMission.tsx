@@ -113,7 +113,7 @@ export const VisionMissionContent = () => {
     <div id="vision-mission" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white py-12 md:py-20">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
         {/* Header Section */}
-        <div className={`transform transition-all duration-1000 delay-200 text-center max-w-4xl mx-auto mb-12 md:mb-20 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className={`transform transition-all duration-1000 delay-200 text-center max-w-4xl mx-auto mb-12 md:mb-20 translate-y-0 opacity-100`}>
           <div className="flex flex-col items-center mb-4 md:mb-6">
             <div className="relative mb-3 md:mb-4">
               <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-2xl transform hover:scale-110 transition-all duration-300">
@@ -126,11 +126,11 @@ export const VisionMissionContent = () => {
             <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 rounded-full shadow-lg"></div>
           </div>
 
-          <h2 className="text-3xl md:text-5xl lg:text-7xl font-black text-gray-800 leading-tight mb-6 md:mb-8 select-none">
+          <h2 className="text-3xl md:text-5xl lg:text-7xl font-semibold text-gray-800 leading-tight mb-6 md:mb-8 select-none">
             {'Powering Tomorrow\'s Sustainable World'.split(' ').map((word, index) => (
               <span
                 key={index}
-                className="inline-block animate-fade-in-up hover:scale-105 transition-transform duration-300 font-semibold"
+                className="inline-block animate-fade-in-up hover:scale-105 transition-transform duration-300 font-normal"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
                 {word}{' '}
@@ -144,7 +144,7 @@ export const VisionMissionContent = () => {
         </div>
 
         {/* Vision Section */}
-        <div className={`mb-16 md:mb-24 ${animatedItems.vision ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'} transform transition-all duration-1000 delay-400`}>
+        <div className={`mb-16 md:mb-24 translate-y-0 opacity-100 transform transition-all duration-1000 delay-400`}>
           <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center mb-12">
             {/* Vision Content */}
             <div className="space-y-6 md:space-y-8">
@@ -213,7 +213,7 @@ export const VisionMissionContent = () => {
         </div>
 
         {/* Mission Section */}
-        <div className={`mb-16 md:mb-24 ${animatedItems.mission ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'} transform transition-all duration-1000 delay-600`}>
+        <div className={`mb-16 md:mb-24 translate-y-0 opacity-100 transform transition-all duration-1000 delay-600`}>
           <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             {/* Mission Points */}
             <div className="space-y-6 md:space-y-8">
@@ -284,7 +284,7 @@ export const VisionMissionContent = () => {
         </div>
 
         {/* Values Section */}
-        <div className={`${animatedItems.values ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'} transform transition-all duration-1000 delay-800`}>
+        <div className={`translate-y-0 opacity-100 transform transition-all duration-1000 delay-800`}>
           <div className="text-center mb-12 md:mb-16">
             <div className="flex items-center justify-center mb-4">
               <div className="w-12 h-1 bg-purple-500 mr-4"></div>
