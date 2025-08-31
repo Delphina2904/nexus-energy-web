@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import { AboutContent } from "./About";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -187,7 +188,7 @@ const Interactive3DBackground = () => {
     }, []);
 
     return (
-        <div className="fixed inset-0 w-full h-full z-0">
+        <div className="absolute inset-0 w-full h-full z-0">
             <div
                 ref={mountRef}
                 className="w-full h-full"
@@ -210,20 +211,27 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="min-h-screen bg-background">
       {/* Navbar */}
       <Navbar 
         title="Nexus Energy Solutions - Powering Tomorrow's World"
         description="Leading provider of innovative battery systems and energy storage solutions for a sustainable future."
       />
       
-      {/* 3D Model Section */}
+      {/* 3D Model Section - Hero Section Only */}
       <section className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center">
         <Interactive3DBackground />
       </section>
 
       {/* About Content Section */}
-      <AboutContent />
+      <div className="relative z-10 bg-white">
+        <AboutContent />
+      </div>
+      
+      {/* Footer */}
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </div>
   );
 };

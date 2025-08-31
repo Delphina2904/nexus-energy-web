@@ -1,15 +1,7 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, User, Home, Info, Briefcase, MessageSquare, Calendar, Instagram, Linkedin } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { HoverImageEffect } from "@/components/custom/HoverImageEffect";
+import { Mail, Phone, User, Home, Info, Briefcase, MessageSquare } from "lucide-react";
 
 export const Footer = () => {
-  const openWhatsAppBooking = () => {
-    const message = "Hello! I'd like to book a 15-minute free consultation call for Nexus Energy Solutions. Please let me know your available time slots. Thank you!";
-    const phoneNumber = "916280602341";
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-  };
-
   return (
     <footer className="bg-vision-dark text-white pt-16 pb-8">
       <div className="container mx-auto">
@@ -21,26 +13,6 @@ export const Footer = () => {
             <p className="text-gray-300 mb-6">
               Powering the future with innovative energy storage solutions. We deliver cutting-edge battery systems that transform how businesses manage and store energy.
             </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://www.linkedin.com/company/nexus-energy-solutions"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-600 transition-colors duration-300"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="https://www.instagram.com/nexusenergysolutions"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gradient-to-r from-purple-500 to-pink-500 transition-colors duration-300"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
           <div>
@@ -128,19 +100,29 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold mb-4">Book a Free Consultation</h3>
-            <p className="text-gray-300 mb-4">
-              Get a free 15-minute consultation to discuss your energy storage needs and how we can help power your future.
-            </p>
-            <HoverImageEffect>
-              <Button 
-                onClick={openWhatsAppBooking}
-                className="bg-green-600 hover:bg-green-700 w-full transition-colors duration-300 flex items-center justify-center gap-2"
-              >
-                <Calendar className="h-4 w-4" />
-                Schedule Consultation
-              </Button>
-            </HoverImageEffect>
+            <h3 className="text-xl font-semibold mb-4">Our Services</h3>
+            <ul className="space-y-3">
+              {[
+                "Battery Energy Storage Systems",
+                "Solar Energy Solutions", 
+                "Grid Integration Services",
+                "Energy Management Systems",
+                "Maintenance & Support",
+                "Custom Energy Solutions"
+              ].map((service) => (
+                <li key={service}>
+                  <Link
+                    to="/services"
+                    className="text-gray-300 hover:text-primary transition-colors duration-300 block"
+                    onClick={() => {
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                  >
+                    {service}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 

@@ -78,11 +78,11 @@ export const AboutContent = () => {
             <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 rounded-full shadow-lg"></div>
           </div>
 
-          <h2 className="text-3xl md:text-5xl lg:text-7xl font-black text-gray-800 leading-tight mb-6 md:mb-8 select-none">
+          <h2 className="text-3xl md:text-5xl lg:text-7xl font-semibold text-gray-800 leading-tight mb-6 md:mb-8 select-none">
             {'Nexus Energy Solutions'.split(' ').map((word, index) => (
               <span
                 key={index}
-                className="inline-block animate-fade-in-up hover:scale-105 transition-transform duration-300 font-semibold"
+                className="inline-block animate-fade-in-up hover:scale-105 transition-transform duration-300 font-normal"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
                 {word}{' '}
