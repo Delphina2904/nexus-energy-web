@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
+import { AboutContent } from "./About";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
@@ -220,6 +221,9 @@ const Index = () => {
       <section className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center">
         <Interactive3DBackground />
       </section>
+
+      {/* About Content Section */}
+      <AboutContent />
     </div>
   );
 };
