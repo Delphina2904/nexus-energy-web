@@ -91,7 +91,8 @@ const services = [
   },
 ];
 
-const Services = () => {
+// Export the main Services content without Navbar/Footer for embedding
+export const ServicesContent = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const sectionRef = useRef(null);
 
@@ -131,8 +132,6 @@ const Services = () => {
   };
 
   return (
-    <>
-      <Navbar />
       <div id="services" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white pt-24 pb-12 md:pt-32 md:pb-20">
         {/* Enhanced Modern Background Elements */}
         <div className="absolute inset-0">
@@ -181,7 +180,7 @@ const Services = () => {
       <div className="max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="select-none text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 bg-clip-text text-transparent mb-8 leading-tight py-2">
+          <h2 className="select-none text-3xl md:text-5xl lg:text-6xl font-light bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 bg-clip-text text-transparent mb-8 leading-tight py-2 tracking-tight">
             Precision-Engineered Solutions
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -429,7 +428,15 @@ const Services = () => {
         }
       `}</style>
     </div>
-    <Footer />
+  );
+};
+
+const Services = () => {
+  return (
+    <>
+      <Navbar />
+      <ServicesContent />
+      <Footer />
     </>
   );
 };

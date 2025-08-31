@@ -14,7 +14,7 @@ import { Helmet } from "react-helmet-async";
 const navItems = [
   { name: "Home", path: "/" },
   { name: "Services", path: "/services" },
-  { name: "Portfolio", path: "/portfolio" },
+  
   { name: "About", path: "/about" },
   // { name: "Team", path: "/team" },
   { name: "Contact", path: "/contact" },
@@ -25,7 +25,7 @@ type NavbarProps = {
   description?: string;
 };
 
-export const Navbar = ({ title = "Virelity.com - AI Agents that transform businesses", description = "We build AI Agents that transform businesses. Increase productivity by 100% through AI integration and boost sales by 100% with our solutions." }: NavbarProps) => {
+export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Solutions", description = "Leading provider of advanced battery storage solutions for residential, commercial, and industrial applications. Transform your energy future with our cutting-edge technology." }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
@@ -53,30 +53,30 @@ export const Navbar = ({ title = "Virelity.com - AI Agents that transform busine
     
     switch(path) {
       case "/services":
-        pageTitle = "Services - Virelity.com | AI Agents, Web Development & Digital Solutions";
-        pageDescription = "Explore our comprehensive range of services including AI Agents, web development, mobile apps, UI/UX design, and more to transform your business";
-        pageKeywords = "AI Agents, web development, mobile apps, UI/UX design, digital marketing, business transformation";
+        pageTitle = "Services - Nexus Energy | Advanced Battery Storage Solutions";
+        pageDescription = "Explore our comprehensive range of battery storage solutions including residential systems, commercial installations, and industrial energy storage";
+        pageKeywords = "battery storage, energy solutions, residential batteries, commercial energy storage, industrial power systems";
         break;
       case "/portfolio":
-        pageTitle = "Portfolio - Virelity.com | Our Projects & Case Studies";
-        pageDescription = "View our portfolio of successful projects including AI applications, websites, mobile apps and digital solutions delivered to clients";
-        pageKeywords = "portfolio, projects, case studies, web development projects, AI projects, digital solutions";
+        pageTitle = "Portfolio - Nexus Energy | Our Projects & Case Studies";
+        pageDescription = "View our portfolio of successful battery storage installations and energy solutions delivered to residential and commercial clients";
+        pageKeywords = "portfolio, projects, case studies, battery installations, energy projects, storage solutions";
         break;
       case "/about":
-        pageTitle = "About Us - Virelity.com | Our Story & Values";
-        pageDescription = "Learn about our team of experts, mission, values and our journey to becoming a leading AI and digital solutions provider";
-        pageKeywords = "about us, company story, mission, values, team, digital agency";
+        pageTitle = "About Us - Nexus Energy | Our Story & Values";
+        pageDescription = "Learn about our team of energy experts, mission, values and our journey to becoming a leading battery storage solutions provider";
+        pageKeywords = "about us, company story, mission, values, team, energy company";
         break;
       case "/contact":
-        pageTitle = "Contact Us - Virelity.com | Get in Touch";
-        pageDescription = "Contact our team for inquiries, quotes or to discuss your project. Book a free 15-minute consultation call.";
-        pageKeywords = "contact, support, inquiry, consultation, free call, project discussion";
+        pageTitle = "Contact Us - Nexus Energy | Get in Touch";
+        pageDescription = "Contact our team for inquiries, quotes or to discuss your energy storage needs. Get expert consultation for your project.";
+        pageKeywords = "contact, support, inquiry, consultation, energy consultation, project discussion";
         break;
       default:
         // Home page or fallback
-        pageTitle = "Virelity.com | AI Agents that Transform Businesses";
-        pageDescription = "We build AI Agents that transform businesses. Increase productivity by 100% through AI integration and boost sales by 100% with our solutions.";
-        pageKeywords = "AI Agents, digital transformation, web development, business solutions, productivity increase";
+        pageTitle = "Nexus Energy | Advanced Battery Storage Solutions";
+        pageDescription = "Leading provider of advanced battery storage solutions for residential, commercial, and industrial applications. Transform your energy future with our cutting-edge technology.";
+        pageKeywords = "battery storage, energy solutions, renewable energy, power systems, energy independence";
     }
     
     return { pageTitle, pageDescription, pageKeywords };
@@ -88,10 +88,10 @@ export const Navbar = ({ title = "Virelity.com - AI Agents that transform busine
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Virelity.com",
-    "url": "https://virelity.com",
-    "logo": "https://virelity.com/favicon.png",
-    "description": "We build AI Agents that transform businesses",
+    "name": "Nexus Energy",
+    "url": "https://nexusenergy.com",
+    "logo": "https://nexusenergy.com/nexuslogo-.png",
+    "description": "Leading provider of advanced battery storage solutions",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Mumbai",
@@ -105,8 +105,8 @@ export const Navbar = ({ title = "Virelity.com - AI Agents that transform busine
       "email": "deonmenezescodes@gmail.com"
     },
     "sameAs": [
-      "https://www.linkedin.com/company/virelity",
-      "https://www.instagram.com/virelity"
+      "https://www.linkedin.com/company/nexusenergy",
+      "https://www.instagram.com/nexusenergy"
     ]
   };
 
@@ -120,21 +120,21 @@ export const Navbar = ({ title = "Virelity.com - AI Agents that transform busine
         <meta name="keywords" content={pageKeywords} />
         
         {/* Canonical URL */}
-        <link rel="canonical" href={`https://virelity.com${location.pathname}`} />
+        <link rel="canonical" href={`https://nexusenergy.com${location.pathname}`} />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://virelity.com${location.pathname}`} />
+        <meta property="og:url" content={`https://nexusenergy.com${location.pathname}`} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
-        <meta property="og:image" content="https://virelity.com/virelity_logo_transparent.png" />
+        <meta property="og:image" content="https://nexusenergy.com/nexuslogo-.png" />
         
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={`https://virelity.com${location.pathname}`} />
+        <meta property="twitter:url" content={`https://nexusenergy.com${location.pathname}`} />
         <meta property="twitter:title" content={pageTitle} />
         <meta property="twitter:description" content={pageDescription} />
-        <meta property="twitter:image" content="https://virelity.com/virelity_logo_transparent.png" />
+        <meta property="twitter:image" content="https://nexusenergy.com/nexuslogo-.png" />
         
         {/* Structured Data */}
         <script type="application/ld+json">
@@ -195,16 +195,16 @@ export const Navbar = ({ title = "Virelity.com - AI Agents that transform busine
           </ul>
 
           <div className="hidden md:flex items-center gap-4">
-            <HoverImageEffect isNavbar={true}>
-              <Button 
-                onClick={openWhatsAppBooking}
-                className="bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 shadow-lg flex items-center gap-2"
-                aria-label="Book a free consultation call"
-              >
+            <Button 
+              asChild
+              className="bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 shadow-lg flex items-center gap-2"
+              aria-label="Get in touch with us"
+            >
+              <Link to="/contact">
                 <Calendar className="h-4 w-4" aria-hidden="true" />
-                Book a Free Call
-              </Button>
-            </HoverImageEffect>
+                Get Contact
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile Navigation */}
@@ -244,16 +244,16 @@ export const Navbar = ({ title = "Virelity.com - AI Agents that transform busine
                   ))}
                 </div>
                 <div className="mt-auto">
-                  <HoverImageEffect>
-                    <Button
-                      onClick={openWhatsAppBooking}
-                      className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 justify-center"
-                      aria-label="Book a free consultation call"
-                    >
+                  <Button
+                    asChild
+                    className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 justify-center"
+                    aria-label="Get in touch with us"
+                  >
+                    <Link to="/contact">
                       <Calendar className="h-4 w-4" aria-hidden="true" />
-                      Book a Free Call
-                    </Button>
-                  </HoverImageEffect>
+                      Get Contact
+                    </Link>
+                  </Button>
                 </div>
               </nav>
             </SheetContent>

@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { AboutContent } from "./About";
 import { VisionMissionContent } from "./VisionMission";
 import { VandeBharatContent } from "./VandeBharat";
+import { ServicesContent } from "./Services";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
@@ -238,6 +239,11 @@ const Index = () => {
       {/* Vande Bharat Section */}
       <div className="relative z-10">
         <VandeBharatContent />
+      </div>
+      
+      {/* Services Section */}
+      <div className="relative z-10 bg-white">
+        <ServicesContent />
       </div>
       
       {/* Footer */}
