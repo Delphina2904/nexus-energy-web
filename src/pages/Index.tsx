@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AboutContent } from "./About";
 import { VisionMissionContent } from "./VisionMission";
+import { VandeBharatContent } from "./VandeBharat";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
@@ -232,6 +233,11 @@ const Index = () => {
       {/* Vision Mission Section */}
       <div className="relative z-10 bg-white">
         <VisionMissionContent />
+      </div>
+      
+      {/* Vande Bharat Section */}
+      <div className="relative z-10">
+        <VandeBharatContent />
       </div>
       
       {/* Footer */}
