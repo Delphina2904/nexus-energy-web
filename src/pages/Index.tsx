@@ -67,9 +67,24 @@ const Interactive3DBackground = () => {
             (gltf) => {
                 const model = gltf.scene;
 
-                // Scale and position the model
-                model.scale.set(28, 28, 28);
-                model.position.set(-8, 7, 0);  // Shift model further to the left and up
+                // Responsive scaling based on screen size
+                const isMobile = window.innerWidth < 768;
+                const isTablet = window.innerWidth < 1024;
+                
+                if (isMobile) {
+                    // Mobile: smaller scale and centered position to fit entire model
+                    model.scale.set(10, 10, 10);
+                    model.position.set(-3, -1, 0);
+                } else if (isTablet) {
+                    // Tablet: medium scale and slightly left position
+                    model.scale.set(18, 18, 18);
+                    model.position.set(-3, 2, 0);
+                } else {
+                    // Desktop: original scale and position
+                    model.scale.set(28, 28, 28);
+                    model.position.set(-8, 7, 0);
+                }
+                
                 // Rotate model to lay completely flat (like technical drawing)
                 model.rotation.x = -Math.PI / 2;
                 model.rotation.y = 0;
@@ -124,11 +139,25 @@ const Interactive3DBackground = () => {
             if (modelRef.current) {
                 const model = modelRef.current;
 
+                // Responsive base positions
+                const isMobile = window.innerWidth < 768;
+                const isTablet = window.innerWidth < 1024;
+                
+                let baseX, baseY;
+                if (isMobile) {
+                    baseX = -3;
+                    baseY = -1;
+                } else if (isTablet) {
+                    baseX = -3;
+                    baseY = 2;
+                } else {
+                    baseX = -8;
+                    baseY = 2;
+                }
+
                 // Mouse interaction - subtle movement (offset from initial position)
-                const baseX = -8;
-                const baseY = 2;
-                const targetX = baseX + (mouse.x * 2); // Keep the left offset (-8) and add mouse movement
-                const targetY = baseY + (mouse.y * 1); // Keep the up offset (2) and add mouse movement
+                const targetX = baseX + (mouse.x * 2); // Keep the base offset and add mouse movement
+                const targetY = baseY + (mouse.y * 1); // Keep the base offset and add mouse movement
 
                 // Smoothly interpolate to target position (without cumulative drift)
                 model.position.x += (targetX - model.position.x) * 0.02;
@@ -173,6 +202,24 @@ const Interactive3DBackground = () => {
             camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+            
+            // Reposition model based on new screen size
+            if (modelRef.current) {
+                const model = modelRef.current;
+                const isMobile = window.innerWidth < 768;
+                const isTablet = window.innerWidth < 1024;
+                
+                if (isMobile) {
+                    model.scale.set(10, 10, 10);
+                    model.position.set(-3, -1, 0);
+                } else if (isTablet) {
+                    model.scale.set(18, 18, 18);
+                    model.position.set(-3, 2, 0);
+                } else {
+                    model.scale.set(28, 28, 28);
+                    model.position.set(-8, 7, 0);
+                }
+            }
         };
 
         window.addEventListener('resize', handleResize);
@@ -216,10 +263,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navbar */}
-      <Navbar 
-        title="Nexus Energy Solutions - Powering Tomorrow's World"
-        description="Leading provider of innovative battery systems and energy storage solutions for a sustainable future."
-      />
+      <Navbar />
       
       {/* 3D Model Section - Hero Section Only */}
       <section className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center">

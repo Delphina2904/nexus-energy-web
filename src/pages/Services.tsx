@@ -119,12 +119,32 @@ export const ServicesContent = () => {
         }
       },
       {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          centerMode: false,
+          centerPadding: '20px',
+          arrows: false,
+          dots: true,
+        }
+      },
+      {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
           centerMode: true,
-          centerPadding: '60px',
-          arrows: true,
+          centerPadding: '40px',
+          arrows: false,
+          dots: true,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          centerMode: false,
+          centerPadding: '0px',
+          arrows: false,
           dots: true,
         }
       }
@@ -132,17 +152,17 @@ export const ServicesContent = () => {
   };
 
   return (
-      <div id="services" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white pt-24 pb-12 md:pt-32 md:pb-20">
+      <div id="services" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white pt-16 pb-8 sm:pt-20 sm:pb-12 md:pt-24 md:pb-12 lg:pt-32 lg:pb-20">
         {/* Enhanced Modern Background Elements */}
         <div className="absolute inset-0">
           {/* Modern gradient overlays */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-indigo-50/30 to-blue-50/50"></div>
           <div className="absolute inset-0 bg-gradient-to-tr from-indigo-50/20 via-transparent to-blue-50/30"></div>
 
-          {/* Larger, more vibrant geometric shapes */}
-          <div className="absolute top-16 right-8 w-96 h-96 bg-gradient-to-br from-blue-200/25 to-indigo-300/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-24 left-6 w-80 h-80 bg-gradient-to-tr from-indigo-200/30 to-blue-300/25 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-gradient-to-r from-blue-100/35 to-indigo-200/30 rounded-full blur-2xl animate-pulse delay-500"></div>
+          {/* Responsive geometric shapes */}
+          <div className="absolute top-8 sm:top-12 md:top-16 right-4 sm:right-6 md:right-8 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-blue-200/25 to-indigo-300/20 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-12 sm:bottom-16 md:bottom-24 left-3 sm:left-4 md:left-6 w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-gradient-to-tr from-indigo-200/30 to-blue-300/25 rounded-full blur-2xl sm:blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/4 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 bg-gradient-to-r from-blue-100/35 to-indigo-200/30 rounded-full blur-xl sm:blur-2xl animate-pulse delay-500"></div>
 
           {/* Additional floating elements */}
           <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-indigo-300/15 rounded-full blur-xl animate-pulse delay-1500"></div>
@@ -177,32 +197,32 @@ export const ServicesContent = () => {
           }}></div>
         </div>
 
-      <div className="max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto relative px-3 sm:px-4 md:px-6 lg:px-8">
         {/* Header Section */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="select-none text-3xl md:text-5xl lg:text-6xl font-light bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 bg-clip-text text-transparent mb-8 leading-tight py-2 tracking-tight">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          <h2 className="select-none text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 bg-clip-text text-transparent mb-4 sm:mb-6 md:mb-8 leading-tight py-2 tracking-tight px-2">
             Precision-Engineered Solutions
           </h2>
-          <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-xl sm:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-4 sm:px-6">
             Where Innovation Converges with Operational Excellence -
-            Transforming Industries Through Advanced Energy Solutions
+            <span className="block sm:inline"> Transforming Industries Through Advanced Energy Solutions</span>
           </p>
         </div>
 
         {/* Services Slider */}
-        <div className="services-slider max-w-6xl mx-auto">
+        <div className="services-slider max-w-6xl mx-auto px-2 sm:px-0">
           <Slider {...sliderSettings}>
             {services.map((service, index) => (
-              <div key={index} className="h-full px-2 md:px-3">
+              <div key={index} className="h-full px-1 sm:px-2 md:px-3">
                 <div
-                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full flex flex-col"
+                  className="group relative bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full flex flex-col mx-1 sm:mx-0"
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
                   {/* Card Content */}
                   <div className="flex flex-col h-full">
                     {/* Image Section */}
-                    <div className="relative h-40 md:h-48 overflow-hidden">
+                    <div className="relative h-32 sm:h-36 md:h-40 lg:h-48 overflow-hidden">
                       <img
                         src={service.image}
                         alt={service.title}
@@ -211,28 +231,28 @@ export const ServicesContent = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
                       {/* Floating Icon */}
-                      <div className="absolute top-3 md:top-4 right-3 md:right-4 w-8 h-8 md:w-10 md:h-10 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center text-lg md:text-xl shadow-lg">
+                      <div className="absolute top-2 sm:top-3 md:top-4 right-2 sm:right-3 md:right-4 w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 bg-white/90 backdrop-blur-sm rounded-lg sm:rounded-xl flex items-center justify-center text-sm sm:text-lg md:text-xl shadow-lg">
                         {service.icon}
                       </div>
 
                       {/* Stats Badge */}
-                      <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 bg-white/95 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-semibold text-gray-800 shadow-lg">
+                      <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-2 sm:left-3 md:left-4 bg-white/95 backdrop-blur-sm px-2 sm:px-2 md:px-3 py-1 rounded-full text-xs sm:text-xs md:text-sm font-semibold text-gray-800 shadow-lg">
                         {service.stats}
                       </div>
                     </div>
 
                     {/* Content Section */}
-                    <div className="p-4 md:p-6 flex flex-col flex-grow">
-                      <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4 group-hover:text-blue-700 transition-colors duration-300">
+                    <div className="p-3 sm:p-4 md:p-6 flex flex-col flex-grow">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-2 sm:mb-3 md:mb-4 group-hover:text-blue-700 transition-colors duration-300 leading-snug">
                         {service.title}
                       </h3>
 
                       {/* Offerings */}
-                      <div className="space-y-1.5 md:space-y-2 mb-3 md:mb-4 flex-grow">
+                      <div className="space-y-1 sm:space-y-1.5 md:space-y-2 mb-2 sm:mb-3 md:mb-4 flex-grow">
                         {service.offerings.map((offering, idx) => (
-                          <div key={idx} className="flex items-start gap-2">
-                            <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-500 rounded-full mt-1.5 md:mt-2 flex-shrink-0 group-hover:scale-125 transition-transform duration-300"></div>
-                            <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
+                          <div key={idx} className="flex items-start gap-1.5 sm:gap-2">
+                            <div className="w-1 h-1 sm:w-1 sm:h-1 md:w-1.5 md:h-1.5 bg-blue-500 rounded-full mt-1 sm:mt-1.5 md:mt-2 flex-shrink-0 group-hover:scale-125 transition-transform duration-300"></div>
+                            <p className="text-gray-600 text-xs sm:text-xs md:text-sm leading-relaxed">
                               {offering}
                             </p>
                           </div>
@@ -240,22 +260,22 @@ export const ServicesContent = () => {
                       </div>
 
                       {/* Highlight Quote */}
-                      <div className="relative mb-3 md:mb-4">
-                        <blockquote className="text-xs md:text-sm italic text-blue-800 bg-blue-50/50 p-2 md:p-3 rounded-xl border-l-2 border-blue-500">
+                      <div className="relative mb-2 sm:mb-3 md:mb-4">
+                        <blockquote className="text-xs sm:text-xs md:text-sm italic text-blue-800 bg-blue-50/50 p-2 sm:p-2 md:p-3 rounded-lg sm:rounded-xl border-l-2 border-blue-500 leading-relaxed">
                           {service.highlight}
                         </blockquote>
                       </div>
 
                       {/* Applications */}
-                      <div className="mt-auto pt-3 md:pt-4 border-t border-gray-100">
-                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 md:mb-2">
+                      <div className="mt-auto pt-2 sm:pt-3 md:pt-4 border-t border-gray-100">
+                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 sm:mb-1.5 md:mb-2">
                           Applications
                         </p>
-                        <div className="flex flex-wrap gap-1 md:gap-1.5">
+                        <div className="flex flex-wrap gap-1 sm:gap-1 md:gap-1.5">
                           {service.applications.map((app, idx) => (
                             <span
                               key={idx}
-                              className="px-1.5 md:px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded-full font-medium hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200"
+                              className="px-1.5 sm:px-1.5 md:px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded-full font-medium hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200"
                             >
                               {app}
                             </span>
@@ -266,13 +286,13 @@ export const ServicesContent = () => {
 
                     {/* Hover Effect Arrow */}
                     <div
-                      className={`absolute bottom-3 md:bottom-4 right-3 md:right-4 w-6 h-6 md:w-8 md:h-8 bg-blue-500 rounded-full flex items-center justify-center text-white transition-all duration-300 ${hoveredCard === index
+                      className={`absolute bottom-2 sm:bottom-3 md:bottom-4 right-2 sm:right-3 md:right-4 w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-blue-500 rounded-full flex items-center justify-center text-white transition-all duration-300 ${hoveredCard === index
                           ? "opacity-100 translate-x-0"
                           : "opacity-0 translate-x-4"
                         }`}
                     >
                       <svg
-                        className="w-3 h-3 md:w-4 md:h-4"
+                        className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"

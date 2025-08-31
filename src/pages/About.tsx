@@ -101,12 +101,12 @@ export const AboutContent = () => {
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-start mb-12 md:mb-20">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-12 md:mb-20">
           {/* Left Side - Image */}
-          <div className="flex items-center justify-center">
-            <div className="relative w-full max-w-lg">
+          <div className="flex items-center justify-center order-2 lg:order-1">
+            <div className="relative w-full max-w-md lg:max-w-lg">
               {/* Main image container */}
-              <div className={`relative bg-gray-50 border border-gray-200 rounded-3xl p-6 md:p-8 shadow-2xl transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-0 opacity-100 scale-100'
+              <div className={`relative bg-gray-50 border border-gray-200 rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-0 opacity-100 scale-100'
                 }`}>
 
                 {/* Image */}
@@ -120,32 +120,32 @@ export const AboutContent = () => {
               </div>
 
               {/* Additional floating elements */}
-              <div className="absolute top-8 md:top-10 -left-6 md:-left-8 bg-white p-2 md:p-3 rounded-xl shadow-xl border border-gray-200">
-                <Zap className="w-5 h-5 md:w-6 md:h-6 text-blue-500" />
+              <div className="absolute top-6 md:top-8 lg:top-10 -left-4 md:-left-6 lg:-left-8 bg-white p-2 md:p-3 rounded-xl shadow-xl border border-gray-200">
+                <Zap className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-500" />
               </div>
 
-              <div className="absolute bottom-16 md:bottom-20 -right-6 md:-right-8 bg-white p-2 md:p-3 rounded-xl shadow-xl border border-gray-200">
-                <Target className="w-5 h-5 md:w-6 md:h-6 text-indigo-500" />
+              <div className="absolute bottom-12 md:bottom-16 lg:bottom-20 -right-4 md:-right-6 lg:-right-8 bg-white p-2 md:p-3 rounded-xl shadow-xl border border-gray-200">
+                <Target className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-indigo-500" />
               </div>
             </div>
           </div>
 
           {/* Right Side - Innovation Section */}
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-6 md:space-y-8 order-1 lg:order-2">
             {/* Innovation section */}
             <div className={`transform transition-all duration-1000 delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100'
               }`}>
-              <h3 className="text-lg md:text-2xl font-bold text-gray-800 mb-6 md:mb-8 text-center">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-6 md:mb-8 text-center">
                 Our innovation hub houses India's foremost electrochemistry research facility, where cross-disciplinary teams pioneer breakthroughs in:
               </h3>
 
-              <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+              <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                 {innovations.map((item, index) => {
                   const Icon = item.icon;
                   return (
                     <div
                       key={index}
-                      className={`group flex flex-col p-4 md:p-6 bg-white rounded-3xl border border-gray-200 shadow-2xl hover:shadow-3xl transition-all duration-700 transform min-h-[200px] md:min-h-[280px] translate-x-0 opacity-100 hover:scale-105 hover:bg-gray-50 hover:-translate-y-1`}
+                      className={`group flex flex-col p-4 md:p-6 bg-white rounded-3xl border border-gray-200 shadow-2xl hover:shadow-3xl transition-all duration-700 transform min-h-[180px] sm:min-h-[200px] md:min-h-[280px] translate-x-0 opacity-100 hover:scale-105 hover:bg-gray-50 hover:-translate-y-1`}
                     >
                       {/* Icon */}
                       <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">

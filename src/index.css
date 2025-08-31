@@ -2,6 +2,70 @@
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
 
+/* Touch-friendly mobile improvements */
+@media (max-width: 768px) {
+  .touch-friendly {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .mobile-spacing {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mobile-text-size {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .mobile-button {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}
+
+/* Improved scrolling for mobile */
+.smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Better focus states for mobile */
+.mobile-focus:focus {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+/* Prevent zoom on inputs on iOS */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+  font-size: 16px;
+}
+
+/* Improved hover states - only show on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .hover-only:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .touch-optimized {
+    padding: 16px;
+  }
+  
+  .touch-optimized button {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
 /* Learn More Button Animation */
 .learn-more-btn {
   position: relative;

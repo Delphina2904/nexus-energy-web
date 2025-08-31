@@ -190,14 +190,17 @@ export const VandeBharatContent = memo(() => {
                   Technical Features Mapped to Rail Needs
                 </h3>
                 
+                {/* Mobile-responsive table container */}
                 <div className="overflow-x-auto">
-                  <motion.table
-                    className="w-full bg-white rounded-2xl shadow-sm overflow-hidden"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    viewport={{ once: true }}
-                  >
+                  {/* Desktop table view */}
+                  <div className="hidden md:block">
+                    <motion.table
+                      className="w-full bg-white rounded-2xl shadow-sm overflow-hidden"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      viewport={{ once: true }}
+                    >
                     <thead>
                       <tr className="bg-gradient-to-r from-blue-600 to-indigo-700">
                         <th className="px-6 py-4 text-left text-white font-semibold text-lg">Requirement</th>
@@ -252,6 +255,54 @@ export const VandeBharatContent = memo(() => {
                       ))}
                     </tbody>
                   </motion.table>
+                  </div>
+                  
+                  {/* Mobile card layout */}
+                  <div className="md:hidden space-y-4">
+                    {[
+                      {
+                        requirement: "Emergency backup (non-OHE)",
+                        solution: "Long-duration, high-discharge batteries with safe chemistries",
+                        color: "text-red-700 bg-red-50"
+                      },
+                      {
+                        requirement: "Auxiliary/traction startup",
+                        solution: "High power density, instantaneous output",
+                        color: "text-blue-700 bg-blue-50"
+                      },
+                      {
+                        requirement: "Maintenance support",
+                        solution: "Fast recharge, robust cycle life",
+                        color: "text-green-700 bg-green-50"
+                      },
+                      {
+                        requirement: "Safety in transit",
+                        solution: "Active thermal and AI-BMS safeguards; vibration resistant",
+                        color: "text-purple-700 bg-purple-50"
+                      },
+                      {
+                        requirement: "Remote diagnostics/monitoring",
+                        solution: "Always-connected BMS platform, OTA update ability",
+                        color: "text-indigo-700 bg-indigo-50"
+                      }
+                    ].map((row, index) => (
+                      <motion.div
+                        key={index}
+                        className="bg-white rounded-xl p-4 shadow-md border border-gray-200"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                      >
+                        <h4 className="font-semibold text-gray-900 mb-2 text-sm">
+                          {row.requirement}
+                        </h4>
+                        <div className={`px-3 py-2 rounded-lg text-xs font-normal ${row.color}`}>
+                          {row.solution}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>

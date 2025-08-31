@@ -139,7 +139,7 @@ ${formData.name}
     <>
       <Navbar />
       {/* ...existing Contact page content... */}
-      <div id="contact" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white py-20">
+      <div id="contact" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white py-12 sm:py-16 md:py-20">
         {/* Enhanced Modern Background Elements */}
         <div className="absolute inset-0">
           {/* Modern gradient overlays */}
@@ -198,12 +198,12 @@ ${formData.name}
             </p>
           </div>
           {/* Main Content Grid */}
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
             {/* Left Side - Contact Information */}
-            <div className={`transform transition-all duration-1000 delay-400 ${
+            <div className={`transform transition-all duration-1000 delay-400 order-2 lg:order-1 ${
               animatedItems.info ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}>
-              <div className="space-y-8">
+              <div className="space-y-6 md:space-y-8">
                 {contactInfo.map((info, index) => {
                   const Icon = info.icon;
                   return (
@@ -213,37 +213,37 @@ ${formData.name}
                           href={info.action}
                           target={info.action.startsWith('http') ? "_blank" : "_self"}
                           rel={info.action.startsWith('http') ? "noopener noreferrer" : ""}
-                          className="flex items-start space-x-4 p-6 bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 hover:border-blue-200"
+                          className="flex items-start space-x-3 sm:space-x-4 p-4 sm:p-6 bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 hover:border-blue-200 touch-friendly"
                         >
-                          <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
-                            <Icon className="w-6 h-6 text-white" />
+                          <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                            <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                           </div>
-                          <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 mb-2">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 mb-2">
                               {info.title}
                             </h3>
                             <div className="space-y-1">
                               {info.details.map((detail, idx) => (
-                                <p key={idx} className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
+                                <p key={idx} className="text-sm sm:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300 break-words">
                                   {detail}
                                 </p>
                               ))}
                             </div>
                           </div>
-                          <ArrowRight className="w-5 h-5 text-blue-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 mt-2" />
+                          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 mt-2" />
                         </a>
                       ) : (
-                        <div className="flex items-start space-x-4 p-6 bg-white rounded-2xl border border-gray-200 shadow-lg">
-                          <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg">
-                            <Icon className="w-6 h-6 text-white" />
+                        <div className="flex items-start space-x-3 sm:space-x-4 p-4 sm:p-6 bg-white rounded-2xl border border-gray-200 shadow-lg">
+                          <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg">
+                            <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                           </div>
-                          <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-800 mb-2">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
                               {info.title}
                             </h3>
                             <div className="space-y-1">
                               {info.details.map((detail, idx) => (
-                                <p key={idx} className="text-gray-600">
+                                <p key={idx} className="text-sm sm:text-base text-gray-600 break-words">
                                   {detail}
                                 </p>
                               ))}
@@ -257,16 +257,16 @@ ${formData.name}
               </div>
             </div>
             {/* Right Side - Contact Form */}
-            <div className={`transform transition-all duration-1000 delay-600 ${
+            <div className={`transform transition-all duration-1000 delay-600 order-1 lg:order-2 ${
               animatedItems.form ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}>
-              <div className="bg-white rounded-3xl border border-gray-200 shadow-2xl p-8 lg:p-12">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-2">Send us a Message</h3>
-                  <p className="text-gray-600">We'd love to hear from you</p>
+              <div className="bg-white rounded-3xl border border-gray-200 shadow-2xl p-6 sm:p-8 lg:p-12">
+                <div className="text-center mb-6 sm:mb-8">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Send us a Message</h3>
+                  <p className="text-sm sm:text-base text-gray-600">We'd love to hear from you</p>
                 </div>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                  <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                         Full Name *
@@ -278,7 +278,7 @@ ${formData.name}
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white text-base mobile-focus"
                         placeholder="Enter your full name"
                       />
                     </div>

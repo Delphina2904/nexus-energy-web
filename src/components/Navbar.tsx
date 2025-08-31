@@ -90,7 +90,7 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
     "@type": "Organization",
     "name": "Nexus Energy",
     "url": "https://nexusenergy.com",
-    "logo": "https://nexusenergy.com/nexuslogo-.png",
+    "logo": "https://nexusenergy.com/nexuslogo.png",
     "description": "Leading provider of advanced battery storage solutions",
     "address": {
       "@type": "PostalAddress",
@@ -165,10 +165,10 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
             aria-label="Nexus Energy Homepage"
           >
             {/* Mobile view: Show Nexus Energy logo only */}
-            <img src="/nexuslogo-.png" alt="Nexus Energy Logo" className="h-12 md:hidden" width="48" height="48" />
+            <img src="/nexuslogo.png" alt="Nexus Energy Logo" className="h-12 md:hidden" width="48" height="48" />
             {/* Desktop view: Show Nexus Energy logo and text */}
             <span className="hidden md:flex items-center gap-2">
-              <img src="/nexuslogo-.png" alt="Nexus Energy Logo" className="h-10" width="40" height="40" />
+              <img src="/nexuslogo.png" alt="Nexus Energy Logo" className="h-10" width="40" height="40" />
               <span className="text-white text-2xl font-bold tracking-wide">Nexus Energy</span>
             </span>
           </Link>
@@ -222,8 +222,9 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <nav className="flex flex-col h-full" aria-label="Mobile Navigation">
-                <Link to="/" className="flex items-center gap-2 font-bold py-4 border-b" aria-label="Virelity.com Homepage">
-                  <img src="/virelity_logo_transparent.png" alt="Virelity.com Logo" className="h-6" width="24" height="24" />
+                <Link to="/" className="flex items-center gap-2 font-bold py-4 border-b" aria-label="Nexus Energy Homepage">
+                  <img src="/nexuslogo.png" alt="Nexus Energy Logo" className="h-6" width="24" height="24" />
+                  <span className="text-lg font-bold">Nexus Energy</span>
                 </Link>
                 <div className="flex flex-col gap-3 py-4" role="menu">
                   {navItems.map((item) => (
