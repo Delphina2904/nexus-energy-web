@@ -21,14 +21,8 @@ const Interactive3DBackground = () => {
     const rimLight2Ref = useRef(null);
     const topGlowLightRef = useRef(null);
     const bottomGlowLightRef = useRef(null);
-    const orangeRimLight1Ref = useRef(null);
-    const orangeRimLight2Ref = useRef(null);
-    const orangeBloomLight1Ref = useRef(null);
-    const orangeBloomLight2Ref = useRef(null);
-    const orangeCoreLight1Ref = useRef(null);
-    const orangeCoreLight2Ref = useRef(null);
-    const orangePerimeterLight1Ref = useRef(null);
-    const orangePerimeterLight2Ref = useRef(null);
+    const orangeInternalLightRef = useRef(null);
+    const orangeCoreLightRef = useRef(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -72,80 +66,55 @@ const Interactive3DBackground = () => {
         pointLight.position.set(0, 0, 10);
         scene.add(pointLight);
 
-        // Enhanced lighting system for intense orange bloom visibility
-        
-        // Blue rim lights for outer edge enhancement (further from model)
-        const rimLight1 = new THREE.PointLight(0x00ddff, 3.0, 25);
-        rimLight1.position.set(-6, 0, 12);
+        // Add subtle orange rim lighting for enhanced edge glow effect
+        const rimLight1 = new THREE.PointLight(0xff6600, 2.0, 25);
+        rimLight1.position.set(-5, 0, 8);
         scene.add(rimLight1);
         rimLight1Ref.current = rimLight1;
 
-        const rimLight2 = new THREE.PointLight(0x0099ff, 2.5, 20);
-        rimLight2.position.set(6, 0, 12);
+        const rimLight2 = new THREE.PointLight(0xff4400, 1.5, 20);
+        rimLight2.position.set(5, 0, 8);
         scene.add(rimLight2);
         rimLight2Ref.current = rimLight2;
 
-        // Intense orange bloom lights for maximum inner glow visibility
-        const orangeBloomLight1 = new THREE.PointLight(0xff6600, 6.0, 20); // Much brighter
-        orangeBloomLight1.position.set(0, 0, 2); // Very close to model core
-        scene.add(orangeBloomLight1);
-        orangeBloomLight1Ref.current = orangeBloomLight1;
-
-        const orangeBloomLight2 = new THREE.PointLight(0xff4400, 5.5, 18);
-        orangeBloomLight2.position.set(0, 0, 0); // At model center
-        scene.add(orangeBloomLight2);
-        orangeBloomLight2Ref.current = orangeBloomLight2;
-
-        // Additional orange core lights for deep penetration
-        const orangeCoreLight1 = new THREE.PointLight(0xff7700, 4.0, 15);
-        orangeCoreLight1.position.set(0, 0, -2); // Behind model
-        scene.add(orangeCoreLight1);
-        orangeCoreLight1Ref.current = orangeCoreLight1;
-
-        const orangeCoreLight2 = new THREE.PointLight(0xff5500, 3.5, 12);
-        orangeCoreLight2.position.set(0, 0, 1); // Inside model space
-        scene.add(orangeCoreLight2);
-        orangeCoreLight2Ref.current = orangeCoreLight2;
-
-        // Directional orange lights for bloom diffusion and edge bleeding
-        const orangeRimLight1 = new THREE.PointLight(0xff8833, 4.5, 25);
-        orangeRimLight1.position.set(-3, 4, 3);
-        scene.add(orangeRimLight1);
-        orangeRimLight1Ref.current = orangeRimLight1;
-
-        const orangeRimLight2 = new THREE.PointLight(0xff6633, 4.0, 22);
-        orangeRimLight2.position.set(3, -4, 3);
-        scene.add(orangeRimLight2);
-        orangeRimLight2Ref.current = orangeRimLight2;
-
-        // Perimeter orange lights for edge glow visibility
-        const orangePerimeterLight1 = new THREE.PointLight(0xff9944, 3.0, 18);
-        orangePerimeterLight1.position.set(4, 0, 6);
-        scene.add(orangePerimeterLight1);
-        orangePerimeterLight1Ref.current = orangePerimeterLight1;
-
-        const orangePerimeterLight2 = new THREE.PointLight(0xff7733, 2.8, 16);
-        orangePerimeterLight2.position.set(-4, 0, 6);
-        scene.add(orangePerimeterLight2);
-        orangePerimeterLight2Ref.current = orangePerimeterLight2;
-
-        // Additional atmosphere lights
-        const topGlowLight = new THREE.PointLight(0x44aaff, 1.5, 20);
-        topGlowLight.position.set(0, 8, 8);
+        // Add additional subtle glow lights from different angles
+        const topGlowLight = new THREE.PointLight(0xff8844, 1.0, 18);
+        topGlowLight.position.set(0, 8, 5);
         scene.add(topGlowLight);
         topGlowLightRef.current = topGlowLight;
 
-        const bottomGlowLight = new THREE.PointLight(0x2288cc, 1.2, 18);
-        bottomGlowLight.position.set(0, -5, 8);
+        const bottomGlowLight = new THREE.PointLight(0xff5522, 0.8, 15);
+        bottomGlowLight.position.set(0, -5, 5);
         scene.add(bottomGlowLight);
         bottomGlowLightRef.current = bottomGlowLight;
 
-        // Enhanced dual ambient lighting for maximum bloom visibility
-        const blueAmbient = new THREE.AmbientLight(0x003366, 0.1); // Reduced blue ambient
-        scene.add(blueAmbient);
+        // Subtle orange ambient lighting
+        const orangeMainAmbient = new THREE.AmbientLight(0xff6600, 0.15);
+        scene.add(orangeMainAmbient);
 
-        const orangeAmbient = new THREE.AmbientLight(0x442200, 0.4); // Much stronger orange ambient
+        // Add orange internal lighting for the blooming effect
+        const orangeInternalLight = new THREE.PointLight(0xff4400, 3.0, 15);
+        orangeInternalLight.position.set(0, 0, 0); // Center of the model
+        scene.add(orangeInternalLight);
+        orangeInternalLightRef.current = orangeInternalLight;
+
+        const orangeCoreLight = new THREE.PointLight(0xff6600, 2.5, 12);
+        orangeCoreLight.position.set(0, 0, 0); // Center of the model
+        scene.add(orangeCoreLight);
+        orangeCoreLightRef.current = orangeCoreLight;
+
+        // Add stronger orange ambient for internal warmth
+        const orangeAmbient = new THREE.AmbientLight(0xff4400, 0.15);
         scene.add(orangeAmbient);
+
+        // Add atmospheric lights for spherical glow enhancement
+        const atmosphericLight1 = new THREE.PointLight(0x0066ff, 1.5, 40);
+        atmosphericLight1.position.set(0, 0, 20);
+        scene.add(atmosphericLight1);
+
+        const atmosphericLight2 = new THREE.PointLight(0x00aaff, 1.2, 35);
+        atmosphericLight2.position.set(0, 0, -10);
+        scene.add(atmosphericLight2);
 
         // Load GLTF Model
         const loader = new GLTFLoader();
@@ -177,85 +146,28 @@ const Interactive3DBackground = () => {
                 model.rotation.y = 0;
                 model.rotation.z = Math.PI / 2;
 
-                // Create layered glow system: Multiple orange bloom layers deep inside core, Blue edges outside
-                
-                // Multiple inner orange blooming materials (deep inside model core only)
-                const orangeDeepestCoreMaterial = new THREE.MeshBasicMaterial({
-                    color: 0xff7700,
-                    transparent: true,
-                    opacity: 0.95,
-                    side: THREE.BackSide
-                });
-
-                const orangeDeepCoreMaterial = new THREE.MeshBasicMaterial({
+                // Create enhanced orange edge glow effect for model
+                const edgeMaterial = new THREE.LineBasicMaterial({
                     color: 0xff6600,
                     transparent: true,
-                    opacity: 0.9,
-                    side: THREE.BackSide
+                    opacity: 0.4,
+                    linewidth: 2
                 });
 
-                const orangeCoreBloomMaterial = new THREE.MeshBasicMaterial({
+                // Create additional outer glow layer
+                const outerGlowMaterial = new THREE.LineBasicMaterial({
                     color: 0xff4400,
                     transparent: true,
-                    opacity: 0.8,
-                    side: THREE.BackSide
-                });
-
-                const orangeInnerBloomMaterial = new THREE.MeshBasicMaterial({
-                    color: 0xcc3300,
-                    transparent: true,
-                    opacity: 0.7,
-                    side: THREE.BackSide
-                });
-
-                const orangeMidBloomMaterial = new THREE.MeshBasicMaterial({
-                    color: 0xff5500,
-                    transparent: true,
-                    opacity: 0.6,
-                    side: THREE.BackSide
-                });
-
-                const orangeInnerMidBloomMaterial = new THREE.MeshBasicMaterial({
-                    color: 0xff8800,
-                    transparent: true,
-                    opacity: 0.5,
-                    side: THREE.BackSide
-                });
-
-                const orangeOuterMidBloomMaterial = new THREE.MeshBasicMaterial({
-                    color: 0xff6633,
-                    transparent: true,
-                    opacity: 0.4,
-                    side: THREE.BackSide
-                });
-
-                const orangeFinalBloomMaterial = new THREE.MeshBasicMaterial({
-                    color: 0xff9955,
-                    transparent: true,
-                    opacity: 0.3,
-                    side: THREE.BackSide
-                });
-
-                // Outer blue edge materials (wireframe/edges)
-                const blueEdgeMaterial = new THREE.LineBasicMaterial({
-                    color: 0x00ddff,
-                    transparent: true,
-                    opacity: 1.0,
+                    opacity: 0.2,
                     linewidth: 3
                 });
 
-                const blueOuterEdgeMaterial = new THREE.LineBasicMaterial({
-                    color: 0x0099ff,
+                // Create inner bright glow layer
+                const innerGlowMaterial = new THREE.LineBasicMaterial({
+                    color: 0xff8844,
                     transparent: true,
-                    opacity: 0.7,
-                    linewidth: 5
-                });
-
-                const blueGlowEdgeMaterial = new THREE.LineBasicMaterial({
-                    color: 0x66ddff,
-                    transparent: true,
-                    opacity: 0.5,
-                    linewidth: 7
+                    opacity: 0.3,
+                    linewidth: 1
                 });
 
                 // Compute and log horizontal (x) size
@@ -264,114 +176,190 @@ const Interactive3DBackground = () => {
                 box.getSize(size);
                 console.log('Model horizontal (x) size:', size.x);
                 
-                // Enable shadows and add multiple layered orange blooms deep inside core only
+                // Enable shadows and add multi-layer edge glow effect to all meshes
                 model.traverse((child) => {
                     if (child instanceof THREE.Mesh) {
                         child.castShadow = true;
                         child.receiveShadow = true;
                         
-                        // Create multiple orange blooming layers DEEP INSIDE the model core (8 layers for intense animation)
-                        // Deepest core (innermost, brightest center)
-                        const orangeDeepestCore = new THREE.Mesh(child.geometry.clone(), orangeDeepestCoreMaterial);
-                        orangeDeepestCore.position.copy(child.position);
-                        orangeDeepestCore.rotation.copy(child.rotation);
-                        orangeDeepestCore.scale.copy(child.scale);
-                        orangeDeepestCore.scale.multiplyScalar(0.65); // Deepest center
-                        
-                        // Deep core (second layer)
-                        const orangeDeepCore = new THREE.Mesh(child.geometry.clone(), orangeDeepCoreMaterial);
-                        orangeDeepCore.position.copy(child.position);
-                        orangeDeepCore.rotation.copy(child.rotation);
-                        orangeDeepCore.scale.copy(child.scale);
-                        orangeDeepCore.scale.multiplyScalar(0.70); // Very deep inside
-                        
-                        // Core bloom layer (third layer)
-                        const orangeCoreBloom = new THREE.Mesh(child.geometry.clone(), orangeCoreBloomMaterial);
-                        orangeCoreBloom.position.copy(child.position);
-                        orangeCoreBloom.rotation.copy(child.rotation);
-                        orangeCoreBloom.scale.copy(child.scale);
-                        orangeCoreBloom.scale.multiplyScalar(0.75); // Deep inside
-                        
-                        // Inner bloom layer (fourth layer)
-                        const orangeInnerBloom = new THREE.Mesh(child.geometry.clone(), orangeInnerBloomMaterial);
-                        orangeInnerBloom.position.copy(child.position);
-                        orangeInnerBloom.rotation.copy(child.rotation);
-                        orangeInnerBloom.scale.copy(child.scale);
-                        orangeInnerBloom.scale.multiplyScalar(0.78); // Inside core
-                        
-                        // Mid bloom layer (fifth layer)
-                        const orangeMidBloom = new THREE.Mesh(child.geometry.clone(), orangeMidBloomMaterial);
-                        orangeMidBloom.position.copy(child.position);
-                        orangeMidBloom.rotation.copy(child.rotation);
-                        orangeMidBloom.scale.copy(child.scale);
-                        orangeMidBloom.scale.multiplyScalar(0.82); // Mid core area
-                        
-                        // Inner mid bloom layer (sixth layer)
-                        const orangeInnerMidBloom = new THREE.Mesh(child.geometry.clone(), orangeInnerMidBloomMaterial);
-                        orangeInnerMidBloom.position.copy(child.position);
-                        orangeInnerMidBloom.rotation.copy(child.rotation);
-                        orangeInnerMidBloom.scale.copy(child.scale);
-                        orangeInnerMidBloom.scale.multiplyScalar(0.85); // Expanding from core
-                        
-                        // Outer mid bloom layer (seventh layer)
-                        const orangeOuterMidBloom = new THREE.Mesh(child.geometry.clone(), orangeOuterMidBloomMaterial);
-                        orangeOuterMidBloom.position.copy(child.position);
-                        orangeOuterMidBloom.rotation.copy(child.rotation);
-                        orangeOuterMidBloom.scale.copy(child.scale);
-                        orangeOuterMidBloom.scale.multiplyScalar(0.88); // Further from core
-                        
-                        // Final bloom layer (eighth layer - outermost but still inside)
-                        const orangeFinalBloom = new THREE.Mesh(child.geometry.clone(), orangeFinalBloomMaterial);
-                        orangeFinalBloom.position.copy(child.position);
-                        orangeFinalBloom.rotation.copy(child.rotation);
-                        orangeFinalBloom.scale.copy(child.scale);
-                        orangeFinalBloom.scale.multiplyScalar(0.91); // Still well inside, no surface contact
-
-                        // Create blue edge glow OUTSIDE the model (wireframe/edges only)
+                        // Create edge geometry for wireframe glow
                         const edges = new THREE.EdgesGeometry(child.geometry);
                         
-                        // Blue outer glow edges (widest, most diffuse)
-                        const blueGlowEdges = new THREE.LineSegments(edges, blueGlowEdgeMaterial);
-                        blueGlowEdges.position.copy(child.position);
-                        blueGlowEdges.rotation.copy(child.rotation);
-                        blueGlowEdges.scale.copy(child.scale);
-                        blueGlowEdges.scale.multiplyScalar(1.012); // Outside only
+                        // Create multiple glow layers for enhanced effect
+                        // Outer glow layer (widest, most transparent)
+                        const outerGlowLines = new THREE.LineSegments(edges, outerGlowMaterial);
+                        outerGlowLines.position.copy(child.position);
+                        outerGlowLines.rotation.copy(child.rotation);
+                        outerGlowLines.scale.copy(child.scale);
+                        outerGlowLines.scale.multiplyScalar(1.005); // Slightly larger
                         
-                        // Blue outer edges (medium outside)
-                        const blueOuterEdges = new THREE.LineSegments(edges, blueOuterEdgeMaterial);
-                        blueOuterEdges.position.copy(child.position);
-                        blueOuterEdges.rotation.copy(child.rotation);
-                        blueOuterEdges.scale.copy(child.scale);
-                        blueOuterEdges.scale.multiplyScalar(1.008);
+                        // Main edge lines
+                        const edgeLines = new THREE.LineSegments(edges, edgeMaterial);
+                        edgeLines.position.copy(child.position);
+                        edgeLines.rotation.copy(child.rotation);
+                        edgeLines.scale.copy(child.scale);
                         
-                        // Blue main edges (just outside model surface)
-                        const blueEdges = new THREE.LineSegments(edges, blueEdgeMaterial);
-                        blueEdges.position.copy(child.position);
-                        blueEdges.rotation.copy(child.rotation);
-                        blueEdges.scale.copy(child.scale);
-                        blueEdges.scale.multiplyScalar(1.004);
+                        // Inner bright glow layer
+                        const innerGlowLines = new THREE.LineSegments(edges, innerGlowMaterial);
+                        innerGlowLines.position.copy(child.position);
+                        innerGlowLines.rotation.copy(child.rotation);
+                        innerGlowLines.scale.copy(child.scale);
+                        innerGlowLines.scale.multiplyScalar(0.998); // Slightly smaller
+
+                        // Create orange internal glow effect
+                        const orangeInternalMaterial = new THREE.MeshBasicMaterial({
+                            color: 0xff4400,
+                            transparent: true,
+                            opacity: 0.4,
+                            side: THREE.DoubleSide,
+                            blending: THREE.AdditiveBlending,
+                            depthWrite: false
+                        });
+
+                        const orangeInternalGlow = new THREE.Mesh(child.geometry.clone(), orangeInternalMaterial);
+                        orangeInternalGlow.position.copy(child.position);
+                        orangeInternalGlow.rotation.copy(child.rotation);
+                        orangeInternalGlow.scale.copy(child.scale);
+                        orangeInternalGlow.scale.multiplyScalar(0.98); // Slightly smaller for internal effect
+
+                        // Create secondary orange glow layer - more visible
+                        const orangeSecondaryMaterial = new THREE.MeshBasicMaterial({
+                            color: 0xff6600,
+                            transparent: true,
+                            opacity: 0.3,
+                            side: THREE.DoubleSide,
+                            blending: THREE.AdditiveBlending,
+                            depthWrite: false
+                        });
+
+                        const orangeSecondaryGlow = new THREE.Mesh(child.geometry.clone(), orangeSecondaryMaterial);
+                        orangeSecondaryGlow.position.copy(child.position);
+                        orangeSecondaryGlow.rotation.copy(child.rotation);
+                        orangeSecondaryGlow.scale.copy(child.scale);
+                        orangeSecondaryGlow.scale.multiplyScalar(0.95); // Larger for more visibility
                         
-                        // Add all layers: Multiple orange blooms deep inside core, Blue edges outside
+                        // Add all glow layers to the same parent as the original mesh
                         if (child.parent) {
-                            // Orange bloom layers (8 layers deep inside core - progressive animation)
-                            child.parent.add(orangeDeepestCore);
-                            child.parent.add(orangeDeepCore);
-                            child.parent.add(orangeCoreBloom);
-                            child.parent.add(orangeInnerBloom);
-                            child.parent.add(orangeMidBloom);
-                            child.parent.add(orangeInnerMidBloom);
-                            child.parent.add(orangeOuterMidBloom);
-                            child.parent.add(orangeFinalBloom);
-                            // Blue edge layers (outside surface only)
-                            child.parent.add(blueEdges);
-                            child.parent.add(blueOuterEdges);
-                            child.parent.add(blueGlowEdges);
+                            child.parent.add(outerGlowLines);
+                            child.parent.add(edgeLines);
+                            child.parent.add(innerGlowLines);
+                            child.parent.add(orangeInternalGlow);
+                            child.parent.add(orangeSecondaryGlow);
                         }
                     }
                 });
 
                 scene.add(model);
                 modelRef.current = model;
+                
+                // Create spherical glow effect around the model (subtle and matching colors)
+                const glowSphereGeometry = new THREE.SphereGeometry(15, 32, 32);
+                
+                // Create multiple concentric glow spheres with matching blue colors
+                const glowMaterials = [
+                    new THREE.ShaderMaterial({
+                        uniforms: {
+                            time: { value: 0 },
+                            opacity: { value: 0.06 }
+                        },
+                        vertexShader: `
+                            varying vec3 vNormal;
+                            varying vec3 vPosition;
+                            void main() {
+                                vNormal = normalize(normalMatrix * normal);
+                                vPosition = position;
+                                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                            }
+                        `,
+                        fragmentShader: `
+                            uniform float time;
+                            uniform float opacity;
+                            varying vec3 vNormal;
+                            varying vec3 vPosition;
+                            void main() {
+                                float intensity = pow(0.8 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 1.5);
+                                vec3 glow = vec3(0.0, 0.6, 1.0) * intensity; // Matching 0x0099ff
+                                float pulse = sin(time * 1.5) * 0.2 + 0.8;
+                                gl_FragColor = vec4(glow * pulse, opacity * intensity);
+                            }
+                        `,
+                        side: THREE.BackSide,
+                        blending: THREE.AdditiveBlending,
+                        transparent: true
+                    }),
+                    new THREE.ShaderMaterial({
+                        uniforms: {
+                            time: { value: 0 },
+                            opacity: { value: 0.04 }
+                        },
+                        vertexShader: `
+                            varying vec3 vNormal;
+                            void main() {
+                                vNormal = normalize(normalMatrix * normal);
+                                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                            }
+                        `,
+                        fragmentShader: `
+                            uniform float time;
+                            uniform float opacity;
+                            varying vec3 vNormal;
+                            void main() {
+                                float intensity = pow(0.9 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
+                                vec3 glow = vec3(0.0, 0.47, 0.8) * intensity; // Matching 0x0077cc
+                                float pulse = sin(time * 1.0 + 0.5) * 0.15 + 0.85;
+                                gl_FragColor = vec4(glow * pulse, opacity * intensity);
+                            }
+                        `,
+                        side: THREE.BackSide,
+                        blending: THREE.AdditiveBlending,
+                        transparent: true
+                    }),
+                    new THREE.ShaderMaterial({
+                        uniforms: {
+                            time: { value: 0 },
+                            opacity: { value: 0.03 }
+                        },
+                        vertexShader: `
+                            varying vec3 vNormal;
+                            void main() {
+                                vNormal = normalize(normalMatrix * normal);
+                                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                            }
+                        `,
+                        fragmentShader: `
+                            uniform float time;
+                            uniform float opacity;
+                            varying vec3 vNormal;
+                            void main() {
+                                float intensity = pow(0.95 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0);
+                                vec3 glow = vec3(0.0, 0.73, 1.0) * intensity; // Matching 0x00bbff
+                                float pulse = sin(time * 0.8 + 1.0) * 0.1 + 0.9;
+                                gl_FragColor = vec4(glow * pulse, opacity * intensity);
+                            }
+                        `,
+                        side: THREE.BackSide,
+                        blending: THREE.AdditiveBlending,
+                        transparent: true
+                    })
+                ];
+
+                // Create and add glow spheres
+                const glowSpheres = [];
+                glowMaterials.forEach((material, index) => {
+                    const scale = 1 + (index * 0.3); // Different sizes for layered effect
+                    const glowSphere = new THREE.Mesh(glowSphereGeometry, material);
+                    glowSphere.scale.setScalar(scale);
+                    
+                    // Position glow sphere at the model's center
+                    glowSphere.position.copy(model.position);
+                    scene.add(glowSphere);
+                    glowSpheres.push(glowSphere);
+                });
+
+                // Store glow spheres for animation
+                modelRef.current.glowSpheres = glowSpheres;
+                modelRef.current.glowMaterials = glowMaterials;
+                
                 setIsLoading(false);
             },
             (progress) => {
@@ -433,141 +421,108 @@ const Interactive3DBackground = () => {
                 // Gentle floating motion (additive, not cumulative)
                 model.position.y += Math.sin(time * 2) * 0.01;
 
-                // Animate multiple deep core orange bloom layers with complex wave patterns
+                // Animate subtle orange edge glow effect intensity
                 model.traverse((child) => {
-                    if (child instanceof THREE.Mesh && child.material && child.material.color) {
-                        const colorHex = child.material.color.getHex();
-                        const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.6;
-                        
-                        // Animate 8 orange bloom layers with unique wave patterns for dynamic effect
-                        if (colorHex === 0xff7700) {
-                            // Deepest core - slow, powerful pulsing
-                            const pulseIntensity = 0.8 + Math.sin(time * 1.5) * 0.2 + Math.cos(time * 0.8) * 0.1;
-                            child.material.opacity = Math.min(1.0, pulseIntensity + mouseInfluence * 0.9);
-                        } else if (colorHex === 0xff6600) {
-                            // Deep core - medium pulsing with phase offset
-                            const pulseIntensity = 0.7 + Math.sin(time * 2.2 + Math.PI/8) * 0.3 + Math.cos(time * 1.1) * 0.1;
-                            child.material.opacity = Math.min(1.0, pulseIntensity + mouseInfluence * 0.8);
-                        } else if (colorHex === 0xff4400) {
-                            // Core bloom - strong pulsing with different wave
-                            const pulseIntensity = 0.6 + Math.sin(time * 2.8 + Math.PI/6) * 0.3 + Math.cos(time * 1.4) * 0.1;
-                            child.material.opacity = Math.min(0.95, pulseIntensity + mouseInfluence * 0.7);
-                        } else if (colorHex === 0xcc3300) {
-                            // Inner bloom - rapid pulsing
-                            const pulseIntensity = 0.5 + Math.sin(time * 3.5 + Math.PI/4) * 0.3 + Math.cos(time * 1.7) * 0.1;
-                            child.material.opacity = Math.min(0.9, pulseIntensity + mouseInfluence * 0.6);
-                        } else if (colorHex === 0xff5500) {
-                            // Mid bloom - complex wave pattern
-                            const pulseIntensity = 0.4 + Math.sin(time * 2.1 + Math.PI/3) * 0.25 + Math.cos(time * 2.8) * 0.15;
-                            child.material.opacity = Math.min(0.8, pulseIntensity + mouseInfluence * 0.5);
-                        } else if (colorHex === 0xff8800) {
-                            // Inner mid bloom - faster oscillation
-                            const pulseIntensity = 0.35 + Math.sin(time * 4.2 + Math.PI/2) * 0.25 + Math.cos(time * 2.1) * 0.1;
-                            child.material.opacity = Math.min(0.7, pulseIntensity + mouseInfluence * 0.5);
-                        } else if (colorHex === 0xff6633) {
-                            // Outer mid bloom - wave interference pattern
-                            const pulseIntensity = 0.3 + Math.sin(time * 3.8 + Math.PI*2/3) * 0.2 + Math.cos(time * 1.9) * 0.15;
-                            child.material.opacity = Math.min(0.6, pulseIntensity + mouseInfluence * 0.4);
-                        } else if (colorHex === 0xff9955) {
-                            // Final bloom - subtle breathing effect
-                            const pulseIntensity = 0.25 + Math.sin(time * 1.8 + Math.PI*3/4) * 0.2 + Math.cos(time * 3.2) * 0.1;
-                            child.material.opacity = Math.min(0.5, pulseIntensity + mouseInfluence * 0.4);
-                        }
-                    }
-                    
-                    // Animate blue edge materials (outside the model)
                     if (child instanceof THREE.LineSegments && child.material && child.material.color) {
                         const colorHex = child.material.color.getHex();
-                        const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.5;
+                        const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.2; // Reduced mouse influence
                         
-                        if (colorHex === 0x00ddff) {
-                            // Main blue edges - sharp, defined pulsing
-                            const pulseIntensity = 0.8 + Math.sin(time * 4) * 0.2;
-                            child.material.opacity = Math.min(1.0, pulseIntensity + mouseInfluence);
-                        } else if (colorHex === 0x0099ff) {
-                            // Blue outer edges - medium glow
-                            const pulseIntensity = 0.5 + Math.sin(time * 3.2) * 0.3;
-                            child.material.opacity = Math.min(0.9, pulseIntensity + mouseInfluence * 0.7);
-                        } else if (colorHex === 0x66ddff) {
-                            // Blue glow edges - softest, widest glow
-                            const pulseIntensity = 0.3 + Math.sin(time * 2.8) * 0.25;
-                            child.material.opacity = Math.min(0.7, pulseIntensity + mouseInfluence * 0.5);
+                        // Animate different glow layers with subtle patterns
+                        if (colorHex === 0xff6600) {
+                            // Main edge glow - gentle pulsing
+                            const pulseIntensity = 0.3 + Math.sin(time * 2) * 0.1;
+                            child.material.opacity = Math.min(0.5, pulseIntensity + mouseInfluence);
+                        } else if (colorHex === 0xff4400) {
+                            // Outer glow - very soft pulsing
+                            const pulseIntensity = 0.15 + Math.sin(time * 1.5) * 0.05;
+                            child.material.opacity = Math.min(0.25, pulseIntensity + mouseInfluence * 0.3);
+                        } else if (colorHex === 0xff8844) {
+                            // Inner bright glow - subtle pulsing
+                            const pulseIntensity = 0.2 + Math.sin(time * 2.5) * 0.1;
+                            child.material.opacity = Math.min(0.4, pulseIntensity + mouseInfluence * 0.5);
+                        }
+                    }
+
+                    // Animate orange internal glow meshes
+                    if (child instanceof THREE.Mesh && child.material && child.material.color) {
+                        const colorHex = child.material.color.getHex();
+                        const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.3;
+                        
+                        if (colorHex === 0xff4400) {
+                            // Primary orange internal glow - strong pulsing
+                            const pulseIntensity = 0.3 + Math.sin(time * 3 + Math.PI) * 0.15;
+                            child.material.opacity = Math.min(0.6, pulseIntensity + mouseInfluence);
+                        } else if (colorHex === 0xff6600) {
+                            // Secondary orange glow - faster, core pulsing
+                            const pulseIntensity = 0.2 + Math.sin(time * 4.5 + Math.PI) * 0.1;
+                            child.material.opacity = Math.min(0.5, pulseIntensity + mouseInfluence * 0.8);
                         }
                     }
                 });
+
+                // Animate subtle spherical glow effect around the model
+                if (model.glowSpheres && model.glowMaterials) {
+                    model.glowSpheres.forEach((sphere, index) => {
+                        // Update glow sphere position to follow model
+                        sphere.position.copy(model.position);
+                        
+                        // Very subtle rotation for gentle movement
+                        sphere.rotation.x += 0.002 * (index + 1);
+                        sphere.rotation.y += 0.001 * (index + 1);
+                        sphere.rotation.z += 0.0005 * (index + 1);
+                        
+                        // Gentle scale based on mouse interaction
+                        const mouseDistance = Math.sqrt(mouse.x * mouse.x + mouse.y * mouse.y);
+                        const baseScale = 1 + (index * 0.2); // Reduced scaling difference
+                        const mouseScale = 1 + mouseDistance * 0.1; // Reduced mouse influence
+                        sphere.scale.setScalar(baseScale * mouseScale);
+                    });
+                    
+                    // Update shader uniforms for subtle animated glow
+                    model.glowMaterials.forEach((material, index) => {
+                        if (material.uniforms) {
+                            material.uniforms.time.value = time;
+                            
+                            // Very subtle opacity changes based on mouse interaction
+                            const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.02; // Much reduced
+                            const baseOpacity = [0.06, 0.04, 0.03][index]; // Lower base opacity
+                            material.uniforms.opacity.value = baseOpacity + mouseInfluence;
+                        }
+                    });
+                }
             }
 
-            // Animate lights for intense orange bloom visibility and blue edge definition
-            
-            // Blue rim lights (outside, for edge definition)
+            // Animate rim lights for subtle dynamic glow
             if (rimLight1Ref.current) {
-                rimLight1Ref.current.intensity = 2.5 + Math.sin(time * 3) * 1.0;
-                rimLight1Ref.current.position.x = -6 + Math.sin(time * 1.5) * 2;
-                rimLight1Ref.current.position.y = Math.cos(time * 2) * 1.5;
+                rimLight1Ref.current.intensity = 1.5 + Math.sin(time * 1.5) * 0.5; // Gentler intensity range
+                rimLight1Ref.current.position.x = -5 + Math.sin(time * 1.0) * 1.5; // Slower, smaller movement
+                rimLight1Ref.current.position.y = Math.cos(time * 1.2) * 1.0;
             }
             if (rimLight2Ref.current) {
-                rimLight2Ref.current.intensity = 2.0 + Math.cos(time * 2.5) * 0.8;
-                rimLight2Ref.current.position.x = 6 + Math.cos(time * 1.2) * 2;
-                rimLight2Ref.current.position.y = Math.sin(time * 1.8) * 1.5;
+                rimLight2Ref.current.intensity = 1.0 + Math.cos(time * 1.8) * 0.4;
+                rimLight2Ref.current.position.x = 5 + Math.cos(time * 0.8) * 1.5;
+                rimLight2Ref.current.position.y = Math.sin(time * 1.0) * 1.0;
             }
 
-            // Intense orange bloom lights (inside, for maximum core glow)
-            if (orangeBloomLight1Ref.current) {
-                orangeBloomLight1Ref.current.intensity = 5.0 + Math.sin(time * 2.0) * 2.0; // Very bright, slow bloom
-                orangeBloomLight1Ref.current.position.y = Math.cos(time * 1.5) * 0.8;
-                orangeBloomLight1Ref.current.position.z = 2 + Math.sin(time * 1.3) * 0.5;
-            }
-            if (orangeBloomLight2Ref.current) {
-                orangeBloomLight2Ref.current.intensity = 4.5 + Math.cos(time * 1.7 + Math.PI/3) * 1.8;
-                orangeBloomLight2Ref.current.position.y = Math.sin(time * 1.8) * 0.8;
-                orangeBloomLight2Ref.current.position.z = 0 + Math.cos(time * 1.6) * 0.3;
-            }
-
-            // Orange rim lights (medium distance, for bloom spread and edge bleeding)
-            if (orangeRimLight1Ref.current) {
-                orangeRimLight1Ref.current.intensity = 3.5 + Math.sin(time * 2.8 + Math.PI/4) * 1.5;
-                orangeRimLight1Ref.current.position.x = -3 + Math.cos(time * 1.9) * 2;
-                orangeRimLight1Ref.current.position.y = 4 + Math.sin(time * 2.1) * 1.5;
-                orangeRimLight1Ref.current.position.z = 3 + Math.cos(time * 1.4) * 1;
-            }
-            if (orangeRimLight2Ref.current) {
-                orangeRimLight2Ref.current.intensity = 3.2 + Math.cos(time * 2.4 + Math.PI/6) * 1.3;
-                orangeRimLight2Ref.current.position.x = 3 + Math.sin(time * 1.7) * 2;
-                orangeRimLight2Ref.current.position.y = -4 + Math.cos(time * 2.0) * 1.5;
-                orangeRimLight2Ref.current.position.z = 3 + Math.sin(time * 1.8) * 1;
-            }
-
-            // Animate additional core and perimeter orange lights
-            if (orangeCoreLight1Ref.current) {
-                orangeCoreLight1Ref.current.intensity = 3.0 + Math.sin(time * 1.6 + Math.PI/2) * 1.2;
-                orangeCoreLight1Ref.current.position.x = Math.cos(time * 1.1) * 1.5;
-                orangeCoreLight1Ref.current.position.y = Math.sin(time * 1.4) * 1.2;
-            }
-            if (orangeCoreLight2Ref.current) {
-                orangeCoreLight2Ref.current.intensity = 2.8 + Math.cos(time * 1.9 + Math.PI/5) * 1.0;
-                orangeCoreLight2Ref.current.position.x = Math.sin(time * 1.3) * 1.2;
-                orangeCoreLight2Ref.current.position.y = Math.cos(time * 1.7) * 1;
-            }
-
-            if (orangePerimeterLight1Ref.current) {
-                orangePerimeterLight1Ref.current.intensity = 2.5 + Math.sin(time * 3.1) * 1.0;
-                orangePerimeterLight1Ref.current.position.y = Math.cos(time * 2.2) * 2;
-                orangePerimeterLight1Ref.current.position.z = 6 + Math.sin(time * 1.6) * 1;
-            }
-            if (orangePerimeterLight2Ref.current) {
-                orangePerimeterLight2Ref.current.intensity = 2.3 + Math.cos(time * 2.7) * 0.9;
-                orangePerimeterLight2Ref.current.position.y = Math.sin(time * 1.9) * 2;
-                orangePerimeterLight2Ref.current.position.z = 6 + Math.cos(time * 1.8) * 1;
-            }
-
-            // Atmosphere lights (subtle background)
+            // Animate additional glow lights subtly
             if (topGlowLightRef.current) {
-                topGlowLightRef.current.intensity = 1.3 + Math.sin(time * 3.2) * 0.5;
-                topGlowLightRef.current.position.x = Math.sin(time * 1.3) * 3;
+                topGlowLightRef.current.intensity = 0.8 + Math.sin(time * 2.0) * 0.3;
+                topGlowLightRef.current.position.x = Math.sin(time * 0.8) * 2.0;
             }
             if (bottomGlowLightRef.current) {
-                bottomGlowLightRef.current.intensity = 1.0 + Math.cos(time * 2.8) * 0.4;
-                bottomGlowLightRef.current.position.x = Math.cos(time * 1.7) * 2.5;
+                bottomGlowLightRef.current.intensity = 0.6 + Math.cos(time * 1.5) * 0.2;
+                bottomGlowLightRef.current.position.x = Math.cos(time * 1.0) * 1.5;
+            }
+
+            // Animate orange internal lights for blooming effect
+            if (orangeInternalLightRef.current && modelRef.current) {
+                // Position orange lights at the model center
+                orangeInternalLightRef.current.position.copy(modelRef.current.position);
+                orangeInternalLightRef.current.intensity = 2.5 + Math.sin(time * 3.5 + Math.PI) * 1.0;
+            }
+            if (orangeCoreLightRef.current && modelRef.current) {
+                orangeCoreLightRef.current.position.copy(modelRef.current.position);
+                orangeCoreLightRef.current.intensity = 2.0 + Math.sin(time * 4.5 + Math.PI) * 0.8;
             }
 
             // Camera zoom-in effect on load
