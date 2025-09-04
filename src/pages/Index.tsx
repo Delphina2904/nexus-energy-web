@@ -7,6 +7,9 @@ import { VandeBharatContent } from "./VandeBharat";
 import { ServicesContent } from "./Services";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
 
 // Interactive 3D Background Component
 const Interactive3DBackground = () => {
@@ -23,6 +26,9 @@ const Interactive3DBackground = () => {
     const bottomGlowLightRef = useRef(null);
     const orangeInternalLightRef = useRef(null);
     const orangeCoreLightRef = useRef(null);
+    const composerRef = useRef(null);
+    const outlinePassRef = useRef(null);
+    const outlinePass2Ref = useRef(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -52,6 +58,44 @@ const Interactive3DBackground = () => {
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         rendererRef.current = renderer;
+
+        // Setup post-processing composer
+        const composer = new EffectComposer(renderer);
+        composerRef.current = composer;
+
+        // Add render pass
+        const renderPass = new RenderPass(scene, camera);
+        composer.addPass(renderPass);
+
+        // Setup OutlinePass for blue soft glow
+        const outlinePass = new OutlinePass(
+            new THREE.Vector2(mountRef.current.clientWidth, mountRef.current.clientHeight),
+            scene,
+            camera
+        );
+        outlinePass.edgeStrength = 8.0;        // much stronger intensity for prominent glow
+        outlinePass.edgeGlow = 3.0;            // increased glow intensity
+        outlinePass.edgeThickness = 10.0;      // wider outline for more prominent glow
+        outlinePass.pulsePeriod = 0;           // set >0 for pulsing
+        outlinePass.visibleEdgeColor.set('#00ddff'); // brighter blue glow
+        outlinePass.hiddenEdgeColor.set('#004466');  // subtle blue for hidden edges
+        composer.addPass(outlinePass);
+        outlinePassRef.current = outlinePass;
+
+        // Add a second, larger outline pass for extended glow effect
+        const outlinePass2 = new OutlinePass(
+            new THREE.Vector2(mountRef.current.clientWidth, mountRef.current.clientHeight),
+            scene,
+            camera
+        );
+        outlinePass2.edgeStrength = 4.0;       // softer outer glow
+        outlinePass2.edgeGlow = 4.0;           // strong glow spread
+        outlinePass2.edgeThickness = 20.0;     // very wide for soft outer glow
+        outlinePass2.pulsePeriod = 0;
+        outlinePass2.visibleEdgeColor.set('#0088cc'); // slightly darker blue for outer glow
+        outlinePass2.hiddenEdgeColor.set('#002244');
+        composer.addPass(outlinePass2);
+        outlinePass2Ref.current = outlinePass2;
 
         // Lighting
         const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
@@ -93,12 +137,12 @@ const Interactive3DBackground = () => {
         scene.add(orangeMainAmbient);
 
         // Add orange internal lighting for the blooming effect
-        const orangeInternalLight = new THREE.PointLight(0xff4400, 3.0, 15);
+        const orangeInternalLight = new THREE.PointLight(0xff4400, 2.0, 15);
         orangeInternalLight.position.set(0, 0, 0); // Center of the model
         scene.add(orangeInternalLight);
         orangeInternalLightRef.current = orangeInternalLight;
 
-        const orangeCoreLight = new THREE.PointLight(0xff6600, 2.5, 12);
+        const orangeCoreLight = new THREE.PointLight(0xff6600, 1.8, 12);
         orangeCoreLight.position.set(0, 0, 0); // Center of the model
         scene.add(orangeCoreLight);
         orangeCoreLightRef.current = orangeCoreLight;
@@ -210,7 +254,7 @@ const Interactive3DBackground = () => {
                         const orangeInternalMaterial = new THREE.MeshBasicMaterial({
                             color: 0xff4400,
                             transparent: true,
-                            opacity: 0.4,
+                            opacity: 0.25,
                             side: THREE.DoubleSide,
                             blending: THREE.AdditiveBlending,
                             depthWrite: false
@@ -226,7 +270,7 @@ const Interactive3DBackground = () => {
                         const orangeSecondaryMaterial = new THREE.MeshBasicMaterial({
                             color: 0xff6600,
                             transparent: true,
-                            opacity: 0.3,
+                            opacity: 0.2,
                             side: THREE.DoubleSide,
                             blending: THREE.AdditiveBlending,
                             depthWrite: false
@@ -251,6 +295,18 @@ const Interactive3DBackground = () => {
 
                 scene.add(model);
                 modelRef.current = model;
+                
+                // Add model to outline passes for blue glow effect
+                if (outlinePassRef.current && outlinePass2Ref.current) {
+                    const meshes = [];
+                    model.traverse((child) => {
+                        if (child instanceof THREE.Mesh) {
+                            meshes.push(child);
+                        }
+                    });
+                    outlinePassRef.current.selectedObjects = meshes;
+                    outlinePass2Ref.current.selectedObjects = meshes;
+                }
                 
                 // Create spherical glow effect around the model (subtle and matching colors)
                 const glowSphereGeometry = new THREE.SphereGeometry(15, 32, 32);
@@ -449,13 +505,13 @@ const Interactive3DBackground = () => {
                         const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.3;
                         
                         if (colorHex === 0xff4400) {
-                            // Primary orange internal glow - strong pulsing
-                            const pulseIntensity = 0.3 + Math.sin(time * 3 + Math.PI) * 0.15;
-                            child.material.opacity = Math.min(0.6, pulseIntensity + mouseInfluence);
+                            // Primary orange internal glow - reduced pulsing
+                            const pulseIntensity = 0.2 + Math.sin(time * 3 + Math.PI) * 0.1;
+                            child.material.opacity = Math.min(0.4, pulseIntensity + mouseInfluence);
                         } else if (colorHex === 0xff6600) {
-                            // Secondary orange glow - faster, core pulsing
-                            const pulseIntensity = 0.2 + Math.sin(time * 4.5 + Math.PI) * 0.1;
-                            child.material.opacity = Math.min(0.5, pulseIntensity + mouseInfluence * 0.8);
+                            // Secondary orange glow - reduced core pulsing
+                            const pulseIntensity = 0.15 + Math.sin(time * 4.5 + Math.PI) * 0.08;
+                            child.material.opacity = Math.min(0.35, pulseIntensity + mouseInfluence * 0.6);
                         }
                     }
                 });
@@ -518,11 +574,11 @@ const Interactive3DBackground = () => {
             if (orangeInternalLightRef.current && modelRef.current) {
                 // Position orange lights at the model center
                 orangeInternalLightRef.current.position.copy(modelRef.current.position);
-                orangeInternalLightRef.current.intensity = 2.5 + Math.sin(time * 3.5 + Math.PI) * 1.0;
+                orangeInternalLightRef.current.intensity = 1.8 + Math.sin(time * 3.5 + Math.PI) * 0.7;
             }
             if (orangeCoreLightRef.current && modelRef.current) {
                 orangeCoreLightRef.current.position.copy(modelRef.current.position);
-                orangeCoreLightRef.current.intensity = 2.0 + Math.sin(time * 4.5 + Math.PI) * 0.8;
+                orangeCoreLightRef.current.intensity = 1.5 + Math.sin(time * 4.5 + Math.PI) * 0.6;
             }
 
             // Camera zoom-in effect on load
@@ -548,7 +604,12 @@ const Interactive3DBackground = () => {
             pointLight.position.x = mouse.x * 15;
             pointLight.position.y = mouse.y * 10;
 
-            renderer.render(scene, camera);
+            // Use composer for rendering with post-processing effects
+            if (composerRef.current) {
+                composerRef.current.render();
+            } else {
+                renderer.render(scene, camera);
+            }
         };
 
         animate();
@@ -560,6 +621,19 @@ const Interactive3DBackground = () => {
             camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+            
+            // Update composer size for post-processing
+            if (composerRef.current) {
+                composerRef.current.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+            }
+            
+            // Update outline pass sizes
+            if (outlinePassRef.current) {
+                outlinePassRef.current.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+            }
+            if (outlinePass2Ref.current) {
+                outlinePass2Ref.current.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+            }
             
             // Reposition model based on new screen size
             if (modelRef.current) {
