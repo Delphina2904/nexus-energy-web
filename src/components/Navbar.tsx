@@ -13,9 +13,10 @@ import { Helmet } from "react-helmet-async";
 
 const navItems = [
   { name: "Home", path: "/" },
-  { name: "Services", path: "/services" },
-  
   { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  { name: "Customers", path: "/customers" },
+  
   // { name: "Team", path: "/team" },
   { name: "Contact", path: "/contact" },
 ];
@@ -153,7 +154,7 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out bg-black",
           scrolled
-            ? "py-2 shadow-md border-b border-vision-gold/20"
+            ? "py-2 shadow-md border-b border-blue-500/20"
             : "py-4"
         )}
         role="banner"
@@ -180,9 +181,9 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
                 <Link
                   to={item.path}
                   className={cn(
-                    "text-lg font-medium transition-colors hover:text-vision-gold-light relative animated-underline",
+                    "text-lg font-medium transition-colors hover:text-blue-400 relative animated-underline",
                     location.pathname === item.path
-                      ? "text-vision-gold"
+                      ? "text-blue-500"
                       : "text-muted-foreground"
                   )}
                   role="menuitem"
@@ -197,11 +198,10 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
           <div className="hidden md:flex items-center gap-4">
             <Button 
               asChild
-              className="bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 shadow-lg flex items-center gap-2"
+              className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all duration-300 shadow-lg hover:shadow-blue-500/50 rounded-full px-6 py-2 font-medium"
               aria-label="Get in touch with us"
             >
               <Link to="/contact">
-                <Calendar className="h-4 w-4" aria-hidden="true" />
                 Get Contact
               </Link>
             </Button>
@@ -234,7 +234,7 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
                       className={cn(
                         "text-lg py-2 px-4 rounded-lg transition-colors",
                         location.pathname === item.path
-                          ? "bg-vision-gold/20 text-vision-gold font-medium"
+                          ? "bg-blue-500/20 text-blue-500 font-medium"
                           : "text-muted-foreground hover:bg-muted"
                       )}
                       role="menuitem"
@@ -247,11 +247,10 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
                 <div className="mt-auto">
                   <Button
                     asChild
-                    className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 justify-center"
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full px-6 py-2 font-medium shadow-lg hover:shadow-blue-500/50 transition-all duration-300"
                     aria-label="Get in touch with us"
                   >
                     <Link to="/contact">
-                      <Calendar className="h-4 w-4" aria-hidden="true" />
                       Get Contact
                     </Link>
                   </Button>

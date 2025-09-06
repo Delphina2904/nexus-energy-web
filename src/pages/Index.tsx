@@ -5,6 +5,9 @@ import { AboutContent } from "./About";
 import { VisionMissionContent } from "./VisionMission";
 import { VandeBharatContent } from "./VandeBharat";
 import { ServicesContent } from "./Services";
+import Technology from "./Technology";
+import Customers from "./Customers";
+import Features from "./Features";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -416,6 +419,100 @@ const Interactive3DBackground = () => {
                 modelRef.current.glowSpheres = glowSpheres;
                 modelRef.current.glowMaterials = glowMaterials;
                 
+                // Create floating particles system
+                const particleCount = 800; // Increased from 150 to 500
+                const particleGeometry = new THREE.BufferGeometry();
+                const particlePositions = new Float32Array(particleCount * 3);
+                const particleVelocities = new Float32Array(particleCount * 3);
+                const particleSizes = new Float32Array(particleCount);
+                
+                // Initialize particle positions and velocities
+                for (let i = 0; i < particleCount; i++) {
+                    const i3 = i * 3;
+                    
+                    // Random positions around the model (wider area)
+                    particlePositions[i3] = (Math.random() - 0.5) * 80;     // x - increased range
+                    particlePositions[i3 + 1] = (Math.random() - 0.5) * 60; // y - increased range
+                    particlePositions[i3 + 2] = (Math.random() - 0.5) * 50; // z - increased range
+                    
+                    // Faster random velocities
+                    particleVelocities[i3] = (Math.random() - 0.5) * 0.15;     // x velocity - increased speed
+                    particleVelocities[i3 + 1] = (Math.random() - 0.5) * 0.12; // y velocity - increased speed
+                    particleVelocities[i3 + 2] = (Math.random() - 0.5) * 0.08;  // z velocity - increased speed
+                    
+                    // Random sizes with more variation
+                    particleSizes[i] = Math.random() * 0.8 + 0.1;
+                }
+                
+                particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+                particleGeometry.setAttribute('size', new THREE.BufferAttribute(particleSizes, 1));
+                
+                // Create particle material with subtle glow
+                const particleMaterial = new THREE.ShaderMaterial({
+                    uniforms: {
+                        time: { value: 0 },
+                        pixelRatio: { value: window.devicePixelRatio }
+                    },
+                    vertexShader: `
+                        uniform float time;
+                        uniform float pixelRatio;
+                        attribute float size;
+                        varying float vOpacity;
+                        varying vec3 vColor;
+                        
+                        void main() {
+                            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                            
+                            // Calculate distance-based opacity
+                            float distance = length(mvPosition.xyz);
+                            vOpacity = 1.0 / (1.0 + distance * 0.1);
+                            
+                            // Subtle color variation based on position
+                            float colorMix = sin(position.x * 0.1 + time) * 0.5 + 0.5;
+                            vColor = mix(vec3(0.0, 0.6, 1.0), vec3(0.0, 0.8, 0.9), colorMix);
+                            
+                            // Size based on distance and time
+                            float finalSize = size * (6.0 + sin(time + position.x * 0.1) * 2.0);
+                            gl_PointSize = finalSize * pixelRatio;
+                            
+                            gl_Position = projectionMatrix * mvPosition;
+                        }
+                    `,
+                    fragmentShader: `
+                        uniform float time;
+                        varying float vOpacity;
+                        varying vec3 vColor;
+                        
+                        void main() {
+                            // Create circular particles with soft edges
+                            vec2 coord = gl_PointCoord - vec2(0.5);
+                            float distance = length(coord);
+                            
+                            if (distance > 0.5) discard;
+                            
+                            // Soft circular falloff
+                            float alpha = 1.0 - smoothstep(0.2, 0.5, distance);
+                            alpha *= vOpacity;
+                            
+                            // Subtle pulsing effect
+                            alpha *= 0.3 + sin(time * 2.0) * 0.1;
+                            
+                            gl_FragColor = vec4(vColor, alpha);
+                        }
+                    `,
+                    transparent: true,
+                    blending: THREE.AdditiveBlending,
+                    depthWrite: false
+                });
+                
+                const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+                scene.add(particleSystem);
+                
+                // Store particle system and velocities for animation
+                modelRef.current.particleSystem = particleSystem;
+                modelRef.current.particleVelocities = particleVelocities;
+                modelRef.current.particleMaterial = particleMaterial;
+                
                 setIsLoading(false);
             },
             (progress) => {
@@ -470,12 +567,9 @@ const Interactive3DBackground = () => {
                 const targetX = baseX + (mouse.x * 2); // Keep the base offset and add mouse movement
                 const targetY = baseY + (mouse.y * 1); // Keep the base offset and add mouse movement
 
-                // Smoothly interpolate to target position (without cumulative drift)
+                // Keep model at fixed position with subtle mouse interaction only
                 model.position.x += (targetX - model.position.x) * 0.02;
                 model.position.y += (targetY - model.position.y) * 0.02;
-
-                // Gentle floating motion (additive, not cumulative)
-                model.position.y += Math.sin(time * 2) * 0.01;
 
                 // Animate subtle orange edge glow effect intensity
                 model.traverse((child) => {
@@ -545,6 +639,36 @@ const Interactive3DBackground = () => {
                             material.uniforms.opacity.value = baseOpacity + mouseInfluence;
                         }
                     });
+                }
+            }
+
+            // Animate floating particles
+            if (modelRef.current && modelRef.current.particleSystem) {
+                const particleSystem = modelRef.current.particleSystem;
+                const velocities = modelRef.current.particleVelocities;
+                const positions = particleSystem.geometry.attributes.position.array;
+                
+                // Update particle positions with faster movement
+                for (let i = 0; i < positions.length; i += 3) {
+                    positions[i] += velocities[i];         // x
+                    positions[i + 1] += velocities[i + 1]; // y
+                    positions[i + 2] += velocities[i + 2]; // z
+                    
+                    // Boundary checks - wrap particles around (larger boundaries)
+                    if (positions[i] > 40) positions[i] = -40;
+                    if (positions[i] < -40) positions[i] = 40;
+                    if (positions[i + 1] > 30) positions[i + 1] = -30;
+                    if (positions[i + 1] < -30) positions[i + 1] = 30;
+                    if (positions[i + 2] > 25) positions[i + 2] = -25;
+                    if (positions[i + 2] < -25) positions[i + 2] = 25;
+                }
+                
+                // Mark positions as needing update
+                particleSystem.geometry.attributes.position.needsUpdate = true;
+                
+                // Update particle material time uniform for faster animation
+                if (modelRef.current.particleMaterial) {
+                    modelRef.current.particleMaterial.uniforms.time.value = time;
                 }
             }
 
@@ -681,6 +805,29 @@ const Interactive3DBackground = () => {
                     <div className="text-white text-lg">Loading 3D Model...</div>
                 </div>
             )}
+            
+           {/* Text Overlay - NEXUS ENERGY */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="text-center">
+                    <h1 className="text-[#00ddff] font-thin tracking-[0.2em] text-2xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 uppercase"
+                        style={{ 
+                            fontFamily: 'LOGOTYPE Medium, Arial, sans-serif',
+                            textShadow: '0 0 20px rgba(0, 221, 255, 0.5), 0 0 40px rgba(0, 221, 255, 0.3)',
+                            letterSpacing: '0.5em'
+                        }}>
+                        NEXUS ENERGY
+                    </h1>
+                    <p className="text-[#00aacc] font-thin tracking-[0.15em] text-[10px] md:text-xs lg:text-sm xl:text-base uppercase opacity-80"
+                       style={{ 
+                           fontFamily: 'LOGOTYPE Medium, Arial, sans-serif',
+                           letterSpacing: '0.2em',
+                           textShadow: '0 0 10px rgba(0, 170, 204, 0.4)'
+                       }}>
+                        ELECTROCHEMICAL SUSTAINABLE ENERGY TRANSFORMATION
+                    </p>
+                </div>
+            </div>
+            
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 to-pink-600/5" />
         </div>
     );
@@ -722,10 +869,27 @@ const Index = () => {
         <ServicesContent />
       </div>
       
-      {/* Footer */}
-      <div className="relative z-10">
-        <Footer />
-      </div>
+
+            {/* Technology Section */}
+            <div className="relative z-10">
+                <Technology />
+            </div>
+
+
+            {/* Features Section */}
+            <div className="relative z-10">
+                <Features />
+            </div>
+
+            {/* Customers Section */}
+            <div className="relative z-10">
+                <Customers />
+            </div>
+
+            {/* Footer */}
+            <div className="relative z-10">
+                <Footer />
+            </div>
     </div>
   );
 };

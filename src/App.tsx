@@ -11,6 +11,7 @@ import Team from "./pages/Team";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Customers from "./pages/Customers";
 import WebDevelopment from "./pages/services/web-development";
 import VRARDevelopment from "./pages/services/vr-ar-development";
 import ThreeDDevelopment from "./pages/services/3d-development";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/team" element={<Team />} />
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/customers" element={<Customers />} />
             
             {/* Service Routes */}
             <Route path="/services/web-development" element={<WebDevelopment />} />

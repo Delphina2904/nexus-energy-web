@@ -1,6 +1,15 @@
-/* Import slick carousel styles */
+/* Import slick carousel styles first - @import must come before all other CSS */
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
+
+/* LOGOTYPE Medium font import */
+@font-face {
+  font-family: 'LOGOTYPE Medium';
+  src: url('./assets/fonts/LOGOTYPE-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* Touch-friendly mobile improvements */
 @media (max-width: 768px) {
@@ -261,7 +270,7 @@ select {
   height: 2px;
   bottom: -4px;
   left: 0;
-  background: linear-gradient(90deg, #B78628 0%, #F59E0B 50%, #F5D061 100%);
+  background: linear-gradient(90deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.5s ease;
