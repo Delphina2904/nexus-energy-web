@@ -123,6 +123,10 @@ export default {
         shimmer: {
           "100%": { transform: "translateX(100%)" },
         },
+        "text-fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "2" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -134,6 +138,7 @@ export default {
         "slide-in": "slide-in 0.3s ease-out",
         "slide-out": "slide-out 0.3s ease-out",
         shimmer: "shimmer 2s infinite",
+        "text-fade-in": "text-fade-in 2s ease-in-out 1s forwards",
       },
     },
   },

@@ -76,9 +76,9 @@ const Interactive3DBackground = () => {
             scene,
             camera
         );
-        outlinePass.edgeStrength = 8.0;        // much stronger intensity for prominent glow
-        outlinePass.edgeGlow = 3.0;            // increased glow intensity
-        outlinePass.edgeThickness = 10.0;      // wider outline for more prominent glow
+        //outlinePass.edgeStrength = 4.0; 
+        outlinePass.edgeGlow = 4.0;     
+        outlinePass.edgeThickness = 5.0;
         outlinePass.pulsePeriod = 0;           // set >0 for pulsing
         outlinePass.visibleEdgeColor.set('#00ddff'); // brighter blue glow
         outlinePass.hiddenEdgeColor.set('#004466');  // subtle blue for hidden edges
@@ -91,9 +91,9 @@ const Interactive3DBackground = () => {
             scene,
             camera
         );
-        outlinePass2.edgeStrength = 4.0;       // softer outer glow
-        outlinePass2.edgeGlow = 4.0;           // strong glow spread
-        outlinePass2.edgeThickness = 20.0;     // very wide for soft outer glow
+        //outlinePass2.edgeStrength = 4.0;
+        outlinePass2.edgeGlow = 4.0;    
+        outlinePass2.edgeThickness = 5.0;
         outlinePass2.pulsePeriod = 0;
         outlinePass2.visibleEdgeColor.set('#0088cc'); // slightly darker blue for outer glow
         outlinePass2.hiddenEdgeColor.set('#002244');
@@ -193,36 +193,162 @@ const Interactive3DBackground = () => {
                 model.rotation.y = 0;
                 model.rotation.z = Math.PI / 2;
 
-                // Create enhanced orange edge glow effect for model
-                const edgeMaterial = new THREE.LineBasicMaterial({
-                    color: 0xff6600,
-                    transparent: true,
-                    opacity: 0.4,
-                    linewidth: 2
-                });
-
-                // Create additional outer glow layer
-                const outerGlowMaterial = new THREE.LineBasicMaterial({
-                    color: 0xff4400,
-                    transparent: true,
-                    opacity: 0.2,
-                    linewidth: 3
-                });
-
-                // Create inner bright glow layer
-                const innerGlowMaterial = new THREE.LineBasicMaterial({
-                    color: 0xff8844,
-                    transparent: true,
-                    opacity: 0.3,
-                    linewidth: 1
-                });
-
-                // Compute and log horizontal (x) size
+                // Compute bounding box for positional animation
                 const box = new THREE.Box3().setFromObject(model);
                 const size = new THREE.Vector3();
                 box.getSize(size);
                 console.log('Model horizontal (x) size:', size.x);
+                const boxMin = box.min;
+                const boxMax = box.max;
+
+                // Create materials for a looping left-to-right wipe transition
+                const loopDuration = 10.0; // 10 seconds for a full wipe cycle
                 
+                // Main edge material with looping color transition shader
+                const edgeMaterial = new THREE.ShaderMaterial({
+                    uniforms: {
+                        time: { value: 0 },
+                        orangeColor: { value: new THREE.Color(0xff6600) },
+                        blueColor: { value: new THREE.Color(0x00aaff) },
+                        loopDuration: { value: loopDuration },
+                        boxMin: { value: boxMin },
+                        boxMax: { value: boxMax },
+                        opacity: { value: 0.8 }
+                    },
+                    vertexShader: `
+                        varying vec3 vWorldPosition;
+                        void main() {
+                            vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                            vWorldPosition = worldPosition.xyz;
+                            gl_Position = projectionMatrix * viewMatrix * worldPosition;
+                        }
+                    `,
+                    fragmentShader: `
+                        uniform float time;
+                        uniform vec3 orangeColor;
+                        uniform vec3 blueColor;
+                        uniform float loopDuration;
+                        uniform vec3 boxMin;
+                        uniform vec3 boxMax;
+                        uniform float opacity;
+                        varying vec3 vWorldPosition;
+                        
+                        void main() {
+                            // Oscillating progress from 0.0 to 1.0 and back
+                            float progress = (sin(time * (6.28318 / loopDuration) - 1.57079) + 1.0) / 2.0;
+                            
+                            // Map progress to the model's width to create a moving wipe edge
+                            float wipeEdgeX = mix(boxMin.x, boxMax.x, progress);
+                            
+                            // Create a smooth transition band
+                            float softness = 4.0; // Width of the soft transition area
+                            float transition = smoothstep(wipeEdgeX - softness, wipeEdgeX + softness, vWorldPosition.x);
+                            
+                            vec3 currentColor = mix(orangeColor, blueColor, transition);
+                            
+                            // Add subtle pulsing effect
+                            float pulse = sin(time * 2.0) * 0.1 + 0.9;
+                            currentColor *= pulse;
+                            
+                            gl_FragColor = vec4(currentColor, opacity);
+                        }
+                    `,
+                    transparent: true,
+                    linewidth: 2
+                });
+
+                // Outer glow material with looping transition
+                const outerGlowMaterial = new THREE.ShaderMaterial({
+                    uniforms: {
+                        time: { value: 0 },
+                        orangeColor: { value: new THREE.Color(0xff4400) }, // Darker orange
+                        blueColor: { value: new THREE.Color(0x0088cc) },   // Darker blue
+                        loopDuration: { value: loopDuration },
+                        boxMin: { value: boxMin },
+                        boxMax: { value: boxMax },
+                        opacity: { value: 0.3 }
+                    },
+                    vertexShader: `
+                        varying vec3 vWorldPosition;
+                        void main() {
+                            vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                            vWorldPosition = worldPosition.xyz;
+                            gl_Position = projectionMatrix * viewMatrix * worldPosition;
+                        }
+                    `,
+                    fragmentShader: `
+                        uniform float time;
+                        uniform vec3 orangeColor;
+                        uniform vec3 blueColor;
+                        uniform float loopDuration;
+                        uniform vec3 boxMin;
+                        uniform vec3 boxMax;
+                        uniform float opacity;
+                        varying vec3 vWorldPosition;
+                        
+                        void main() {
+                            float progress = (sin(time * (6.28318 / loopDuration) - 1.57079) + 1.0) / 2.0;
+                            float wipeEdgeX = mix(boxMin.x, boxMax.x, progress);
+                            float softness = 4.0;
+                            float transition = smoothstep(wipeEdgeX - softness, wipeEdgeX + softness, vWorldPosition.x);
+                            vec3 currentColor = mix(orangeColor, blueColor, transition);
+                            
+                            float pulse = sin(time * 1.5) * 0.15 + 0.85;
+                            currentColor *= pulse;
+                            
+                            gl_FragColor = vec4(currentColor, opacity);
+                        }
+                    `,
+                    transparent: true,
+                    linewidth: 3
+                });
+
+                // Inner bright glow material with looping transition
+                const innerGlowMaterial = new THREE.ShaderMaterial({
+                    uniforms: {
+                        time: { value: 0 },
+                        orangeColor: { value: new THREE.Color(0xff8844) }, // Bright orange
+                        blueColor: { value: new THREE.Color(0x44ccff) },   // Bright blue
+                        loopDuration: { value: loopDuration },
+                        boxMin: { value: boxMin },
+                        boxMax: { value: boxMax },
+                        opacity: { value: 0.6 }
+                    },
+                    vertexShader: `
+                        varying vec3 vWorldPosition;
+                        void main() {
+                            vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                            vWorldPosition = worldPosition.xyz;
+                            gl_Position = projectionMatrix * viewMatrix * worldPosition;
+                        }
+                    `,
+                    fragmentShader: `
+                        uniform float time;
+                        uniform vec3 orangeColor;
+                        uniform vec3 blueColor;
+                        uniform float loopDuration;
+                        uniform vec3 boxMin;
+                        uniform vec3 boxMax;
+                        uniform float opacity;
+                        varying vec3 vWorldPosition;
+                        
+                        void main() {
+                            float progress = (sin(time * (6.28318 / loopDuration) - 1.57079) + 1.0) / 2.0;
+                            float wipeEdgeX = mix(boxMin.x, boxMax.x, progress);
+                            float softness = 4.0;
+                            float transition = smoothstep(wipeEdgeX - softness, wipeEdgeX + softness, vWorldPosition.x);
+                            vec3 currentColor = mix(orangeColor, blueColor, transition);
+                            
+                            float pulse = sin(time * 3.0) * 0.2 + 0.8;
+                            currentColor *= pulse;
+                            
+                            gl_FragColor = vec4(currentColor, opacity);
+                        }
+                    `,
+                    transparent: true,
+                    linewidth: 1
+                });
+
                 // Enable shadows and add multi-layer edge glow effect to all meshes
                 model.traverse((child) => {
                     if (child instanceof THREE.Mesh) {
@@ -232,6 +358,12 @@ const Interactive3DBackground = () => {
                         // Create edge geometry for wireframe glow
                         const edges = new THREE.EdgesGeometry(child.geometry);
                         
+                        // Store transition materials for animation updates
+                        if (!(model as any).transitionMaterials) (model as any).transitionMaterials = [];
+                        (model as any).transitionMaterials.push(edgeMaterial);
+                        (model as any).transitionMaterials.push(outerGlowMaterial);
+                        (model as any).transitionMaterials.push(innerGlowMaterial);
+
                         // Create multiple glow layers for enhanced effect
                         // Outer glow layer (widest, most transparent)
                         const outerGlowLines = new THREE.LineSegments(edges, outerGlowMaterial);
@@ -240,7 +372,7 @@ const Interactive3DBackground = () => {
                         outerGlowLines.scale.copy(child.scale);
                         outerGlowLines.scale.multiplyScalar(1.005); // Slightly larger
                         
-                        // Main edge lines
+                        // Main edge lines with color transition
                         const edgeLines = new THREE.LineSegments(edges, edgeMaterial);
                         edgeLines.position.copy(child.position);
                         edgeLines.rotation.copy(child.rotation);
@@ -253,11 +385,50 @@ const Interactive3DBackground = () => {
                         innerGlowLines.scale.copy(child.scale);
                         innerGlowLines.scale.multiplyScalar(0.998); // Slightly smaller
 
-                        // Create orange internal glow effect
-                        const orangeInternalMaterial = new THREE.MeshBasicMaterial({
-                            color: 0xff4400,
+                        // Create internal glow effect with looping left-to-right wipe
+                        const orangeInternalMaterial = new THREE.ShaderMaterial({
+                            uniforms: {
+                                time: { value: 0 },
+                                orangeColor: { value: new THREE.Color(0xff4400) },
+                                blueColor: { value: new THREE.Color(0x0066aa) },
+                                loopDuration: { value: loopDuration },
+                                boxMin: { value: boxMin },
+                                boxMax: { value: boxMax },
+                                opacity: { value: 0.25 }
+                            },
+                            vertexShader: `
+                                varying vec3 vWorldPosition;
+                                void main() {
+                                    vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                                    vWorldPosition = worldPosition.xyz;
+                                    gl_Position = projectionMatrix * viewMatrix * worldPosition;
+                                }
+                            `,
+                            fragmentShader: `
+                                uniform float time;
+                                uniform vec3 orangeColor;
+                                uniform vec3 blueColor;
+                                uniform float loopDuration;
+                                uniform vec3 boxMin;
+                                uniform vec3 boxMax;
+                                uniform float opacity;
+                                varying vec3 vWorldPosition;
+                                
+                                void main() {
+                                    float progress = (sin(time * (6.28318 / loopDuration) - 1.57079) + 1.0) / 2.0;
+                                    float wipeEdgeX = mix(boxMin.x, boxMax.x, progress);
+                                    float softness = 4.0;
+                                    float transition = smoothstep(wipeEdgeX - softness, wipeEdgeX + softness, vWorldPosition.x);
+                                    vec3 currentColor = mix(orangeColor, blueColor, transition);
+                                    
+                                    // Internal glow pulsing
+                                    float pulse = sin(time * 4.0) * 0.2 + 0.8;
+                                    currentColor *= pulse;
+                                    
+                                    gl_FragColor = vec4(currentColor, opacity);
+                                }
+                            `,
                             transparent: true,
-                            opacity: 0.25,
                             side: THREE.DoubleSide,
                             blending: THREE.AdditiveBlending,
                             depthWrite: false
@@ -269,11 +440,50 @@ const Interactive3DBackground = () => {
                         orangeInternalGlow.scale.copy(child.scale);
                         orangeInternalGlow.scale.multiplyScalar(0.98); // Slightly smaller for internal effect
 
-                        // Create secondary orange glow layer - more visible
-                        const orangeSecondaryMaterial = new THREE.MeshBasicMaterial({
-                            color: 0xff6600,
+                        // Create secondary internal glow with looping left-to-right wipe
+                        const orangeSecondaryMaterial = new THREE.ShaderMaterial({
+                            uniforms: {
+                                time: { value: 0 },
+                                orangeColor: { value: new THREE.Color(0xff6600) },
+                                blueColor: { value: new THREE.Color(0x0099dd) },
+                                loopDuration: { value: loopDuration },
+                                boxMin: { value: boxMin },
+                                boxMax: { value: boxMax },
+                                opacity: { value: 0.2 }
+                            },
+                            vertexShader: `
+                                varying vec3 vWorldPosition;
+                                void main() {
+                                    vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                                    vWorldPosition = worldPosition.xyz;
+                                    gl_Position = projectionMatrix * viewMatrix * worldPosition;
+                                }
+                            `,
+                            fragmentShader: `
+                                uniform float time;
+                                uniform vec3 orangeColor;
+                                uniform vec3 blueColor;
+                                uniform float loopDuration;
+                                uniform vec3 boxMin;
+                                uniform vec3 boxMax;
+                                uniform float opacity;
+                                varying vec3 vWorldPosition;
+                                
+                                void main() {
+                                    float progress = (sin(time * (6.28318 / loopDuration) - 1.57079) + 1.0) / 2.0;
+                                    float wipeEdgeX = mix(boxMin.x, boxMax.x, progress);
+                                    float softness = 4.0;
+                                    float transition = smoothstep(wipeEdgeX - softness, wipeEdgeX + softness, vWorldPosition.x);
+                                    vec3 currentColor = mix(orangeColor, blueColor, transition);
+                                    
+                                    // Secondary glow pulsing
+                                    float pulse = sin(time * 3.5) * 0.15 + 0.85;
+                                    currentColor *= pulse;
+                                    
+                                    gl_FragColor = vec4(currentColor, opacity);
+                                }
+                            `,
                             transparent: true,
-                            opacity: 0.2,
                             side: THREE.DoubleSide,
                             blending: THREE.AdditiveBlending,
                             depthWrite: false
@@ -284,6 +494,10 @@ const Interactive3DBackground = () => {
                         orangeSecondaryGlow.rotation.copy(child.rotation);
                         orangeSecondaryGlow.scale.copy(child.scale);
                         orangeSecondaryGlow.scale.multiplyScalar(0.95); // Larger for more visibility
+                        
+                        // Add internal glow materials to transition list
+                        (model as any).transitionMaterials.push(orangeInternalMaterial);
+                        (model as any).transitionMaterials.push(orangeSecondaryMaterial);
                         
                         // Add all glow layers to the same parent as the original mesh
                         if (child.parent) {
@@ -472,7 +686,7 @@ const Interactive3DBackground = () => {
                             vColor = mix(vec3(0.0, 0.6, 1.0), vec3(0.0, 0.8, 0.9), colorMix);
                             
                             // Size based on distance and time
-                            float finalSize = size * (6.0 + sin(time + position.x * 0.1) * 2.0);
+                            float finalSize = size * (10.0 + sin(time + position.x * 0.1) * 2.0);
                             gl_PointSize = finalSize * pixelRatio;
                             
                             gl_Position = projectionMatrix * mvPosition;
@@ -537,11 +751,17 @@ const Interactive3DBackground = () => {
         // Animation loop
         // Animation system with zoom state tracker
         let zoomStarted = false;
+        let startTime = null;
         
         const animate = () => {
             animationIdRef.current = requestAnimationFrame(animate);
 
-            const time = Date.now() * 0.001;
+            // Don't start the timer until the model is loaded
+            if (startTime === null && modelRef.current) {
+                startTime = Date.now() * 0.001;
+            }
+
+            const time = startTime ? (Date.now() * 0.001) - startTime : 0;
             const mouse = mouseRef.current;
 
             if (modelRef.current) {
@@ -570,6 +790,15 @@ const Interactive3DBackground = () => {
                 // Keep model at fixed position with subtle mouse interaction only
                 model.position.x += (targetX - model.position.x) * 0.02;
                 model.position.y += (targetY - model.position.y) * 0.02;
+
+                // Update transition materials with current time for orange to blue transition
+                if ((model as any).transitionMaterials) {
+                    (model as any).transitionMaterials.forEach((material: any) => {
+                        if (material.uniforms && material.uniforms.time) {
+                            material.uniforms.time.value = time;
+                        }
+                    });
+                }
 
                 // Animate subtle orange edge glow effect intensity
                 model.traverse((child) => {
@@ -808,7 +1037,7 @@ const Interactive3DBackground = () => {
             
            {/* Text Overlay - NEXUS ENERGY */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="text-center">
+                <div className="text-center animate-text-fade-in opacity-0">
                     <h1 className="text-[#00ddff] font-thin tracking-[0.2em] text-2xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 uppercase"
                         style={{ 
                             fontFamily: 'LOGOTYPE Medium, Arial, sans-serif',
