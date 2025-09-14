@@ -1099,13 +1099,15 @@ const Interactive3DBackground = () => {
                 </div>
             </div>
             
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-cyan-600/10" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-transparent" />
         </div>
     );
 };
 
 const Index = () => {
   // Scroll to top on mount
+
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     
@@ -1133,7 +1135,7 @@ const Index = () => {
         
         
         {/* 3D Model Section - Hero Section Only */}
-        <section className="relative w-full h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 overflow-hidden flex items-center justify-center" style={{
+        <section className="relative h-screen bg-gradient-to-br from-blue-900 via-black to-black" style={{
           willChange: 'transform',
           transform: 'translateZ(0)',
           backfaceVisibility: 'hidden'
