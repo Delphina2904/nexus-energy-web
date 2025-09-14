@@ -16,7 +16,7 @@ type AnimatedItems = {
   clients?: boolean;
 };
 
-const Customers = () => {
+export const CustomersContent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [animatedItems, setAnimatedItems] = useState<AnimatedItems>({});
   const sectionRef = useRef(null);
@@ -91,8 +91,6 @@ const Customers = () => {
   ];
 
   return (
-    <>
-      <Navbar />
       <div id="customers" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white py-20 pt-32">
       {/* Enhanced Modern Background Elements */}
       <div className="absolute inset-0">
@@ -311,6 +309,14 @@ const Customers = () => {
         }
       `}</style>
       </div>
+  );
+};
+
+const Customers = () => {
+  return (
+    <>
+      <Navbar />
+      <CustomersContent />
       <Footer />
     </>
   );

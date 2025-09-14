@@ -32,12 +32,27 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      // Check if we're on the home page
+      const isHomePage = location.pathname === '/';
+      
+      if (isHomePage) {
+        // On home page, check if we've scrolled past the hero section (3D model)
+        // Hero section is typically 100vh, so we check if we've scrolled past that
+        const heroHeight = window.innerHeight;
+        setScrolled(window.scrollY > heroHeight - 100); // Start transition 100px before leaving hero
+      } else {
+        // On other pages, use the original behavior
+        setScrolled(window.scrollY > 20);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
+    
+    // Also trigger on location change to reset state
+    handleScroll();
+    
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const openWhatsAppBooking = () => {
     const message = "Hello! I'd like to book a 15-minute free consultation call. Please let me know your available time slots. Thank you!";
@@ -152,10 +167,10 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
 
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out bg-black",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out",
           scrolled
-            ? "py-2 shadow-md border-b border-blue-500/20"
-            : "py-4"
+            ? "py-2 shadow-lg border-b border-blue-500/30 bg-white/95 backdrop-blur-md"
+            : "py-4 bg-transparent"
         )}
         role="banner"
       >
@@ -170,7 +185,10 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
             {/* Desktop view: Show Nexus Energy logo and text */}
             <span className="hidden md:flex items-center gap-2">
               <img src="/nexuslogo.png" alt="Nexus Energy Logo" className="h-10" width="40" height="40" />
-              <span className="text-white text-2xl font-bold tracking-wide">Nexus Energy</span>
+              <span className={cn(
+                "text-2xl font-bold tracking-wide transition-colors duration-300",
+                scrolled ? "text-gray-900" : "text-white"
+              )}>Nexus Energy</span>
             </span>
           </Link>
 
@@ -181,10 +199,10 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
                 <Link
                   to={item.path}
                   className={cn(
-                    "text-lg font-medium transition-colors hover:text-blue-400 relative animated-underline",
+                    "text-lg font-medium transition-colors duration-300 hover:text-blue-400 relative animated-underline",
                     location.pathname === item.path
-                      ? "text-blue-500"
-                      : "text-muted-foreground"
+                      ? scrolled ? "text-blue-600" : "text-blue-400"
+                      : scrolled ? "text-gray-700 hover:text-blue-600" : "text-gray-200 hover:text-blue-300"
                   )}
                   role="menuitem"
                   aria-current={location.pathname === item.path ? "page" : undefined}
@@ -198,7 +216,12 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
           <div className="hidden md:flex items-center gap-4">
             <Button 
               asChild
-              className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all duration-300 shadow-lg hover:shadow-blue-500/50 rounded-full px-6 py-2 font-medium"
+              className={cn(
+                "transition-all duration-300 shadow-lg rounded-full px-6 py-2 font-medium",
+                scrolled 
+                  ? "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white hover:shadow-blue-500/50"
+                  : "bg-gradient-to-r from-blue-400/80 to-purple-500/80 hover:from-blue-500 hover:to-purple-600 text-white hover:shadow-blue-400/50 backdrop-blur-sm"
+              )}
               aria-label="Get in touch with us"
             >
               <Link to="/contact">
@@ -213,7 +236,10 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden"
+                className={cn(
+                  "md:hidden transition-colors duration-300",
+                  scrolled ? "text-gray-900 hover:text-blue-600" : "text-white hover:text-blue-300"
+                )}
                 aria-label="Open navigation menu"
               >
                 <Menu className="h-6 w-6" aria-hidden="true" />

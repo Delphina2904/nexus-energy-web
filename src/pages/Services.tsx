@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Images } from "../constants";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 
@@ -198,7 +200,7 @@ export const ServicesContent = () => {
       <div className="max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="select-none text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 bg-clip-text text-transparent mb-8 leading-tight py-2">
+          <h2 className="select-none text-3xl md:text-5xl lg:text-6xl font-semibold bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 bg-clip-text text-transparent mb-8 leading-tight py-2">
             Precision-Engineered Solutions
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -235,14 +237,14 @@ export const ServicesContent = () => {
                       </div>
 
                       {/* Stats Badge */}
-                      <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 bg-white/95 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-semibold text-gray-800 shadow-lg">
+                      <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 bg-white/95 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium text-gray-800 shadow-lg">
                         {service.stats}
                       </div>
                     </div>
 
                     {/* Content Section */}
                     <div className="p-4 md:p-6 flex flex-col flex-grow">
-                      <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4 group-hover:text-blue-700 transition-colors duration-300">
+                      <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-3 md:mb-4 group-hover:text-blue-700 transition-colors duration-300">
                         {service.title}
                       </h3>
 
@@ -267,14 +269,14 @@ export const ServicesContent = () => {
 
                       {/* Applications */}
                       <div className="mt-auto pt-3 md:pt-4 border-t border-gray-100">
-                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 md:mb-2">
+                        <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1.5 md:mb-2">
                           Applications
                         </p>
                         <div className="flex flex-wrap gap-1 md:gap-1.5">
                           {service.applications.map((app, idx) => (
                             <span
                               key={idx}
-                              className="px-1.5 md:px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded-full font-medium hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200"
+                              className="px-1.5 md:px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded-full font-normal hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200"
                             >
                               {app}
                             </span>

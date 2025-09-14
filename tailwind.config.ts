@@ -125,7 +125,7 @@ export default {
         },
         "text-fade-in": {
           "0%": { opacity: "0" },
-          "100%": { opacity: "2" },
+          "100%": { opacity: "3" },
         },
       },
       animation: {

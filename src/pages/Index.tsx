@@ -6,8 +6,9 @@ import { VisionMissionContent } from "./VisionMission";
 import { VandeBharatContent } from "./VandeBharat";
 import { ServicesContent } from "./Services";
 import Technology from "./Technology";
-import Customers from "./Customers";
+import { CustomersContent } from "./Customers";
 import Features from "./Features";
+import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -33,13 +34,253 @@ const Interactive3DBackground = () => {
     const outlinePassRef = useRef(null);
     const outlinePass2Ref = useRef(null);
     const [isLoading, setIsLoading] = useState(true);
+    const isVisibleRef = useRef(false);
+    
 
     useEffect(() => {
         if (!mountRef.current) return;
 
+        let animationIdRef = null;
+
+        // Animation loop
+        let zoomStarted = false;
+        let startTime = null;
+        
+        const animate = () => {
+            if (!isVisibleRef.current) {
+                if (animationIdRef) {
+                    cancelAnimationFrame(animationIdRef);
+                    animationIdRef = null;
+                }
+                return;
+            }
+
+            animationIdRef = requestAnimationFrame(animate);
+
+            // Don't start the timer until the model is loaded
+            if (startTime === null && modelRef.current) {
+                startTime = Date.now() * 0.001;
+            }
+
+            const time = startTime ? (Date.now() * 0.001) - startTime : 0;
+            const mouse = mouseRef.current;
+
+            if (modelRef.current) {
+                const model = modelRef.current;
+
+                // Responsive base positions
+                const isMobile = window.innerWidth < 768;
+                const isTablet = window.innerWidth < 1024;
+                
+                let baseX, baseY;
+                if (isMobile) {
+                    baseX = -3;
+                    baseY = -1;
+                } else if (isTablet) {
+                    baseX = -3;
+                    baseY = 2;
+                } else {
+                    baseX = -8;
+                    baseY = 2;
+                }
+
+                // Mouse interaction - subtle movement (offset from initial position)
+                const targetX = baseX + (mouse.x * 2); // Keep the base offset and add mouse movement
+                const targetY = baseY + (mouse.y * 1); // Keep the base offset and add mouse movement
+
+                // Keep model at fixed position with subtle mouse interaction only
+                model.position.x += (targetX - model.position.x) * 0.02;
+                model.position.y += (targetY - model.position.y) * 0.02;
+
+                // Update transition materials with current time for orange to blue transition
+                if ((model as any).transitionMaterials) {
+                    (model as any).transitionMaterials.forEach((material: any) => {
+                        if (material.uniforms && material.uniforms.time) {
+                            material.uniforms.time.value = time;
+                        }
+                    });
+                }
+
+                // Animate subtle orange edge glow effect intensity
+                model.traverse((child) => {
+                    if (child instanceof THREE.LineSegments && child.material && child.material.color) {
+                        const colorHex = child.material.color.getHex();
+                        const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.2; // Reduced mouse influence
+                        
+                        // Animate different glow layers with subtle patterns
+                        if (colorHex === 0xff6600) {
+                            // Main edge glow - gentle pulsing
+                            const pulseIntensity = 0.3 + Math.sin(time * 2) * 0.1;
+                            child.material.opacity = Math.min(0.5, pulseIntensity + mouseInfluence);
+                        } else if (colorHex === 0xff4400) {
+                            // Outer glow - very soft pulsing
+                            const pulseIntensity = 0.15 + Math.sin(time * 1.5) * 0.05;
+                            child.material.opacity = Math.min(0.25, pulseIntensity + mouseInfluence * 0.3);
+                        } else if (colorHex === 0xff8844) {
+                            // Inner bright glow - subtle pulsing
+                            const pulseIntensity = 0.2 + Math.sin(time * 2.5) * 0.1;
+                            child.material.opacity = Math.min(0.4, pulseIntensity + mouseInfluence * 0.5);
+                        }
+                    }
+
+                    // Animate orange internal glow meshes
+                    if (child instanceof THREE.Mesh && child.material && child.material.color) {
+                        const colorHex = child.material.color.getHex();
+                        const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.3;
+                        
+                        if (colorHex === 0xff4400) {
+                            // Primary orange internal glow - reduced pulsing
+                            const pulseIntensity = 0.2 + Math.sin(time * 3 + Math.PI) * 0.1;
+                            child.material.opacity = Math.min(0.4, pulseIntensity + mouseInfluence);
+                        } else if (colorHex === 0xff6600) {
+                            // Secondary orange glow - reduced core pulsing
+                            const pulseIntensity = 0.15 + Math.sin(time * 4.5 + Math.PI) * 0.08;
+                            child.material.opacity = Math.min(0.35, pulseIntensity + mouseInfluence * 0.6);
+                        }
+                    }
+                });
+
+                // Animate subtle spherical glow effect around the model
+                if (model.glowSpheres && model.glowMaterials) {
+                    model.glowSpheres.forEach((sphere, index) => {
+                        // Update glow sphere position to follow model
+                        sphere.position.copy(model.position);
+                        
+                        // Very subtle rotation for gentle movement
+                        sphere.rotation.x += 0.002 * (index + 1);
+                        sphere.rotation.y += 0.001 * (index + 1);
+                        sphere.rotation.z += 0.0005 * (index + 1);
+                        
+                        // Gentle scale based on mouse interaction
+                        const mouseDistance = Math.sqrt(mouse.x * mouse.x + mouse.y * mouse.y);
+                        const baseScale = 1 + (index * 0.2); // Reduced scaling difference
+                        const mouseScale = 1 + mouseDistance * 0.1; // Reduced mouse influence
+                        sphere.scale.setScalar(baseScale * mouseScale);
+                    });
+                    
+                    // Update shader uniforms for subtle animated glow
+                    model.glowMaterials.forEach((material, index) => {
+                        if (material.uniforms) {
+                            material.uniforms.time.value = time;
+                            
+                            // Very subtle opacity changes based on mouse interaction
+                            const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.02; // Much reduced
+                            const baseOpacity = [0.06, 0.04, 0.03][index]; // Lower base opacity
+                            material.uniforms.opacity.value = baseOpacity + mouseInfluence;
+                        }
+                    });
+                }
+            }
+
+            // Animate floating particles
+            if (modelRef.current && modelRef.current.particleSystem) {
+                const particleSystem = modelRef.current.particleSystem;
+                const velocities = modelRef.current.particleVelocities;
+                const positions = particleSystem.geometry.attributes.position.array;
+                
+                // Update particle positions with faster movement
+                for (let i = 0; i < positions.length; i += 3) {
+                    positions[i] += velocities[i];         // x
+                    positions[i + 1] += velocities[i + 1]; // y
+                    positions[i + 2] += velocities[i + 2]; // z
+                    
+                    // Boundary checks - wrap particles around (larger boundaries)
+                    if (positions[i] > 40) positions[i] = -40;
+                    if (positions[i] < -40) positions[i] = 40;
+                    if (positions[i + 1] > 30) positions[i + 1] = -30;
+                    if (positions[i + 1] < -30) positions[i + 1] = 30;
+                    if (positions[i + 2] > 25) positions[i + 2] = -25;
+                    if (positions[i + 2] < -25) positions[i + 2] = 25;
+                }
+                
+                // Mark positions as needing update
+                particleSystem.geometry.attributes.position.needsUpdate = true;
+                
+                // Update particle material time uniform for faster animation
+                if (modelRef.current.particleMaterial) {
+                    modelRef.current.particleMaterial.uniforms.time.value = time;
+                }
+            }
+
+            // Animate rim lights for subtle dynamic glow
+            if (rimLight1Ref.current) {
+                rimLight1Ref.current.intensity = 1.5 + Math.sin(time * 1.5) * 0.5; // Gentler intensity range
+                rimLight1Ref.current.position.x = -5 + Math.sin(time * 1.0) * 1.5; // Slower, smaller movement
+                rimLight1Ref.current.position.y = Math.cos(time * 1.2) * 1.0;
+            }
+            if (rimLight2Ref.current) {
+                rimLight2Ref.current.intensity = 1.0 + Math.cos(time * 1.8) * 0.4;
+                rimLight2Ref.current.position.x = 5 + Math.cos(time * 0.8) * 1.5;
+                rimLight2Ref.current.position.y = Math.sin(time * 1.0) * 1.0;
+            }
+
+            // Animate additional glow lights subtly
+            if (topGlowLightRef.current) {
+                topGlowLightRef.current.intensity = 0.8 + Math.sin(time * 2.0) * 0.3;
+                topGlowLightRef.current.position.x = Math.sin(time * 0.8) * 2.0;
+            }
+            if (bottomGlowLightRef.current) {
+                bottomGlowLightRef.current.intensity = 0.6 + Math.cos(time * 1.5) * 0.2;
+                bottomGlowLightRef.current.position.x = Math.cos(time * 1.0) * 1.5;
+            }
+
+            // Animate orange internal lights for blooming effect
+            if (orangeInternalLightRef.current && modelRef.current) {
+                // Position orange lights at the model center
+                orangeInternalLightRef.current.position.copy(modelRef.current.position);
+                orangeInternalLightRef.current.intensity = 1.8 + Math.sin(time * 3.5 + Math.PI) * 0.7;
+            }
+            if (orangeCoreLightRef.current && modelRef.current) {
+                orangeCoreLightRef.current.position.copy(modelRef.current.position);
+                orangeCoreLightRef.current.intensity = 1.5 + Math.sin(time * 4.5 + Math.PI) * 0.6;
+            }
+
+            // Camera zoom-in effect on load
+            // Start further away and animate to target z
+            const targetZ = 15;
+            if (!zoomStarted) {
+                camera.position.z = 30;
+                zoomStarted = true;
+            }
+            if (camera.position.z > targetZ) {
+                camera.position.z -= (camera.position.z - targetZ) * 0.08;
+                if (Math.abs(camera.position.z - targetZ) < 0.01) {
+                    camera.position.z = targetZ;
+                }
+            }
+
+            // Move camera slightly based on mouse
+            camera.position.x = mouse.x * 3;
+            camera.position.y = mouse.y * 2;
+            camera.lookAt(0, 0, 0);
+
+            // Animate point light based on mouse
+            pointLight.position.x = mouse.x * 15;
+            pointLight.position.y = mouse.y * 10;
+
+            // Use composer for rendering with post-processing effects
+            if (composerRef.current) {
+                composerRef.current.render();
+            } else {
+                renderer.render(scene, camera);
+            }
+        };
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                isVisibleRef.current = entry.isIntersecting;
+                if (isVisibleRef.current) {
+                    animate(); // Start animation when it becomes visible
+                }
+            },
+            { threshold: 0.1 } // Trigger when 10% of the element is visible
+        );
+
+        observer.observe(mountRef.current);
+
         // Scene setup
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x0a0a0a);
+        scene.background = new THREE.Color(0x1a1a2e);
         sceneRef.current = scene;
 
         // Camera setup
@@ -55,11 +296,18 @@ const Interactive3DBackground = () => {
         // Renderer setup
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
-            alpha: true
+            alpha: true,
+            powerPreference: "high-performance",
+            stencil: false,
+            depth: true
         });
         renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.0;
         rendererRef.current = renderer;
 
         // Setup post-processing composer
@@ -76,9 +324,9 @@ const Interactive3DBackground = () => {
             scene,
             camera
         );
-        //outlinePass.edgeStrength = 4.0; 
-        outlinePass.edgeGlow = 4.0;     
-        outlinePass.edgeThickness = 5.0;
+        //outlinePass.edgeStrength = 8.0;        // much stronger intensity for prominent glow
+        outlinePass.edgeGlow = 3.0;            // increased glow intensity
+        outlinePass.edgeThickness = 10.0;      // wider outline for more prominent glow
         outlinePass.pulsePeriod = 0;           // set >0 for pulsing
         outlinePass.visibleEdgeColor.set('#00ddff'); // brighter blue glow
         outlinePass.hiddenEdgeColor.set('#004466');  // subtle blue for hidden edges
@@ -91,9 +339,9 @@ const Interactive3DBackground = () => {
             scene,
             camera
         );
-        //outlinePass2.edgeStrength = 4.0;
-        outlinePass2.edgeGlow = 4.0;    
-        outlinePass2.edgeThickness = 5.0;
+        //outlinePass2.edgeStrength = 4.0;       // softer outer glow
+        outlinePass2.edgeGlow = 4.0;           // strong glow spread
+        outlinePass2.edgeThickness = 5.0;     // very wide for soft outer glow
         outlinePass2.pulsePeriod = 0;
         outlinePass2.visibleEdgeColor.set('#0088cc'); // slightly darker blue for outer glow
         outlinePass2.hiddenEdgeColor.set('#002244');
@@ -744,228 +992,15 @@ const Interactive3DBackground = () => {
             mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
+        // Use passive listeners for better performance
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
         mountRef.current.appendChild(renderer.domElement);
 
-        // Animation loop
-        // Animation system with zoom state tracker
-        let zoomStarted = false;
-        let startTime = null;
-        
-        const animate = () => {
-            animationIdRef.current = requestAnimationFrame(animate);
-
-            // Don't start the timer until the model is loaded
-            if (startTime === null && modelRef.current) {
-                startTime = Date.now() * 0.001;
-            }
-
-            const time = startTime ? (Date.now() * 0.001) - startTime : 0;
-            const mouse = mouseRef.current;
-
-            if (modelRef.current) {
-                const model = modelRef.current;
-
-                // Responsive base positions
-                const isMobile = window.innerWidth < 768;
-                const isTablet = window.innerWidth < 1024;
-                
-                let baseX, baseY;
-                if (isMobile) {
-                    baseX = -3;
-                    baseY = -1;
-                } else if (isTablet) {
-                    baseX = -3;
-                    baseY = 2;
-                } else {
-                    baseX = -8;
-                    baseY = 2;
-                }
-
-                // Mouse interaction - subtle movement (offset from initial position)
-                const targetX = baseX + (mouse.x * 2); // Keep the base offset and add mouse movement
-                const targetY = baseY + (mouse.y * 1); // Keep the base offset and add mouse movement
-
-                // Keep model at fixed position with subtle mouse interaction only
-                model.position.x += (targetX - model.position.x) * 0.02;
-                model.position.y += (targetY - model.position.y) * 0.02;
-
-                // Update transition materials with current time for orange to blue transition
-                if ((model as any).transitionMaterials) {
-                    (model as any).transitionMaterials.forEach((material: any) => {
-                        if (material.uniforms && material.uniforms.time) {
-                            material.uniforms.time.value = time;
-                        }
-                    });
-                }
-
-                // Animate subtle orange edge glow effect intensity
-                model.traverse((child) => {
-                    if (child instanceof THREE.LineSegments && child.material && child.material.color) {
-                        const colorHex = child.material.color.getHex();
-                        const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.2; // Reduced mouse influence
-                        
-                        // Animate different glow layers with subtle patterns
-                        if (colorHex === 0xff6600) {
-                            // Main edge glow - gentle pulsing
-                            const pulseIntensity = 0.3 + Math.sin(time * 2) * 0.1;
-                            child.material.opacity = Math.min(0.5, pulseIntensity + mouseInfluence);
-                        } else if (colorHex === 0xff4400) {
-                            // Outer glow - very soft pulsing
-                            const pulseIntensity = 0.15 + Math.sin(time * 1.5) * 0.05;
-                            child.material.opacity = Math.min(0.25, pulseIntensity + mouseInfluence * 0.3);
-                        } else if (colorHex === 0xff8844) {
-                            // Inner bright glow - subtle pulsing
-                            const pulseIntensity = 0.2 + Math.sin(time * 2.5) * 0.1;
-                            child.material.opacity = Math.min(0.4, pulseIntensity + mouseInfluence * 0.5);
-                        }
-                    }
-
-                    // Animate orange internal glow meshes
-                    if (child instanceof THREE.Mesh && child.material && child.material.color) {
-                        const colorHex = child.material.color.getHex();
-                        const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.3;
-                        
-                        if (colorHex === 0xff4400) {
-                            // Primary orange internal glow - reduced pulsing
-                            const pulseIntensity = 0.2 + Math.sin(time * 3 + Math.PI) * 0.1;
-                            child.material.opacity = Math.min(0.4, pulseIntensity + mouseInfluence);
-                        } else if (colorHex === 0xff6600) {
-                            // Secondary orange glow - reduced core pulsing
-                            const pulseIntensity = 0.15 + Math.sin(time * 4.5 + Math.PI) * 0.08;
-                            child.material.opacity = Math.min(0.35, pulseIntensity + mouseInfluence * 0.6);
-                        }
-                    }
-                });
-
-                // Animate subtle spherical glow effect around the model
-                if (model.glowSpheres && model.glowMaterials) {
-                    model.glowSpheres.forEach((sphere, index) => {
-                        // Update glow sphere position to follow model
-                        sphere.position.copy(model.position);
-                        
-                        // Very subtle rotation for gentle movement
-                        sphere.rotation.x += 0.002 * (index + 1);
-                        sphere.rotation.y += 0.001 * (index + 1);
-                        sphere.rotation.z += 0.0005 * (index + 1);
-                        
-                        // Gentle scale based on mouse interaction
-                        const mouseDistance = Math.sqrt(mouse.x * mouse.x + mouse.y * mouse.y);
-                        const baseScale = 1 + (index * 0.2); // Reduced scaling difference
-                        const mouseScale = 1 + mouseDistance * 0.1; // Reduced mouse influence
-                        sphere.scale.setScalar(baseScale * mouseScale);
-                    });
-                    
-                    // Update shader uniforms for subtle animated glow
-                    model.glowMaterials.forEach((material, index) => {
-                        if (material.uniforms) {
-                            material.uniforms.time.value = time;
-                            
-                            // Very subtle opacity changes based on mouse interaction
-                            const mouseInfluence = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.02; // Much reduced
-                            const baseOpacity = [0.06, 0.04, 0.03][index]; // Lower base opacity
-                            material.uniforms.opacity.value = baseOpacity + mouseInfluence;
-                        }
-                    });
-                }
-            }
-
-            // Animate floating particles
-            if (modelRef.current && modelRef.current.particleSystem) {
-                const particleSystem = modelRef.current.particleSystem;
-                const velocities = modelRef.current.particleVelocities;
-                const positions = particleSystem.geometry.attributes.position.array;
-                
-                // Update particle positions with faster movement
-                for (let i = 0; i < positions.length; i += 3) {
-                    positions[i] += velocities[i];         // x
-                    positions[i + 1] += velocities[i + 1]; // y
-                    positions[i + 2] += velocities[i + 2]; // z
-                    
-                    // Boundary checks - wrap particles around (larger boundaries)
-                    if (positions[i] > 40) positions[i] = -40;
-                    if (positions[i] < -40) positions[i] = 40;
-                    if (positions[i + 1] > 30) positions[i + 1] = -30;
-                    if (positions[i + 1] < -30) positions[i + 1] = 30;
-                    if (positions[i + 2] > 25) positions[i + 2] = -25;
-                    if (positions[i + 2] < -25) positions[i + 2] = 25;
-                }
-                
-                // Mark positions as needing update
-                particleSystem.geometry.attributes.position.needsUpdate = true;
-                
-                // Update particle material time uniform for faster animation
-                if (modelRef.current.particleMaterial) {
-                    modelRef.current.particleMaterial.uniforms.time.value = time;
-                }
-            }
-
-            // Animate rim lights for subtle dynamic glow
-            if (rimLight1Ref.current) {
-                rimLight1Ref.current.intensity = 1.5 + Math.sin(time * 1.5) * 0.5; // Gentler intensity range
-                rimLight1Ref.current.position.x = -5 + Math.sin(time * 1.0) * 1.5; // Slower, smaller movement
-                rimLight1Ref.current.position.y = Math.cos(time * 1.2) * 1.0;
-            }
-            if (rimLight2Ref.current) {
-                rimLight2Ref.current.intensity = 1.0 + Math.cos(time * 1.8) * 0.4;
-                rimLight2Ref.current.position.x = 5 + Math.cos(time * 0.8) * 1.5;
-                rimLight2Ref.current.position.y = Math.sin(time * 1.0) * 1.0;
-            }
-
-            // Animate additional glow lights subtly
-            if (topGlowLightRef.current) {
-                topGlowLightRef.current.intensity = 0.8 + Math.sin(time * 2.0) * 0.3;
-                topGlowLightRef.current.position.x = Math.sin(time * 0.8) * 2.0;
-            }
-            if (bottomGlowLightRef.current) {
-                bottomGlowLightRef.current.intensity = 0.6 + Math.cos(time * 1.5) * 0.2;
-                bottomGlowLightRef.current.position.x = Math.cos(time * 1.0) * 1.5;
-            }
-
-            // Animate orange internal lights for blooming effect
-            if (orangeInternalLightRef.current && modelRef.current) {
-                // Position orange lights at the model center
-                orangeInternalLightRef.current.position.copy(modelRef.current.position);
-                orangeInternalLightRef.current.intensity = 1.8 + Math.sin(time * 3.5 + Math.PI) * 0.7;
-            }
-            if (orangeCoreLightRef.current && modelRef.current) {
-                orangeCoreLightRef.current.position.copy(modelRef.current.position);
-                orangeCoreLightRef.current.intensity = 1.5 + Math.sin(time * 4.5 + Math.PI) * 0.6;
-            }
-
-            // Camera zoom-in effect on load
-            // Start further away and animate to target z
-            const targetZ = 15;
-            if (!zoomStarted) {
-                camera.position.z = 30;
-                zoomStarted = true;
-            }
-            if (camera.position.z > targetZ) {
-                camera.position.z -= (camera.position.z - targetZ) * 0.08;
-                if (Math.abs(camera.position.z - targetZ) < 0.01) {
-                    camera.position.z = targetZ;
-                }
-            }
-
-            // Move camera slightly based on mouse
-            camera.position.x = mouse.x * 3;
-            camera.position.y = mouse.y * 2;
-            camera.lookAt(0, 0, 0);
-
-            // Animate point light based on mouse
-            pointLight.position.x = mouse.x * 15;
-            pointLight.position.y = mouse.y * 10;
-
-            // Use composer for rendering with post-processing effects
-            if (composerRef.current) {
-                composerRef.current.render();
-            } else {
-                renderer.render(scene, camera);
-            }
-        };
-
-        animate();
+        // Start animation if visible
+        if (isVisibleRef.current) {
+            animate();
+        }
 
         // Handle resize
         const handleResize = () => {
@@ -1010,24 +1045,31 @@ const Interactive3DBackground = () => {
         window.addEventListener('resize', handleResize);
 
         return () => {
-            if (animationIdRef.current) {
-                cancelAnimationFrame(animationIdRef.current);
+            if (animationIdRef) {
+                cancelAnimationFrame(animationIdRef);
             }
             if (mountRef.current && renderer.domElement) {
                 mountRef.current.removeChild(renderer.domElement);
             }
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('resize', handleResize);
+            
+            observer.disconnect();
+            
             renderer.dispose();
         };
     }, []);
 
     return (
-        <div className="absolute inset-0 w-full h-full z-0">
+        <div className="absolute inset-0 w-full h-full z-0" style={{ willChange: 'auto' }}>
             <div
                 ref={mountRef}
                 className="w-full h-full"
-                style={{ touchAction: 'none' }}
+                style={{ 
+                    touchAction: 'none',
+                    transform: 'translateZ(0)', // Force hardware acceleration
+                    backfaceVisibility: 'hidden'
+                }}
             />
             {isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/50">
@@ -1057,7 +1099,7 @@ const Interactive3DBackground = () => {
                 </div>
             </div>
             
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 to-pink-600/5" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-cyan-600/10" />
         </div>
     );
 };
@@ -1066,60 +1108,83 @@ const Index = () => {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    
+    // Optimize scroll performance
+    const handleScrollOptimization = () => {
+      document.documentElement.style.scrollBehavior = 'smooth';
+    };
+    
+    // Set smooth scrolling after initial load
+    setTimeout(handleScrollOptimization, 1000);
+    
+    return () => {
+      document.documentElement.style.scrollBehavior = 'auto';
+    };
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Navbar */}
-      <Navbar />
-      
-      {/* 3D Model Section - Hero Section Only */}
-      <section className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center">
-        <Interactive3DBackground />
-      </section>
+    <SmoothScrollWrapper>
+    <Navbar />
+      <div className="min-h-screen bg-background" style={{ 
+        willChange: 'scroll-position',
+        transform: 'translateZ(0)', // Force hardware acceleration
+        backfaceVisibility: 'hidden'
+      }}>
+        
+        
+        {/* 3D Model Section - Hero Section Only */}
+        <section className="relative w-full h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 overflow-hidden flex items-center justify-center" style={{
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+          backfaceVisibility: 'hidden'
+        }}>
+          <Interactive3DBackground />
+        </section>
 
-      {/* About Content Section */}
-      <div className="relative z-10 bg-white">
-        <AboutContent />
+        {/* About Content Section */}
+        <div className="relative z-10 bg-white" style={{ transform: 'translateZ(0)' }}>
+          <AboutContent />
+        </div>
+        
+        {/* Vision Mission Section */}
+        <div className="relative z-10 bg-white" style={{ transform: 'translateZ(0)' }}>
+          <VisionMissionContent />
+        </div>
+        
+        {/* Vande Bharat Section */}
+        <div className="relative z-10" style={{ transform: 'translateZ(0)' }}>
+          <VandeBharatContent />
+        </div>
+        
+        {/* Services Section */}
+        <div className="relative z-10 bg-white" style={{ transform: 'translateZ(0)' }}>
+          <ServicesContent />
+        </div>
+        
+
+
+              {/* Technology Section */}
+              <div className="relative z-10" style={{ transform: 'translateZ(0)' }}>
+                  <Technology />
+              </div>
+
+
+              {/* Features Section */}
+              <div className="relative z-10" style={{ transform: 'translateZ(0)' }}>
+                  <Features />
+              </div>
+
+              {/* Customers Section */}
+              <div className="relative z-10" style={{ transform: 'translateZ(0)' }}>
+                  <CustomersContent />
+              </div>
+
+              {/* Footer */}
+              <div className="relative z-10" style={{ transform: 'translateZ(0)' }}>
+                  <Footer />
+              </div>
       </div>
-      
-      {/* Vision Mission Section */}
-      <div className="relative z-10 bg-white">
-        <VisionMissionContent />
-      </div>
-      
-      {/* Vande Bharat Section */}
-      <div className="relative z-10">
-        <VandeBharatContent />
-      </div>
-      
-      {/* Services Section */}
-      <div className="relative z-10 bg-white">
-        <ServicesContent />
-      </div>
-      
-
-            {/* Technology Section */}
-            <div className="relative z-10">
-                <Technology />
-            </div>
-
-
-            {/* Features Section */}
-            <div className="relative z-10">
-                <Features />
-            </div>
-
-            {/* Customers Section */}
-            <div className="relative z-10">
-                <Customers />
-            </div>
-
-            {/* Footer */}
-            <div className="relative z-10">
-                <Footer />
-            </div>
-    </div>
+    </SmoothScrollWrapper>
   );
 };
 
