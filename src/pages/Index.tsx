@@ -9,6 +9,8 @@ import Technology from "./Technology";
 import { CustomersContent } from "./Customers";
 import Features from "./Features";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
+import BatteryAnimation from "@/components/BatteryAnimation";
+import Timer from "@/components/Timer";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -35,10 +37,15 @@ const Interactive3DBackground = () => {
     const outlinePass2Ref = useRef(null);
     const [isLoading, setIsLoading] = useState(true);
     const isVisibleRef = useRef(false);
+    const [batteryPercentage, setBatteryPercentage] = useState(0);
     
 
     useEffect(() => {
         if (!mountRef.current) return;
+
+        const chargeInterval = setInterval(() => {
+            setBatteryPercentage(prev => (prev >= 100 ? 0 : prev + 25));
+        }, 1000);
 
         let animationIdRef = null;
 
@@ -1057,6 +1064,7 @@ const Interactive3DBackground = () => {
             observer.disconnect();
             
             renderer.dispose();
+            clearInterval(chargeInterval);
         };
     }, []);
 
@@ -1100,6 +1108,10 @@ const Interactive3DBackground = () => {
             </div>
             
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-transparent" />
+            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 md:left-auto md:right-40 md:top-1/2 md:bottom-auto md:-translate-y-1/2 md:translate-x-0 flex flex-col items-center">
+                <Timer />
+              <BatteryAnimation percentage={batteryPercentage} />
+            </div>
         </div>
     );
 };

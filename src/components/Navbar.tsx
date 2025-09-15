@@ -219,8 +219,8 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
               className={cn(
                 "transition-all duration-300 shadow-lg rounded-full px-6 py-2 font-medium",
                 scrolled 
-                  ? "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white hover:shadow-blue-500/50"
-                  : "bg-gradient-to-r from-blue-400/80 to-purple-500/80 hover:from-blue-500 hover:to-purple-600 text-white hover:shadow-blue-400/50 backdrop-blur-sm"
+                  ? "bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white hover:shadow-green-500/50"
+                  : "bg-gradient-to-r from-green-400/80 to-blue-400/80 hover:from-green-500 hover:to-blue-500 text-white hover:shadow-green-400/50 backdrop-blur-sm"
               )}
               aria-label="Get in touch with us"
             >
@@ -273,7 +273,7 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
                 <div className="mt-auto">
                   <Button
                     asChild
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full px-6 py-2 font-medium shadow-lg hover:shadow-blue-500/50 transition-all duration-300"
+                    className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white rounded-full px-6 py-2 font-medium shadow-lg hover:shadow-green-500/50 transition-all duration-300"
                     aria-label="Get in touch with us"
                   >
                     <Link to="/contact">
