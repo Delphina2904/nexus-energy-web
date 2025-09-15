@@ -1108,7 +1108,7 @@ const Interactive3DBackground = () => {
             </div>
             
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-transparent" />
-            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 md:left-auto md:right-40 md:top-1/2 md:bottom-auto md:-translate-y-1/2 md:translate-x-0 flex flex-col items-center">
+            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 md:left-auto md:right-28 md:top-1/2 md:bottom-auto md:-translate-y-1/2 md:translate-x-0 flex flex-col items-center">
                 <Timer />
               <BatteryAnimation percentage={batteryPercentage} />
             </div>
