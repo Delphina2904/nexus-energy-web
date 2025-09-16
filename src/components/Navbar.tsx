@@ -4,11 +4,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Menu, Calendar } from "lucide-react";
 import { HoverImageEffect } from "@/components/custom/HoverImageEffect";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Helmet } from "react-helmet-async";
 
 const navItems = [
@@ -16,7 +12,7 @@ const navItems = [
   { name: "About", path: "/about" },
   { name: "Services", path: "/services" },
   { name: "Customers", path: "/customers" },
-  
+
   // { name: "Team", path: "/team" },
   { name: "Contact", path: "/contact" },
 ];
@@ -26,15 +22,18 @@ type NavbarProps = {
   description?: string;
 };
 
-export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Solutions", description = "Leading provider of advanced battery storage solutions for residential, commercial, and industrial applications. Transform your energy future with our cutting-edge technology." }: NavbarProps) => {
+export const Navbar = ({
+  title = "Nexus Energy - Advanced Battery Storage Solutions",
+  description = "Leading provider of advanced battery storage solutions for residential, commercial, and industrial applications. Transform your energy future with our cutting-edge technology.",
+}: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       // Check if we're on the home page
-      const isHomePage = location.pathname === '/';
-      
+      const isHomePage = location.pathname === "/";
+
       if (isHomePage) {
         // On home page, check if we've scrolled past the hero section (3D model)
         // Hero section is typically 100vh, so we check if we've scrolled past that
@@ -47,17 +46,21 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
     };
 
     window.addEventListener("scroll", handleScroll);
-    
+
     // Also trigger on location change to reset state
     handleScroll();
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
 
   const openWhatsAppBooking = () => {
-    const message = "Hello! I'd like to book a 15-minute free consultation call. Please let me know your available time slots. Thank you!";
+    const message =
+      "Hello! I'd like to book a 15-minute free consultation call. Please let me know your available time slots. Thank you!";
     const phoneNumber = "918104796542";
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(
+      `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
   };
 
   // Create page-specific metadata based on current path
@@ -65,65 +68,77 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
     const path = location.pathname;
     let pageTitle = title;
     let pageDescription = description;
-    let pageKeywords = "AI Agents, web development, digital solutions, business transformation";
-    
-    switch(path) {
+    let pageKeywords =
+      "AI Agents, web development, digital solutions, business transformation";
+
+    switch (path) {
       case "/services":
-        pageTitle = "Services - Nexus Energy | Advanced Battery Storage Solutions";
-        pageDescription = "Explore our comprehensive range of battery storage solutions including residential systems, commercial installations, and industrial energy storage";
-        pageKeywords = "battery storage, energy solutions, residential batteries, commercial energy storage, industrial power systems";
+        pageTitle =
+          "Services - Nexus Energy | Advanced Battery Storage Solutions";
+        pageDescription =
+          "Explore our comprehensive range of battery storage solutions including residential systems, commercial installations, and industrial energy storage";
+        pageKeywords =
+          "battery storage, energy solutions, residential batteries, commercial energy storage, industrial power systems";
         break;
       case "/portfolio":
         pageTitle = "Portfolio - Nexus Energy | Our Projects & Case Studies";
-        pageDescription = "View our portfolio of successful battery storage installations and energy solutions delivered to residential and commercial clients";
-        pageKeywords = "portfolio, projects, case studies, battery installations, energy projects, storage solutions";
+        pageDescription =
+          "View our portfolio of successful battery storage installations and energy solutions delivered to residential and commercial clients";
+        pageKeywords =
+          "portfolio, projects, case studies, battery installations, energy projects, storage solutions";
         break;
       case "/about":
         pageTitle = "About Us - Nexus Energy | Our Story & Values";
-        pageDescription = "Learn about our team of energy experts, mission, values and our journey to becoming a leading battery storage solutions provider";
-        pageKeywords = "about us, company story, mission, values, team, energy company";
+        pageDescription =
+          "Learn about our team of energy experts, mission, values and our journey to becoming a leading battery storage solutions provider";
+        pageKeywords =
+          "about us, company story, mission, values, team, energy company";
         break;
       case "/contact":
         pageTitle = "Contact Us - Nexus Energy | Get in Touch";
-        pageDescription = "Contact our team for inquiries, quotes or to discuss your energy storage needs. Get expert consultation for your project.";
-        pageKeywords = "contact, support, inquiry, consultation, energy consultation, project discussion";
+        pageDescription =
+          "Contact our team for inquiries, quotes or to discuss your energy storage needs. Get expert consultation for your project.";
+        pageKeywords =
+          "contact, support, inquiry, consultation, energy consultation, project discussion";
         break;
       default:
         // Home page or fallback
         pageTitle = "Nexus Energy | Advanced Battery Storage Solutions";
-        pageDescription = "Leading provider of advanced battery storage solutions for residential, commercial, and industrial applications. Transform your energy future with our cutting-edge technology.";
-        pageKeywords = "battery storage, energy solutions, renewable energy, power systems, energy independence";
+        pageDescription =
+          "Leading provider of advanced battery storage solutions for residential, commercial, and industrial applications. Transform your energy future with our cutting-edge technology.";
+        pageKeywords =
+          "battery storage, energy solutions, renewable energy, power systems, energy independence";
     }
-    
+
     return { pageTitle, pageDescription, pageKeywords };
   };
-  
+
   const { pageTitle, pageDescription, pageKeywords } = getPageMetadata();
 
   // Create structured data for organization
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Nexus Energy",
-    "url": "https://nexusenergy.com",
-    "logo": "https://nexusenergy.com/nexuslogo.png",
-    "description": "Leading provider of advanced battery storage solutions",
-    "address": {
+    name: "Nexus Energy",
+    url: "https://nexusenergy.com",
+    logo: "https://nexusenergy.com/nexuslogo.png",
+    description: "Leading provider of advanced battery storage solutions",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Mumbai",
-      "addressRegion": "Maharashtra",
-      "addressCountry": "India"
+      addressLocality: "Mumbai",
+      addressRegion: "Maharashtra",
+      addressCountry: "India",
     },
-    "contactPoint": {
+    contactPoint: {
       "@type": "ContactPoint",
-      "telephone": "+918104796542",
-      "contactType": "customer service",
-      "email": "deonmenezescodes@gmail.com"
+      telephone: "+918104796542",
+      contactType: "customer service",
+      email: "deonmenezescodes@gmail.com",
     },
-    "sameAs": [
+    sameAs: [
       "https://www.linkedin.com/company/nexusenergy",
-      "https://www.instagram.com/nexusenergy"
-    ]
+      "https://www.instagram.com/nexusenergy",
+    ],
   };
 
   return (
@@ -134,29 +149,44 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
         <meta name="title" content={pageTitle} />
         <meta name="description" content={pageDescription} />
         <meta name="keywords" content={pageKeywords} />
-        
+
         {/* Canonical URL */}
-        <link rel="canonical" href={`https://nexusenergy.com${location.pathname}`} />
-        
+        <link
+          rel="canonical"
+          href={`https://nexusenergy.com${location.pathname}`}
+        />
+
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://nexusenergy.com${location.pathname}`} />
+        <meta
+          property="og:url"
+          content={`https://nexusenergy.com${location.pathname}`}
+        />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
-        <meta property="og:image" content="https://nexusenergy.com/nexuslogo-.png" />
-        
+        <meta
+          property="og:image"
+          content="https://nexusenergy.com/nexuslogo-.png"
+        />
+
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={`https://nexusenergy.com${location.pathname}`} />
+        <meta
+          property="twitter:url"
+          content={`https://nexusenergy.com${location.pathname}`}
+        />
         <meta property="twitter:title" content={pageTitle} />
         <meta property="twitter:description" content={pageDescription} />
-        <meta property="twitter:image" content="https://nexusenergy.com/nexuslogo-.png" />
-        
+        <meta
+          property="twitter:image"
+          content="https://nexusenergy.com/nexuslogo-.png"
+        />
+
         {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
-        
+
         {/* Additional SEO Tags */}
         <meta name="robots" content="index, follow" />
         <meta name="language" content="English" />
@@ -166,29 +196,50 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
       </Helmet>
 
       <header
+        style={{ position: "fixed" }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out",
           scrolled
-            ? "py-2 shadow-lg border-b border-blue-500/30 bg-white/95 backdrop-blur-md"
+            ? "py-2  shadow-lg border-b border-blue-500/30 bg-white/95 backdrop-blur-md"
             : "py-4 bg-transparent"
         )}
         role="banner"
       >
-        <nav className="container flex items-center justify-between" role="navigation" aria-label="Main Navigation">
+        <nav
+          className="container flex items-center justify-between"
+          role="navigation"
+          aria-label="Main Navigation"
+        >
           <Link
             to="/"
             className="flex items-center gap-2 font-bold"
             aria-label="Nexus Energy Homepage"
           >
             {/* Mobile view: Show Nexus Energy logo only */}
-            <img src="/nexuslogo.png" alt="Nexus Energy Logo" className="h-12 md:hidden" width="48" height="48" />
+            <img
+              src="/nexuslogo.png"
+              alt="Nexus Energy Logo"
+              className="h-12 md:hidden"
+              width="48"
+              height="48"
+            />
             {/* Desktop view: Show Nexus Energy logo and text */}
             <span className="hidden md:flex items-center gap-2">
-              <img src="/nexuslogo.png" alt="Nexus Energy Logo" className="h-10" width="40" height="40" />
-              <span className={cn(
-                "text-2xl font-bold tracking-wide transition-colors duration-300",
-                scrolled ? "text-gray-900" : "text-white"
-              )}>Nexus Energy</span>
+              <img
+                src="/nexuslogo.png"
+                alt="Nexus Energy Logo"
+                className="h-10"
+                width="40"
+                height="40"
+              />
+              <span
+                className={cn(
+                  "text-2xl font-bold tracking-wide transition-colors duration-300",
+                  scrolled ? "text-gray-900" : "text-white"
+                )}
+              >
+                Nexus Energy
+              </span>
             </span>
           </Link>
 
@@ -201,11 +252,17 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
                   className={cn(
                     "text-lg font-medium transition-colors duration-300 hover:text-blue-400 relative animated-underline",
                     location.pathname === item.path
-                      ? scrolled ? "text-blue-600" : "text-blue-400"
-                      : scrolled ? "text-gray-700 hover:text-blue-600" : "text-gray-200 hover:text-blue-300"
+                      ? scrolled
+                        ? "text-blue-600"
+                        : "text-blue-400"
+                      : scrolled
+                      ? "text-gray-700 hover:text-blue-600"
+                      : "text-gray-200 hover:text-blue-300"
                   )}
                   role="menuitem"
-                  aria-current={location.pathname === item.path ? "page" : undefined}
+                  aria-current={
+                    location.pathname === item.path ? "page" : undefined
+                  }
                 >
                   {item.name}
                 </Link>
@@ -214,19 +271,17 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
           </ul>
 
           <div className="hidden md:flex items-center gap-4">
-            <Button 
+            <Button
               asChild
               className={cn(
                 "transition-all duration-300 shadow-lg rounded-full px-6 py-2 font-medium",
-                scrolled 
+                scrolled
                   ? "bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white hover:shadow-green-500/50"
                   : "bg-gradient-to-r from-green-400/80 to-blue-400/80 hover:from-green-500 hover:to-blue-500 text-white hover:shadow-green-400/50 backdrop-blur-sm"
               )}
               aria-label="Get in touch with us"
             >
-              <Link to="/contact">
-                Get Contact
-              </Link>
+              <Link to="/contact">Get Contact</Link>
             </Button>
           </div>
 
@@ -238,7 +293,9 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
                 size="icon"
                 className={cn(
                   "md:hidden transition-colors duration-300",
-                  scrolled ? "text-gray-900 hover:text-blue-600" : "text-white hover:text-blue-300"
+                  scrolled
+                    ? "text-gray-900 hover:text-blue-600"
+                    : "text-white hover:text-blue-300"
                 )}
                 aria-label="Open navigation menu"
               >
@@ -247,9 +304,22 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <nav className="flex flex-col h-full" aria-label="Mobile Navigation">
-                <Link to="/" className="flex items-center gap-2 font-bold py-4 border-b" aria-label="Nexus Energy Homepage">
-                  <img src="/nexuslogo.png" alt="Nexus Energy Logo" className="h-6" width="24" height="24" />
+              <nav
+                className="flex flex-col h-full"
+                aria-label="Mobile Navigation"
+              >
+                <Link
+                  to="/"
+                  className="flex items-center gap-2 font-bold py-4 border-b"
+                  aria-label="Nexus Energy Homepage"
+                >
+                  <img
+                    src="/nexuslogo.png"
+                    alt="Nexus Energy Logo"
+                    className="h-6"
+                    width="24"
+                    height="24"
+                  />
                   <span className="text-lg font-bold">Nexus Energy</span>
                 </Link>
                 <div className="flex flex-col gap-3 py-4" role="menu">
@@ -264,7 +334,9 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
                           : "text-muted-foreground hover:bg-muted"
                       )}
                       role="menuitem"
-                      aria-current={location.pathname === item.path ? "page" : undefined}
+                      aria-current={
+                        location.pathname === item.path ? "page" : undefined
+                      }
                     >
                       {item.name}
                     </Link>
@@ -276,9 +348,7 @@ export const Navbar = ({ title = "Nexus Energy - Advanced Battery Storage Soluti
                     className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white rounded-full px-6 py-2 font-medium shadow-lg hover:shadow-green-500/50 transition-all duration-300"
                     aria-label="Get in touch with us"
                   >
-                    <Link to="/contact">
-                      Get Contact
-                    </Link>
+                    <Link to="/contact">Get Contact</Link>
                   </Button>
                 </div>
               </nav>
