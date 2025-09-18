@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Images } from "../constants";
-import trainImage from "../assets/0.png";
+import trainImage from "../assets/vande.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { GlowCard } from "../components/GlowCard";
 
 // Custom hook for mobile detection
 const useIsMobile = () => {
@@ -240,14 +241,18 @@ export const ServicesContent = () => {
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-semibold text-slate-900 leading-tight mb-4">
             Vande Bharat (T-18) Train Coach <span className="text-slate-900">Battery</span> <span className="text-slate-900">System</span>
           </h2>
-          <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-[0_20px_35px_rgba(15,23,42,0.08)]">
+          <GlowCard
+            glowColor="blue"
+            customSize={true}
+            className="overflow-hidden border border-slate-200 shadow-[0_20px_35px_rgba(15,23,42,0.08)]"
+          >
             <img
               src={trainImage}
               alt="Vande Bharat Train Battery System"
               className="w-full h-auto object-cover"
               loading="lazy"
             />
-          </div>
+          </GlowCard>
         </div>
 
         {/* Header Section */}
@@ -264,13 +269,26 @@ export const ServicesContent = () => {
         {/* Services Slider */}
         <div className="services-slider max-w-6xl mx-auto">
           <Slider {...sliderSettings}>
-            {services.map((service, index) => (
-              <div key={index} className="h-full px-2 md:px-3">
-                <div
-                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full flex flex-col"
-                  onMouseEnter={() => setHoveredCard(index)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
+            {services.map((service, index) => {
+              // Assign different glow colors based on service type
+              const getGlowColor = (title: string) => {
+                if (title.includes("E-Mobility")) return "blue";
+                if (title.includes("Renewable Energy")) return "green";
+                if (title.includes("Agricultural")) return "orange";
+                if (title.includes("Defense")) return "red";
+                if (title.includes("Industrial")) return "purple";
+                return "blue";
+              };
+
+              return (
+                <div key={index} className="h-full px-2 md:px-3">
+                  <GlowCard
+                    glowColor={getGlowColor(service.title)}
+                    customSize={true}
+                    className="group relative bg-white shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full flex flex-col"
+                    onMouseEnter={() => setHoveredCard(index)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                  >
                   {/* Card Content */}
                   <div className="flex flex-col h-full">
                     {/* Image Section */}
@@ -360,9 +378,10 @@ export const ServicesContent = () => {
                       </svg>
                     </div>
                   </div>
+                  </GlowCard>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </Slider>
         </div>
       </div>

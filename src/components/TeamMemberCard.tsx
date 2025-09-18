@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { GlowCard } from "./GlowCard";
 
 interface TeamMemberCardProps {
   name: string;
@@ -36,7 +37,11 @@ export const TeamMemberCard = ({
       >
         {/* Front Side */}
         <div className="absolute w-full h-full backface-hidden">
-          <div className="w-full h-full rounded-xl overflow-hidden bg-card shadow-lg">
+          <GlowCard
+            glowColor="purple"
+            customSize={true}
+            className="w-full h-full overflow-hidden bg-card shadow-lg"
+          >
             <div className="h-3/5 overflow-hidden">
               <img
                 src={image}
@@ -62,12 +67,16 @@ export const TeamMemberCard = ({
                 ))}
               </div>
             </div>
-          </div>
+          </GlowCard>
         </div>
 
         {/* Back Side */}
         <div className="absolute w-full h-full backface-hidden rotate-y-180">
-          <div className="w-full h-full rounded-xl bg-primary p-6 flex flex-col justify-center text-white">
+          <GlowCard
+            glowColor="green"
+            customSize={true}
+            className="w-full h-full bg-primary p-6 flex flex-col justify-center text-white"
+          >
             <h3 className="text-xl font-bold mb-3">{name}</h3>
             <p className="text-white/80 font-medium mb-4">{role}</p>
             <p className="text-white/90">{bio}</p>
@@ -85,7 +94,7 @@ export const TeamMemberCard = ({
                 </a>
               ))}
             </div>
-          </div>
+          </GlowCard>
         </div>
       </div>
     </div>

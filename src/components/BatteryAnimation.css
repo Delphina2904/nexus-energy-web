@@ -27,7 +27,9 @@
   flex-direction: column-reverse;
   padding: 4px;
   box-sizing: border-box;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease;
+  will-change: border-color;
+  transform: translateZ(0);
 }
 
 .battery-shell:hover {
@@ -57,27 +59,27 @@
   flex-grow: 1;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 2px;
-  transition: all 0.4s ease;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
   opacity: 0.3;
-  will-change: transform, background-color, box-shadow;
-  transform: translateZ(0); /* Force GPU acceleration */
+  will-change: background-color, opacity;
+  transform: translate3d(0, 0, 0);
 }
 
 .charging-bar.filled {
   background-color: #00ff00;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
   opacity: 0.9;
-  animation: batteryGlow 2s ease-in-out infinite alternate;
+  animation: batteryGlow 1.5s ease-in-out infinite alternate;
 }
 
-/* GPU-accelerated animation */
+/* Optimized GPU-accelerated animation */
 @keyframes batteryGlow {
   0% {
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-    transform: translateZ(0) scale(1);
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   100% {
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
-    transform: translateZ(0) scale(1.02);
+    box-shadow: 0 0 12px rgba(0, 255, 0, 0.6);
+    transform: translate3d(0, 0, 0) scale(1.01);
   }
 }
