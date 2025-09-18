@@ -1,16 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { AboutContent } from "./About";
-import { VisionMissionContent } from "./VisionMission";
-import { VandeBharatContent } from "./VandeBharat";
 import { ServicesContent } from "./Services";
-import Technology from "./Technology";
-import { CustomersContent } from "./Customers";
-import Features from "./Features";
+import ServicesSection from "@/components/ServicesSection";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import BatteryAnimation from "@/components/BatteryAnimation";
 import Timer from "@/components/Timer";
+import InnovationSection from "@/components/InnovationSection";
+import EcosystemBenefits from "@/components/EcosystemBenefits";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
@@ -42,9 +39,10 @@ const Interactive3DBackground = () => {
   useEffect(() => {
     if (!mountRef.current) return;
 
+    // Smooth battery animation: 0 -> 100 in ~15 seconds (simulating 15 min)
     const chargeInterval = setInterval(() => {
-      setBatteryPercentage((prev) => (prev >= 100 ? 0 : prev + 25));
-    }, 1000);
+      setBatteryPercentage((prev) => (prev >= 100 ? 0 : prev + 1));
+    }, 150);
 
     let animationIdRef = null;
 
@@ -52,7 +50,9 @@ const Interactive3DBackground = () => {
     let zoomStarted = false;
     let startTime = null;
 
-    const animate = () => {
+    let lastFpsTime = 0;
+    let frameToggle = false; // update particles every other frame to reduce cost
+    const animate = (now?: number) => {
       if (!isVisibleRef.current) {
         if (animationIdRef) {
           cancelAnimationFrame(animationIdRef);
@@ -60,6 +60,14 @@ const Interactive3DBackground = () => {
         }
         return;
       }
+
+      // throttle to ~60fps
+      const nowMs = now || performance.now();
+      if (nowMs - lastFpsTime < 16) {
+        animationIdRef = requestAnimationFrame(animate);
+        return;
+      }
+      lastFpsTime = nowMs;
 
       animationIdRef = requestAnimationFrame(animate);
 
@@ -98,7 +106,7 @@ const Interactive3DBackground = () => {
         model.position.x += (targetX - model.position.x) * 0.02;
         model.position.y += (targetY - model.position.y) * 0.02;
 
-        // Update transition materials with current time for orange to blue transition
+        // Update transition materials with current time for color transitions
         if ((model as any).transitionMaterials) {
           (model as any).transitionMaterials.forEach((material: any) => {
             if (material.uniforms && material.uniforms.time) {
@@ -106,71 +114,6 @@ const Interactive3DBackground = () => {
             }
           });
         }
-
-        // Animate subtle orange edge glow effect intensity
-        model.traverse((child) => {
-          if (
-            child instanceof THREE.LineSegments &&
-            child.material &&
-            child.material.color
-          ) {
-            const colorHex = child.material.color.getHex();
-            const mouseInfluence =
-              (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.2; // Reduced mouse influence
-
-            // Animate different glow layers with subtle patterns
-            if (colorHex === 0xff6600) {
-              // Main edge glow - gentle pulsing
-              const pulseIntensity = 0.3 + Math.sin(time * 2) * 0.1;
-              child.material.opacity = Math.min(
-                0.5,
-                pulseIntensity + mouseInfluence
-              );
-            } else if (colorHex === 0xff4400) {
-              // Outer glow - very soft pulsing
-              const pulseIntensity = 0.15 + Math.sin(time * 1.5) * 0.05;
-              child.material.opacity = Math.min(
-                0.25,
-                pulseIntensity + mouseInfluence * 0.3
-              );
-            } else if (colorHex === 0xff8844) {
-              // Inner bright glow - subtle pulsing
-              const pulseIntensity = 0.2 + Math.sin(time * 2.5) * 0.1;
-              child.material.opacity = Math.min(
-                0.4,
-                pulseIntensity + mouseInfluence * 0.5
-              );
-            }
-          }
-
-          // Animate orange internal glow meshes
-          if (
-            child instanceof THREE.Mesh &&
-            child.material &&
-            child.material.color
-          ) {
-            const colorHex = child.material.color.getHex();
-            const mouseInfluence =
-              (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.3;
-
-            if (colorHex === 0xff4400) {
-              // Primary orange internal glow - reduced pulsing
-              const pulseIntensity = 0.2 + Math.sin(time * 3 + Math.PI) * 0.1;
-              child.material.opacity = Math.min(
-                0.4,
-                pulseIntensity + mouseInfluence
-              );
-            } else if (colorHex === 0xff6600) {
-              // Secondary orange glow - reduced core pulsing
-              const pulseIntensity =
-                0.15 + Math.sin(time * 4.5 + Math.PI) * 0.08;
-              child.material.opacity = Math.min(
-                0.35,
-                pulseIntensity + mouseInfluence * 0.6
-              );
-            }
-          }
-        });
 
         // Animate subtle spherical glow effect around the model
         if (model.glowSpheres && model.glowMaterials) {
@@ -213,23 +156,24 @@ const Interactive3DBackground = () => {
         const velocities = modelRef.current.particleVelocities;
         const positions = particleSystem.geometry.attributes.position.array;
 
-        // Update particle positions with faster movement
-        for (let i = 0; i < positions.length; i += 3) {
-          positions[i] += velocities[i]; // x
-          positions[i + 1] += velocities[i + 1]; // y
-          positions[i + 2] += velocities[i + 2]; // z
+        // Update particle positions on alternate frames to reduce CPU
+        frameToggle = !frameToggle;
+        if (frameToggle) {
+          for (let i = 0; i < positions.length; i += 3) {
+            positions[i] += velocities[i];
+            positions[i + 1] += velocities[i + 1];
+            positions[i + 2] += velocities[i + 2];
 
-          // Boundary checks - wrap particles around (larger boundaries)
-          if (positions[i] > 40) positions[i] = -40;
-          if (positions[i] < -40) positions[i] = 40;
-          if (positions[i + 1] > 30) positions[i + 1] = -30;
-          if (positions[i + 1] < -30) positions[i + 1] = 30;
-          if (positions[i + 2] > 25) positions[i + 2] = -25;
-          if (positions[i + 2] < -25) positions[i + 2] = 25;
+            // Boundary checks - wrap particles around
+            if (positions[i] > 40) positions[i] = -40;
+            if (positions[i] < -40) positions[i] = 40;
+            if (positions[i + 1] > 30) positions[i + 1] = -30;
+            if (positions[i + 1] < -30) positions[i + 1] = 30;
+            if (positions[i + 2] > 25) positions[i + 2] = -25;
+            if (positions[i + 2] < -25) positions[i + 2] = 25;
+          }
+          particleSystem.geometry.attributes.position.needsUpdate = true;
         }
-
-        // Mark positions as needing update
-        particleSystem.geometry.attributes.position.needsUpdate = true;
 
         // Update particle material time uniform for faster animation
         if (modelRef.current.particleMaterial) {
@@ -941,7 +885,7 @@ const Interactive3DBackground = () => {
         modelRef.current.glowMaterials = glowMaterials;
 
         // Create floating particles system
-        const particleCount = 800; // Increased from 150 to 500
+        const particleCount = 300; // Reduced for performance
         const particleGeometry = new THREE.BufferGeometry();
         const particlePositions = new Float32Array(particleCount * 3);
         const particleVelocities = new Float32Array(particleCount * 3);
@@ -1202,7 +1146,7 @@ const Interactive3DBackground = () => {
       </div>
 
       <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-transparent" />
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 md:left-auto md:right-28 md:top-1/2 md:bottom-auto md:-translate-y-1/2 md:translate-x-0 flex flex-col items-center">
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-4">
         <Timer />
         <BatteryAnimation percentage={batteryPercentage} />
       </div>
@@ -1233,7 +1177,7 @@ const Index = () => {
     <SmoothScrollWrapper>
       <Navbar />
       <div
-        className="min-h-screen bg-background"
+        className="bg-background overflow-x-hidden"
         style={{
           willChange: "scroll-position",
           transform: "translateZ(0)", // Force hardware acceleration
@@ -1242,7 +1186,7 @@ const Index = () => {
       >
         {/* 3D Model Section - Hero Section Only */}
         <section
-          className="relative h-screen bg-gradient-to-br from-blue-900 via-black to-black"
+          className="relative h-screen overflow-hidden bg-gradient-to-br from-blue-900 via-black to-black"
           style={{
             willChange: "transform",
             transform: "translateZ(0)",
@@ -1252,25 +1196,11 @@ const Index = () => {
           <Interactive3DBackground />
         </section>
 
-        {/* About Content Section */}
-        <div
-          className="relative z-10 bg-white"
-          style={{ transform: "translateZ(0)" }}
-        >
-          <AboutContent />
-        </div>
+        {/* Vande Bharat Section removed as requested */}
 
-        {/* Vision Mission Section */}
-        <div
-          className="relative z-10 bg-white"
-          style={{ transform: "translateZ(0)" }}
-        >
-          <VisionMissionContent />
-        </div>
-
-        {/* Vande Bharat Section */}
-        <div className="relative z-10" style={{ transform: "translateZ(0)" }}>
-          <VandeBharatContent />
+        {/* Innovation Section (new) */}
+        <div className="relative z-10 bg-white" style={{ transform: "translateZ(0)" }}>
+          <InnovationSection />
         </div>
 
         {/* Services Section */}
@@ -1278,22 +1208,10 @@ const Index = () => {
           className="relative z-10 bg-white"
           style={{ transform: "translateZ(0)" }}
         >
+          <ServicesSection />
+          <EcosystemBenefits />
           <ServicesContent />
-        </div>
 
-        {/* Technology Section */}
-        <div className="relative z-10" style={{ transform: "translateZ(0)" }}>
-          <Technology />
-        </div>
-
-        {/* Features Section */}
-        <div className="relative z-10" style={{ transform: "translateZ(0)" }}>
-          <Features />
-        </div>
-
-        {/* Customers Section */}
-        <div className="relative z-10" style={{ transform: "translateZ(0)" }}>
-          <CustomersContent />
         </div>
 
         {/* Footer */}

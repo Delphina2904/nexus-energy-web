@@ -4,6 +4,17 @@
   align-items: center;
 }
 
+.battery-label {
+  color: #e8feff;
+  font-family: "Orbitron", Arial, sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 10px rgba(0, 221, 255, 0.4);
+  margin-bottom: 6px;
+  text-align: center;
+}
+
 .battery-shell {
   width: 60px;
   height: 110px;

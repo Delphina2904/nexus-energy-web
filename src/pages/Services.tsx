@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Images } from "../constants";
+import trainImage from "../assets/0.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -228,6 +229,27 @@ export const ServicesContent = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8">
+        {/* Vande Bharat Hero - placed above Precision-Engineered Solutions */}
+        <div className="mb-10 md:mb-14">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-100">
+              Railway Applications
+            </span>
+            <span className="hidden md:inline-block h-px w-8 bg-blue-300 rounded"></span>
+          </div>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-semibold text-slate-900 leading-tight mb-4">
+            Vande Bharat (T-18) Train Coach <span className="text-slate-900">Battery</span> <span className="text-slate-900">System</span>
+          </h2>
+          <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-[0_20px_35px_rgba(15,23,42,0.08)]">
+            <img
+              src={trainImage}
+              alt="Vande Bharat Train Battery System"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
         {/* Header Section */}
         <div className="text-center mb-12 md:mb-16">
           <h2 className="select-none text-3xl md:text-5xl lg:text-6xl font-semibold bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 bg-clip-text text-transparent mb-8 leading-tight py-2">
