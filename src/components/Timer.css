@@ -5,23 +5,25 @@
 }
 
 .timer-svg {
-  filter: drop-shadow(0 0 8px rgba(0, 221, 255, 0.35));
+  filter: drop-shadow(0 0 6px rgba(0, 221, 255, 0.3));
 }
 
 .timer-track {
   fill: none;
-  stroke: rgba(0, 221, 255, 0.15);
-  stroke-width: 8;
+  stroke: rgba(0, 221, 255, 0.3);
+  stroke-width: 1.5;
 }
 
-.timer-arc {
-  fill: none;
-  stroke: #00ddff;
-  stroke-opacity: 0.9;
-  stroke-width: 8;
-  transform: rotate(-90deg);
-  transform-origin: 36px 36px;
-  stroke-dasharray: 0 999;
+.timer-highlight {
+  fill: #00ff88;
+  opacity: 1;
+  stroke: none;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.8));
+}
+
+.hour-mark {
+  stroke: rgba(0, 221, 255, 0.5);
+  stroke-width: 1;
 }
 
 .timer-label {
@@ -30,21 +32,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
   font-family: "Orbitron", "Arial", sans-serif;
 }
 
 .timer-minutes {
-  color: #c8fbff;
+  color: #ffffff;
   font-weight: 800;
-  font-size: 1.25rem;
-  text-shadow: 0 0 12px rgba(0, 221, 255, 0.5);
+  font-size: 1.1rem;
+  text-shadow: 
+    2px 0 0 #00ddff,
+    -2px 0 0 #ff0080,
+    0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 .timer-unit {
-  color: #c8fbff;
-  opacity: 0.8;
-  font-size: 0.6rem;
+  color: #ffffff;
+  opacity: 1;
+  font-size: 0.5rem;
+  font-weight: 600;
+  text-shadow: 
+    1px 0 0 #00ddff,
+    -1px 0 0 #ff0080,
+    0 0 6px rgba(255, 255, 255, 0.6);
 }
 
 @media (max-width: 768px) {

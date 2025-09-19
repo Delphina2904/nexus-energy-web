@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import trainImage from "../assets/0.png";
+import trainImage from "../assets/vande.png";
 import batteryImage from "../assets/62.jpg";
 
 // Export the main VandeBharat content without Navbar/Footer for embedding

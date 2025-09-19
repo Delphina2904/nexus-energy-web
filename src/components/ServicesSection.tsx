@@ -55,23 +55,8 @@ const services = [
 
 const ServicesSection: React.FC = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-8 md:py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Quote Section */}
-        <div className="text-center mb-12 md:mb-16">
-          <div className="relative inline-block bg-white rounded-2xl shadow-lg border border-gray-100 px-8 py-6 mb-8 overflow-hidden">
-            <GlowEffect
-              colors={['#3B82F6', '#1E40AF', '#1D4ED8', '#2563EB']}
-              mode="breathe"
-              blur="soft"
-              scale={1.1}
-              duration={3}
-            />
-            <p className="relative text-lg md:text-xl text-gray-700 italic font-medium z-10">
-              "We don't just build batteries—we architect energy ecosystems."
-            </p>
-          </div>
-        </div>
 
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold text-blue-600 mb-6 leading-tight">

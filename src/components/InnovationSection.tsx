@@ -26,24 +26,20 @@ const InnovationSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative z-10 bg-white py-14 md:py-20">
+    <section className="relative z-10 bg-white py-8 md:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-stretch">
           {/* Left visual panel */}
-          <div className="lg:col-span-5 flex flex-col">
-            <div className="relative flex-1">
-              {/* Background decorative circles */}
-              <div className="absolute -left-2 -top-2 w-6 h-6 rounded-full bg-blue-500/90 shadow-[0_0_0_6px_rgba(59,130,246,0.2)]" />
-              <div className="absolute -right-2 bottom-10 w-4 h-4 rounded-full bg-blue-500/90 shadow-[0_0_0_6px_rgba(59,130,246,0.15)]" />
-              <div className="absolute -left-1 bottom-1 w-3 h-3 rounded-full bg-blue-500/90 shadow-[0_0_0_6px_rgba(59,130,246,0.15)]" />
+          <div className="lg:col-span-6 flex flex-col">
+            <div className="relative flex-1 mt-16">
 
               <GlowCard
                 glowColor="blue"
                 customSize={true}
-                className="relative shadow-[0_20px_40px_rgba(15,23,42,0.08)] border border-slate-100 bg-white p-3 h-full transition-all duration-300 hover:shadow-[0_25px_50px_rgba(59,130,246,0.15)] hover:scale-105 hover:border-blue-200"
+                className="relative shadow-[0_20px_40px_rgba(15,23,42,0.08)] border border-slate-100 bg-white p-2 h-auto transition-all duration-300 hover:shadow-[0_25px_50px_rgba(59,130,246,0.15)] hover:scale-105 hover:border-blue-200"
               >
                 {/* Battery Image */}
-                <div className="flex items-center justify-center h-full group">
+                <div className="flex items-center justify-center group">
                   <div className="w-full max-w-lg transition-transform duration-300 group-hover:scale-110">
                     <img src="/battery.png" alt="Battery" className="w-full h-auto object-contain transition-all duration-300 group-hover:brightness-110 group-hover:drop-shadow-lg" loading="lazy" />
                   </div>
@@ -53,7 +49,7 @@ const InnovationSection: React.FC = () => {
           </div>
 
           {/* Right content and breakthrough cards */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-6">
             <div className="mb-8">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-900 leading-tight mb-4 text-left">
                 Our innovation hub houses India's foremost electrochemistry research facility, where cross-disciplinary teams pioneer breakthroughs in:
@@ -85,7 +81,7 @@ const InnovationSection: React.FC = () => {
                     </p>
                     
                     {/* Arrow */}
-                    <div className="flex justify-end">
+                    <div className="flex justify-center">
                       <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center group-hover:translate-x-1 transition-transform duration-300">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

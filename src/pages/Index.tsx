@@ -8,6 +8,10 @@ import BatteryAnimation from "@/components/BatteryAnimation";
 import Timer from "@/components/Timer";
 import InnovationSection from "@/components/InnovationSection";
 import EcosystemBenefits from "@/components/EcosystemBenefits";
+import QuoteSection from "@/components/QuoteSection";
+import ProductEcosystem from "@/components/ProductEcosystem";
+import trainImage from "@/assets/vande.png";
+import { GlowCard } from "@/components/GlowCard";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
@@ -1196,13 +1200,17 @@ const Index = () => {
           <Interactive3DBackground />
         </section>
 
-        {/* Vande Bharat Section removed as requested */}
+        {/* Product Ecosystem Section */}
+        <ProductEcosystem />
 
         {/* Innovation Section (new) */}
         <div className="relative z-10 bg-white" style={{ transform: "translateZ(0)" }}>
           <InnovationSection />
         </div>
 
+        {/* Quote Section */}
+        <QuoteSection />
+        
         {/* Services Section */}
         <div
           className="relative z-10 bg-white"
@@ -1210,8 +1218,45 @@ const Index = () => {
         >
           <ServicesSection />
           <EcosystemBenefits />
-          <ServicesContent />
+        </div>
 
+        {/* Railway Applications Section */}
+        <div className="relative z-10 bg-white py-16 md:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Header */}
+            <div className="text-center mb-8 md:mb-12">
+              <div className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-4">
+                Railway Applications
+              </div>
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                Vande Bharat (T-18) Train Coach Battery System
+              </h3>
+            </div>
+            
+            {/* Full-width Image */}
+            <div className="relative">
+              <GlowCard
+                glowColor="blue"
+                customSize={true}
+                className="bg-white shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100"
+              >
+                <img
+                  src={trainImage}
+                  alt="Vande Bharat Train Coach Battery System"
+                  className="w-full h-auto object-contain"
+                  loading="lazy"
+                />
+              </GlowCard>
+            </div>
+          </div>
+        </div>
+
+        {/* Services Content (Precision-Engineered Solutions) */}
+        <div
+          className="relative z-10 bg-white"
+          style={{ transform: "translateZ(0)" }}
+        >
+          <ServicesContent />
         </div>
 
         {/* Footer */}
