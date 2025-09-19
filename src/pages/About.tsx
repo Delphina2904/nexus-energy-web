@@ -61,11 +61,10 @@ export const AboutContent = () => {
   ];
 
   return (
-    <div id="about" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white py-12 md:py-20">
+    <div id="about" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white py-12 md:py-20" style={{ zIndex: 10 }}>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
         {/* Centered Header Section */}
-        <div className={`transform transition-all duration-1000 delay-200 text-center max-w-4xl mx-auto mb-12 md:mb-20 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100'
-          }`}>
+        <div className={`transform transition-all duration-1000 delay-200 text-center max-w-4xl mx-auto mb-12 md:mb-20 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100'}`}>
           <div className="flex flex-col items-center mb-4 md:mb-6">
             <div className="relative mb-3 md:mb-4">
               <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-2xl transform hover:scale-110 transition-all duration-300">
@@ -177,16 +176,97 @@ export const AboutContent = () => {
           </div>
         </div>
 
-        {/* Centered Quote and CTA Section */}
+        {/* Centered Quote Section */}
         <div className="max-w-4xl mx-auto space-y-6 md:space-y-8">
           {/* Quote */}
           <div className={`transform transition-all duration-1000 delay-1000 ${animatedItems.quote ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <div className="relative p-6 md:p-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-3xl border border-blue-200 shadow-2xl">
-              <div className="absolute top-3 md:top-4 left-3 md:left-4 text-3xl md:text-5xl text-blue-400 font-serif">"</div>
-              <p className="text-lg md:text-2xl font-medium text-gray-800 italic text-center pt-4 md:pt-6 px-4 md:px-8 select-none">
-                <span className="font-normal">We don't just build batteries—we architect energy ecosystems.</span>
+            <div className="relative bg-blue-50 rounded-2xl px-8 py-6 md:px-12 md:py-8 shadow-lg">
+              {/* Top-left quotation marks */}
+              <div className="absolute top-4 left-4 text-blue-600 text-2xl font-bold leading-none">
+                "
+              </div>
+              
+              {/* Bottom-right quotation marks */}
+              <div className="absolute bottom-4 right-4 text-blue-600 text-2xl font-bold leading-none">
+                "
+              </div>
+              
+              {/* Quote text */}
+              <div className="text-center px-6">
+                <p className="text-slate-700 text-lg md:text-xl lg:text-2xl font-medium italic leading-relaxed">
+                  We don't just build batteries—we architect energy ecosystems.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mission & Vision Section */}
+        <div className="max-w-6xl mx-auto mt-16 mb-16">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Mission */}
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 shadow-lg border border-blue-100">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-blue-800">Our Mission</h3>
+              </div>
+              <p className="text-gray-700 text-lg leading-relaxed">
+                To accelerate the global transition to sustainable energy by delivering cutting-edge battery technology solutions that power the future of mobility, commerce, and energy storage. We are committed to creating innovative, reliable, and environmentally responsible energy systems that enable businesses and communities to thrive in a net-zero world.
               </p>
-              <div className="absolute bottom-3 md:bottom-4 right-3 md:right-4 text-3xl md:text-5xl text-blue-400 font-serif rotate-180">"</div>
+            </div>
+
+            {/* Vision */}
+            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 shadow-lg border border-indigo-100">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center mr-4">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-indigo-800">Our Vision</h3>
+              </div>
+              <p className="text-gray-700 text-lg leading-relaxed">
+                To become the world's leading architect of energy ecosystems, where every battery we create serves as a building block for a sustainable future. We envision a world where clean energy is accessible, reliable, and seamlessly integrated into every aspect of human activity, from urban mobility to industrial operations.
+              </p>
+            </div>
+          </div>
+
+          {/* Values */}
+          <div className="mt-12 bg-white rounded-3xl p-8 shadow-lg border border-gray-200">
+            <h3 className="text-2xl font-bold text-gray-800 text-center mb-8">Our Core Values</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-lg font-semibold text-gray-800 mb-2">Innovation</h4>
+                <p className="text-gray-600 text-sm">Pioneering breakthrough technologies that redefine energy storage capabilities</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-lg font-semibold text-gray-800 mb-2">Reliability</h4>
+                <p className="text-gray-600 text-sm">Delivering consistent, dependable energy solutions that businesses can trust</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+                  </svg>
+                </div>
+                <h4 className="text-lg font-semibold text-gray-800 mb-2">Sustainability</h4>
+                <p className="text-gray-600 text-sm">Committed to environmental responsibility and creating a cleaner future</p>
+              </div>
             </div>
           </div>
         </div>
@@ -292,11 +372,11 @@ export const AboutContent = () => {
 
 const About = () => {
   return (
-    <>
+    <div className="relative">
       <Navbar />
       <AboutContent />
       <Footer />
-    </>
+    </div>
   );
 };
 

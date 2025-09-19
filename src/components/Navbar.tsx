@@ -11,7 +11,9 @@ const navItems = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
   { name: "Services", path: "/services" },
-  { name: "Customers", path: "/customers" },
+  { name: "Technology", path: "/technology" },
+  { name: "Application", path: "/application" },
+  // { name: "Customers", path: "/customers" },
 
   // { name: "Team", path: "/team" },
   { name: "Contact", path: "/contact" },
@@ -199,9 +201,9 @@ export const Navbar = ({
         style={{ position: "fixed" }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out",
-          scrolled
-            ? "py-2  shadow-lg border-b border-blue-500/30 bg-white/95 backdrop-blur-md"
-            : "py-4 bg-transparent"
+          location.pathname === "/" && !scrolled
+            ? "py-4 bg-transparent"
+            : "py-2 shadow-lg border-b border-blue-500/30 bg-white/95 backdrop-blur-md"
         )}
         role="banner"
       >

@@ -1,28 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Images } from "../constants";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
-
-// Custom hook for mobile detection
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  return isMobile;
-};
+import { GlowCard } from "../components/GlowCard";
 
 const services = [
   {
@@ -36,13 +16,12 @@ const services = [
       "ASIL-D-rated BMS with IoT telemetry enabling predictive maintenance and 99.8% operational uptime for last-mile delivery fleets.",
     applications: [
       "Electric buses",
-      "Autonomous logistics vehicles",
-      "Smart city transit",
+      "Delivery vehicles",
+      "Fleet operations",
     ],
     image: Images.eMobility,
-    icon: "⚡",
     stats: "99.8% Uptime",
-    gradient: "from-blue-500 to-indigo-500",
+    gradient: "from-blue-400 to-cyan-500",
   },
   {
     title: "Renewable Energy Integration",
@@ -53,11 +32,32 @@ const services = [
     ],
     highlight:
       "20MWh modular BESS installations storing daytime solar energy to power nocturnal industrial operations.",
-    applications: ["Solar farms", "Wind parks", "Off-grid communities"],
+    applications: [
+      "Solar farms",
+      "Wind parks",
+      "Off-grid communities",
+    ],
     image: Images.rEnergy,
-    icon: "🌱",
     stats: "4,200 tons CO₂ saved",
-    gradient: "from-indigo-500 to-blue-600",
+    gradient: "from-green-400 to-emerald-500",
+  },
+  {
+    title: "Agricultural Electrification",
+    offerings: [
+      "Solar-powered irrigation systems",
+      "Electric tractor battery packs",
+      "Smart farming energy management",
+    ],
+    highlight:
+      "Solar-powered irrigation systems reducing diesel consumption by 80% while increasing crop yield by 25%.",
+    applications: [
+      "Irrigation systems",
+      "Electric tractors",
+      "Smart farming",
+    ],
+    image: Images.forkLifts,
+    stats: "80% Diesel Reduction",
+    gradient: "from-orange-400 to-yellow-500",
   },
   {
     title: "Defense & Aerospace Power Systems",
@@ -73,10 +73,9 @@ const services = [
       "Satellite stations",
       "Submarine support",
     ],
-    image: Images.dSecurity,
-    icon: "🛡️",
+    image: Images.tempo,
     stats: "72h Endurance",
-    gradient: "from-slate-600 to-gray-700",
+    gradient: "from-red-400 to-pink-500",
   },
   {
     title: "Industrial Electrification",
@@ -87,25 +86,31 @@ const services = [
     ],
     highlight:
       "40% reduction in energy costs for automotive OEMs through regenerative braking integration in material handling.",
-    applications: ["Warehousing", "Foundries", "Robotics"],
+    applications: [
+      "Warehousing",
+      "Foundries",
+      "Robotics",
+    ],
     image: Images.forkLifts,
-    icon: "🏭",
     stats: "40% Cost Reduction",
-    gradient: "from-blue-600 to-indigo-700",
+    gradient: "from-purple-400 to-indigo-500",
   },
   {
-    title: "Agricultural Modernization",
+    title: "Grid-Scale Energy Storage",
     offerings: [
-      "Solar-powered irrigation storage",
-      "Electric tractor battery packs",
-      "IoT-enabled crop monitoring systems",
+      "Utility-scale battery storage systems",
+      "Grid stabilization and frequency regulation",
+      "Renewable energy time-shifting solutions",
     ],
     highlight:
-      "Monsoon-resilient IP65 packs doubling crop yields through all-season precision farming.",
-    applications: ["Smart greenhouses", "Dairy automation", "Grain storage"],
-    image: Images.tempo,
-    icon: "🌾",
-    stats: "2x Crop Yields",
+      "100MW/400MWh grid-scale installations providing 99.9% reliability for critical infrastructure backup power.",
+    applications: [
+      "Power grids",
+      "Data centers",
+      "Critical infrastructure",
+    ],
+    image: Images.rEnergy,
+    stats: "99.9% Reliability",
     gradient: "from-indigo-400 to-blue-500",
   },
 ];
@@ -114,62 +119,6 @@ const services = [
 export const ServicesContent = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const sectionRef = useRef(null);
-  const isMobile = useIsMobile();
-
-  const sliderSettings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: isMobile ? 1 : 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    pauseOnHover: true,
-    arrows: !isMobile,
-    centerMode: false,
-    centerPadding: "0px",
-    swipeToSlide: true,
-    touchThreshold: 10,
-    responsive: [
-      {
-        breakpoint: 1280,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          centerMode: false,
-          centerPadding: "0px",
-          arrows: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: false,
-          centerPadding: "0px",
-          arrows: false,
-          dots: false,
-          swipeToSlide: true,
-          touchMove: true,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: false,
-          centerPadding: "0px",
-          arrows: false,
-          dots: false,
-          swipeToSlide: true,
-          touchMove: true,
-        },
-      },
-    ],
-  };
 
   return (
     <div
@@ -177,24 +126,11 @@ export const ServicesContent = () => {
       ref={sectionRef}
       className="relative min-h-screen overflow-hidden bg-white py-12 md:py-20"
     >
-      {/* Enhanced Modern Background Elements */}
-      <div className="absolute inset-0">
-        {/* Modern gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-indigo-50/30 to-blue-50/50"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-indigo-50/20 via-transparent to-blue-50/30"></div>
-
-        {/* Larger, more vibrant geometric shapes */}
-        <div className="absolute top-16 right-8 w-96 h-96 bg-gradient-to-br from-blue-200/25 to-indigo-300/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-24 left-6 w-80 h-80 bg-gradient-to-tr from-indigo-200/30 to-blue-300/25 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-gradient-to-r from-blue-100/35 to-indigo-200/30 rounded-full blur-2xl animate-pulse delay-500"></div>
-
-        {/* Additional floating elements */}
-        <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-indigo-300/15 rounded-full blur-xl animate-pulse delay-1500"></div>
-        <div className="absolute bottom-1/3 left-1/5 w-40 h-40 bg-gradient-to-tl from-indigo-200/25 to-blue-300/20 rounded-full blur-2xl animate-pulse delay-2000"></div>
-
-        {/* Modern grid pattern with enhanced opacity */}
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Subtle dot pattern */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-30"
           style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, #3b82f6 1px, transparent 0)`,
             backgroundSize: "50px 50px",
@@ -228,6 +164,7 @@ export const ServicesContent = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8">
+
         {/* Header Section */}
         <div className="text-center mb-12 md:mb-16">
           <h2 className="select-none text-3xl md:text-5xl lg:text-6xl font-semibold bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 bg-clip-text text-transparent mb-8 leading-tight py-2">
@@ -239,32 +176,41 @@ export const ServicesContent = () => {
           </p>
         </div>
 
-        {/* Services Slider */}
-        <div className="services-slider max-w-6xl mx-auto">
-          <Slider {...sliderSettings}>
-            {services.map((service, index) => (
-              <div key={index} className="h-full px-2 md:px-3">
-                <div
-                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full flex flex-col"
-                  onMouseEnter={() => setHoveredCard(index)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
+        {/* Services Grid */}
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            {services.map((service, index) => {
+              // Assign different glow colors based on service type
+              const getGlowColor = (title: string) => {
+                if (title.includes("E-Mobility")) return "blue";
+                if (title.includes("Renewable Energy")) return "green";
+                if (title.includes("Agricultural")) return "orange";
+                if (title.includes("Defense")) return "red";
+                if (title.includes("Industrial")) return "purple";
+                return "blue";
+              };
+
+              return (
+                <div key={index} className="h-full">
+                  <GlowCard
+                    glowColor={getGlowColor(service.title)}
+                    customSize={true}
+                    className="group relative bg-white shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full flex flex-col"
+                    onMouseEnter={() => setHoveredCard(index)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                  >
                   {/* Card Content */}
                   <div className="flex flex-col h-full">
                     {/* Image Section */}
-                    <div className="relative h-40 md:h-48 overflow-hidden">
+                    <div className="relative h-48 md:h-56 overflow-hidden">
                       <img
                         src={service.image}
                         alt={service.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
-                      {/* Floating Icon */}
-                      <div className="absolute top-3 md:top-4 right-3 md:right-4 w-8 h-8 md:w-10 md:h-10 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center text-lg md:text-xl shadow-lg">
-                        {service.icon}
-                      </div>
 
                       {/* Stats Badge */}
                       <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 bg-white/95 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium text-gray-800 shadow-lg">
@@ -338,321 +284,13 @@ export const ServicesContent = () => {
                       </svg>
                     </div>
                   </div>
+                  </GlowCard>
                 </div>
-              </div>
-            ))}
-          </Slider>
+              );
+            })}
+          </div>
         </div>
       </div>
-
-      {/* Custom Slider Styles */}
-      <style>{`
-        .services-slider {
-          padding: 20px 0 40px;
-          position: relative;
-        }
-        
-        .services-slider .slick-list {
-          padding: 20px 0;
-          overflow: hidden;
-        }
-        
-        .services-slider .slick-track {
-          display: flex;
-          gap: 0;
-          padding: 10px 0;
-        }
-        
-        .services-slider .slick-slide {
-          height: auto;
-          opacity: 1;
-          transform: scale(1);
-          transition: all 0.3s ease;
-        }
-        
-        .services-slider .slick-slide.slick-active {
-          opacity: 1;
-          transform: scale(1);
-        }
-        
-        .services-slider .slick-slide > div {
-          height: 100%;
-        }
-        
-        /* Hide all dots completely */
-        .services-slider .slick-dots {
-          display: none !important;
-        }
-        
-        .services-slider .slick-prev,
-        .services-slider .slick-next {
-          z-index: 10;
-          width: 40px;
-          height: 40px;
-          background: white;
-          border-radius: 50%;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          border: 1px solid #e5e7eb;
-          transition: all 0.3s ease;
-        }
-        
-        .services-slider .slick-prev {
-          left: -50px;
-        }
-        
-        .services-slider .slick-next {
-          right: -50px;
-        }
-        
-        .services-slider .slick-prev:hover,
-        .services-slider .slick-next:hover {
-          background: #3b82f6;
-          border-color: #3b82f6;
-        }
-        
-        .services-slider .slick-prev:before,
-        .services-slider .slick-next:before {
-          font-size: 16px;
-          color: #3b82f6;
-          opacity: 1;
-          transition: all 0.3s ease;
-        }
-        
-        .services-slider .slick-prev:hover:before,
-        .services-slider .slick-next:hover:before {
-          color: white;
-        }
-
-        @media (max-width: 768px) {
-          .services-slider {
-            padding: 10px 0 20px;
-          }
-          
-          .services-slider .slick-slide {
-            opacity: 1;
-            transform: scale(1);
-          }
-          
-          .services-slider .slick-prev {
-            display: none !important;
-          }
-          
-          .services-slider .slick-next {
-            display: none !important;
-          }
-          
-          .services-slider .slick-dots {
-            display: none !important;
-          }
-          
-          .services-slider .slick-list {
-            padding: 10px 0;
-          }
-          
-          .services-slider .slick-track {
-            padding: 5px 0;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .services-slider {
-            padding: 5px 0 15px;
-          }
-          
-          .services-slider .slick-slide {
-            opacity: 1;
-            transform: scale(1);
-            width: 100% !important;
-          }
-          
-          .services-slider .slick-prev {
-            display: none !important;
-          }
-          
-          .services-slider .slick-next {
-            display: none !important;
-          }
-          
-          .services-slider .slick-dots {
-            display: none !important;
-          }
-          
-          .services-slider .slick-list {
-            padding: 5px 0;
-          }
-          
-          .services-slider .slick-track {
-            padding: 0;
-          }
-        }
-        
-        .services-slider .slick-dots li {
-          width: 12px;
-          height: 12px;
-          margin: 0;
-        }
-        
-        .services-slider .slick-dots li button {
-          width: 12px;
-          height: 12px;
-          padding: 0;
-          border-radius: 50%;
-          background: linear-gradient(135deg, rgba(156, 163, 175, 0.5) 0%, rgba(209, 213, 219, 0.8) 100%);
-          border: 2px solid rgba(255, 255, 255, 0.8);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-          transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          backdrop-filter: blur(10px);
-        }
-        
-        .services-slider .slick-dots li button:before {
-          display: none;
-        }
-        
-        .services-slider .slick-dots li.slick-active button {
-          background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
-          transform: scale(1.3);
-          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-        }
-        
-        /* Enhanced Responsive Design */
-        @media (min-width: 1536px) {
-          .services-slider .slick-list {
-            margin: 0 -15px;
-          }
-          
-          .services-slider .slick-prev {
-            left: -70px;
-          }
-          
-          .services-slider .slick-next {
-            right: -70px;
-          }
-        }
-        
-        @media (max-width: 1280px) {
-          .services-slider .slick-prev {
-            left: -55px;
-          }
-          
-          .services-slider .slick-next {
-            right: -55px;
-          }
-        }
-        
-        @media (max-width: 1024px) {
-          .services-slider {
-            padding: 20px 0 45px;
-          }
-          
-          .services-slider .slick-prev {
-            left: -50px;
-            width: 45px;
-            height: 45px;
-          }
-          
-          .services-slider .slick-next {
-            right: -50px;
-            width: 45px;
-            height: 45px;
-          }
-        }
-        
-        @media (max-width: 768px) {
-          .services-slider {
-            padding: 15px 0 60px;
-          }
-          
-          .services-slider .slick-list {
-            padding: 20px 0 15px;
-            margin: 0 -5px;
-          }
-          
-          .services-slider .slick-track {
-            padding: 10px 0;
-          }
-          
-          .services-slider .slick-prev,
-          .services-slider .slick-next {
-            display: none !important;
-          }
-          
-          .services-slider .slick-dots {
-            display: flex !important;
-            bottom: -25px;
-          }
-        }
-        
-        @media (max-width: 640px) {
-          .services-slider {
-            padding: 10px 0 55px;
-          }
-          
-          .services-slider .slick-list {
-            padding: 15px 0 10px;
-            margin: 0 -3px;
-          }
-          
-          .services-slider .slick-dots {
-            bottom: -20px;
-          }
-          
-          .services-slider .slick-dots li {
-            width: 10px;
-            height: 10px;
-          }
-          
-          .services-slider .slick-dots li button {
-            width: 10px;
-            height: 10px;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .services-slider {
-            padding: 8px 0 50px;
-          }
-          
-          .services-slider .slick-list {
-            padding: 12px 0 8px;
-            margin: 0 -2px;
-          }
-          
-          .services-slider .slick-track {
-            padding: 5px 0;
-          }
-          
-          .services-slider .slick-dots {
-            bottom: -18px;
-            gap: 6px;
-          }
-        }
-        
-        @media (max-width: 375px) {
-          .services-slider {
-            padding: 5px 0 45px;
-          }
-          
-          .services-slider .slick-list {
-            padding: 10px 0 5px;
-            margin: 0 -1px;
-          }
-          
-          .services-slider .slick-dots {
-            bottom: -15px;
-            gap: 5px;
-          }
-          
-          .services-slider .slick-dots li {
-            width: 8px;
-            height: 8px;
-          }
-          
-          .services-slider .slick-dots li button {
-            width: 8px;
-            height: 8px;
-          }
-        }
-      `}</style>
     </div>
   );
 };
