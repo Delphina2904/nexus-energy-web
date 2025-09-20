@@ -102,7 +102,7 @@ const Timer: React.FC = () => {
             style={{
               zIndex: 5,
               color: '#ffffff',
-              fontSize: '12px',
+              fontSize: '16px',
               fontWeight: 'bold',
               textShadow: '0 0 4px rgba(0, 255, 136, 0.8)',
               lineHeight: '1'
