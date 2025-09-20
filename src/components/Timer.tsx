@@ -1,49 +1,118 @@
-import React from "react";
-import "./Timer.css";
+import React from 'react';
 
 const Timer: React.FC = () => {
-  // Fixed time showing 15 minutes
-  const time = { hours: 0, minutes: 15 };
+  const hourMarkers = Array.from({ length: 12 }, (_, i) => (
+    <div
+      key={i}
+      className="absolute w-0.5 h-1 bg-gray-600 left-1/2 top-0.5 -ml-0.5"
+      style={{
+        transformOrigin: '50% 36px',
+        transform: `rotate(${i * 30}deg) translateX(-50%)`
+      }}
+    />
+  ));
 
-  // Calculate hand angles for 15 minutes
-  const hourAngle = (time.hours % 12) * 30 + (time.minutes / 60) * 30; // 30 degrees per hour
-  const minuteAngle = time.minutes * 6; // 6 degrees per minute
+  const minuteMarkers = Array.from({ length: 12 }, (_, i) => (
+    <div
+      key={i}
+      className="absolute w-px h-0.5 bg-gray-400 left-1/2 top-1 -ml-px"
+      style={{
+        transformOrigin: '50% 35px',
+        transform: `rotate(${(i + 1) * 6}deg) translateX(-50%)`
+      }}
+    />
+  ));
 
   return (
     <div className="timer-gauge">
-      <svg width="72" height="72" viewBox="0 0 72 72" className="timer-svg">
-        {/* Clock face */}
-        <circle cx="36" cy="36" r="24" className="timer-track" />
-        
-        {/* Green highlight for 0-15 minutes (top-right quarter) */}
-        <path
-          d="M 36 36 L 36 12 A 24 24 0 0 1 48 36 L 36 36 Z"
-          className="timer-highlight"
-        />
-        
-        {/* Hour marks */}
-        {Array.from({ length: 12 }, (_, i) => {
-          const angle = (i * 30) - 90; // Start from top (12 o'clock)
-          const x1 = 36 + 20 * Math.cos(angle * Math.PI / 180);
-          const y1 = 36 + 20 * Math.sin(angle * Math.PI / 180);
-          const x2 = 36 + 22 * Math.cos(angle * Math.PI / 180);
-          const y2 = 36 + 22 * Math.sin(angle * Math.PI / 180);
+      <div className="relative w-20 h-20 rounded-full flex items-center justify-center">
+        <div className="relative rounded-full"
+             style={{
+               width: '72px',
+               height: '72px',
+               background: 'transparent'
+             }}>
           
-          return (
-            <line
-              key={i}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              className="hour-mark"
+          {/* Highlighted arc from 12 to 3 */}
+          <div 
+            className="absolute w-full h-full rounded-full"
+            style={{
+              background: `conic-gradient(
+                from 0deg,
+                rgba(34, 197, 94, 0.3) 0deg,
+                rgba(34, 197, 94, 0.3) 90deg,
+                transparent 90deg,
+                transparent 360deg
+              )`,
+              zIndex: 1
+            }}
+          />
+
+          {/* Hour markers */}
+          <div className="absolute w-full h-full">
+            {hourMarkers}
+          </div>
+
+          {/* Minute markers */}
+          <div className="absolute w-full h-full">
+            {minuteMarkers}
+          </div>
+
+
+          {/* Clock hands */}
+          <div className="absolute w-full h-full top-0 left-0">
+            {/* Hour hand pointing straight to 12 */}
+            <div
+              className="absolute left-1/2 bottom-1/2 bg-green-500 rounded-sm -ml-0.5"
+              style={{
+                width: '2px',
+                height: '20px',
+                transformOrigin: 'bottom center',
+                transform: 'rotate(0deg)',
+                zIndex: 3,
+                boxShadow: '0 2px 4px rgba(34, 197, 94, 0.3)'
+              }}
             />
-          );
-        })}
-      </svg>
-      <div className="timer-label">
-        <span className="timer-minutes">{time.minutes}</span>
-        <span className="timer-unit">MIN</span>
+            {/* Minute hand pointing to 3 */}
+            <div
+              className="absolute left-1/2 bottom-1/2 bg-green-500 rounded-sm -ml-0.5"
+              style={{
+                width: '1px',
+                height: '30px',
+                transformOrigin: 'bottom center',
+                transform: 'rotate(90deg)',
+                zIndex: 2,
+                boxShadow: '0 2px 4px rgba(34, 197, 94, 0.3)'
+              }}
+            />
+          </div>
+
+          {/* Center dot */}
+          <div
+            className="absolute top-1/2 left-1/2 w-2 h-2 bg-green-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"
+            style={{
+              zIndex: 4,
+              boxShadow: '0 2px 4px rgba(34, 197, 94, 0.3)'
+            }}
+          />
+
+          {/* 15 MIN text */}
+          <div
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center"
+            style={{
+              zIndex: 5,
+              color: '#ffffff',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              textShadow: '0 0 4px rgba(0, 255, 136, 0.8)',
+              lineHeight: '1'
+            }}
+          >
+            <div>15</div>
+            <div>MIN</div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
