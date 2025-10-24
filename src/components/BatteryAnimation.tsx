@@ -1,7 +1,11 @@
 import React, { memo, useMemo } from 'react';
 import './BatteryAnimation.css';
 
-const BatteryAnimation = memo(({ percentage = 0 }) => {
+interface BatteryAnimationProps {
+  percentage?: number;
+}
+
+const BatteryAnimation = memo(({ percentage = 0 }: BatteryAnimationProps) => {
   // Memoize the bar states to prevent unnecessary re-renders
   const barStates = useMemo(() => ({
     bar1: percentage > 0,
@@ -12,8 +16,12 @@ const BatteryAnimation = memo(({ percentage = 0 }) => {
 
   return (
     <div className="battery-container">
-      <div>
-        <div className="battery-label">0-100 %</div>
+      <div className="battery-percentage-label">0-100 %</div>
+      <div className="battery-main-content">
+        <div className="charging-time-circle">
+          <span className="time-number">15</span>
+          <span className="time-unit">MIN</span>
+        </div>
         <div className="battery-shell">
           <div className="battery-cap" />
           <div className="battery-bars-container">

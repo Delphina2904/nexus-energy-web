@@ -36,13 +36,18 @@ const InnovationSection: React.FC = () => {
               <GlowCard
                 glowColor="blue"
                 customSize={true}
-                className="relative shadow-[0_20px_40px_rgba(15,23,42,0.08)] border border-slate-100 bg-white p-2 h-auto transition-all duration-300 hover:shadow-[0_25px_50px_rgba(59,130,246,0.15)] hover:scale-105 hover:border-blue-200"
+                className="relative  shadow-[0_20px_40px_rgba(15,23,42,0.08)] border border-slate-100 bg-white p-2 h-auto transition-all duration-300 hover:shadow-[0_25px_50px_rgba(59,130,246,0.15)] hover:scale-105 hover:border-blue-200"
               >
                 {/* Battery Image */}
                 <div className="flex items-center justify-center group">
-                  <div className="w-full max-w-lg transition-transform duration-300 group-hover:scale-110">
-                    <img src="/battery.png" alt="Battery" className="w-full h-auto object-contain transition-all duration-300 group-hover:brightness-110 group-hover:drop-shadow-lg" loading="lazy" />
-                  </div>
+                    <video 
+                      src="/public/images/video-vmake.mp4" 
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline
+                      className="w-full h-[620px] object-cover transition-all duration-300 group-hover:brightness-110 group-hover:drop-shadow-lg rounded-lg"
+                    />
                 </div>
               </GlowCard>
             </div>
@@ -51,9 +56,11 @@ const InnovationSection: React.FC = () => {
           {/* Right content and breakthrough cards */}
           <div className="lg:col-span-6">
             <div className="mb-8">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-900 leading-tight mb-4 text-left">
-                Our innovation hub houses India's foremost electrochemistry research facility, where cross-disciplinary teams pioneer breakthroughs in:
+              <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold text-slate-900 leading-tight mb-6 text-left">
+                Lorem ipsum dolor sit amet consectetur. 
+              
               </h2>
+            
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
@@ -69,17 +76,17 @@ const InnovationSection: React.FC = () => {
                     <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white text-xl mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
                       {breakthrough.icon}
                     </div>
-                    
+
                     {/* Title */}
                     <h3 className="text-lg font-semibold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors duration-300 text-center">
                       {breakthrough.title}
                     </h3>
-                    
+
                     {/* Description */}
                     <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-grow text-center">
                       {breakthrough.description}
                     </p>
-                    
+
                     {/* Arrow */}
                     <div className="flex justify-center">
                       <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center group-hover:translate-x-1 transition-transform duration-300">

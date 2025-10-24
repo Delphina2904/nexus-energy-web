@@ -203,7 +203,7 @@ export const Navbar = ({
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
           location.pathname === "/" && !scrolled
             ? "py-4 bg-transparent"
-            : "py-4 bg-white shadow-sm border-b border-gray-200"
+            : "py-4 bg-white opacity-70 shadow-sm border-b border-gray-200"
         )}
         role="banner"
       >
@@ -218,22 +218,22 @@ export const Navbar = ({
             aria-label="Nexus Energy Homepage"
           >
             {/* Mobile view: Show Nexus Energy logo only */}
-            <img
+            {/* <img
               src="/nexuslogo.png"
               alt="Nexus Energy Logo"
               className="h-10 md:hidden"
               width="40"
               height="40"
-            />
+            /> */}
             {/* Desktop view: Show Nexus Energy logo and text */}
             <span className="hidden md:flex items-center gap-3">
-              <img
+              {/* <img
                 src="/nexuslogo.png"
                 alt="Nexus Energy Logo"
                 className="h-8"
                 width="32"
                 height="32"
-              />
+              /> */}
               <span
                 className={cn(
                   "text-xl font-semibold transition-colors duration-300",
@@ -278,14 +278,14 @@ export const Navbar = ({
             <Button
               asChild
               className={cn(
-                "transition-all duration-300 px-6 py-2 text-sm font-medium rounded-md",
+                "transition-all duration-300 px-6 py-2 text-sm font-medium rounded-full",
                 scrolled
-                  ? "bg-blue-600 hover:bg-blue-700 text-white"
-                  : "bg-blue-600/90 hover:bg-blue-700 text-white backdrop-blur-sm"
+                  ? "bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white"
+                  : "bg-gradient-to-r from-green-500/90 to-blue-600/90 hover:from-green-600 hover:to-blue-700 text-white backdrop-blur-sm"
               )}
               aria-label="Get in touch with us"
             >
-              <Link to="/contact">Contact Us</Link>
+              <Link to="/contact">Get Contact</Link>
             </Button>
           </div>
 
@@ -349,10 +349,10 @@ export const Navbar = ({
                 <div className="mt-auto pb-6">
                   <Button
                     asChild
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-sm font-medium rounded-md transition-all duration-300"
+                    className="w-full bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white px-6 py-3 text-sm font-medium rounded-full transition-all duration-300"
                     aria-label="Get in touch with us"
                   >
-                    <Link to="/contact">Contact Us</Link>
+                    <Link to="/contact">Get Contact</Link>
                   </Button>
                 </div>
               </nav>

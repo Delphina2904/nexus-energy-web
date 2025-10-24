@@ -23,8 +23,6 @@ import DigitalMarketing from "./pages/services/digital-marketing";
 import MobileApps from "./pages/services/mobile-apps";
 import UIUXDesign from "./pages/services/ui-ux-design";
 import LenisSmoothScroll from "./components/LenisSmoothScroll";
-import { AIChatbot } from "./components/custom/AIChatbot";
-import { WhatsAppBooking } from "./components/custom/WhatsAppBooking";
 import VisionMission from "./pages/VisionMission";
 import { Navbar } from "./components/Navbar";
 
@@ -67,8 +65,6 @@ const App = () => (
         </AnimatePresence>
         
         {/* Global components available on all pages */}
-        <AIChatbot />
-        <WhatsAppBooking />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
