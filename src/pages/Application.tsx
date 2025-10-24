@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { GlowCard } from "../components/GlowCard";
-import { Battery, Zap, Truck, Train, Building2, Home, Factory, Shield } from "lucide-react";
+import { Battery, Truck, Building2, Home, Factory } from "lucide-react";
+
+// Helper function to handle image loading errors
+const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const img = e.target as HTMLImageElement;
+  img.src = "/placeholder.svg"; // Fallback to placeholder
+};
 
 // Application data with images and details
 const applications = [
   {
     id: 1,
-    title: "Electric Mobility",
+    title: "High-Performance EV Battery Systems",
     description: "High-performance battery solutions for electric buses, delivery vehicles, and personal mobility",
-    image: "/src/assets/47.jpg",
+    image: "/images/28e28757-0fbd-449b-a75c-0d3edd4dfda7.jpg",
     icon: <Truck className="w-8 h-8" />,
     category: "Transportation",
     features: ["Fast charging capability", "Long cycle life", "Temperature resilient"],
@@ -18,22 +24,22 @@ const applications = [
     color: "blue"
   },
   {
-    id: 2,
-    title: "Railway Systems",
-    description: "Advanced battery systems for trains including Vande Bharat and metro applications",
-    image: "/src/assets/vande.png",
-    icon: <Train className="w-8 h-8" />,
-    category: "Transportation",
-    features: ["High power density", "Regenerative braking", "Safety certified"],
-    stats: "72h Endurance",
-    color: "green"
-  },
-  {
     id: 3,
     title: "Industrial Equipment",
     description: "Robust battery solutions for forklifts, stackers, and material handling equipment",
-    image: "/src/assets/forks.png",
-    icon: <Factory className="w-8 h-8" />,
+    image: "/images/img1.png",
+    icon: <Truck className="w-8 h-8" />,
+    category: "Industrial",
+    features: ["Heavy-duty design", "Quick swap capability", "IoT monitoring"],
+    stats: "40% Cost Reduction",
+    color: "orange"
+  },
+    {
+    id: 7,
+    title: "Commercial EVs – Electric Bus",
+    description: "100% electric buses designed to reduce operational costs by 40% while promoting sustainable industrial transport",
+    image: "/images/img2.jpeg",
+    icon: <Truck className="w-8 h-8" />,
     category: "Industrial",
     features: ["Heavy-duty design", "Quick swap capability", "IoT monitoring"],
     stats: "40% Cost Reduction",
@@ -43,29 +49,18 @@ const applications = [
     id: 4,
     title: "Commercial Vehicles",
     description: "Reliable power systems for commercial trucks, tempo, and delivery fleets",
-    image: "/src/assets/tempo.png",
-    icon: <Truck className="w-8 h-8" />,
+    image: "/images/58ba96ef-419a-4c7f-a912-0cb733dd1428.jpg",
+    icon: <Factory className="w-8 h-8" />,
     category: "Commercial",
     features: ["High capacity", "Fast charging", "Fleet management"],
     stats: "80% Efficiency",
     color: "purple"
   },
   {
-    id: 5,
-    title: "Defense & Aerospace",
-    description: "Mission-critical battery systems for drones, surveillance, and defense applications",
-    image: "/src/assets/drone.jpg",
-    icon: <Shield className="w-8 h-8" />,
-    category: "Defense",
-    features: ["Extreme conditions", "EMP hardened", "Lightweight design"],
-    stats: "Military Grade",
-    color: "red"
-  },
-  {
     id: 6,
     title: "Electric Carts",
     description: "Compact and efficient battery solutions for e-carts and light electric vehicles",
-    image: "/src/assets/e-cart.png",
+    image: "/images/95d59055-158c-494c-9b26-79a3d2e83544.jpg",
     icon: <Battery className="w-8 h-8" />,
     category: "Light Vehicles",
     features: ["Compact design", "Easy maintenance", "Cost effective"],
@@ -73,21 +68,10 @@ const applications = [
     color: "green"
   },
   {
-    id: 7,
-    title: "Energy Storage Systems",
-    description: "Grid-scale and residential energy storage for renewable integration",
-    image: "/src/assets/battery.png",
-    icon: <Zap className="w-8 h-8" />,
-    category: "Energy Storage",
-    features: ["Grid stabilization", "Peak shaving", "Renewable integration"],
-    stats: "99.9% Reliability",
-    color: "blue"
-  },
-  {
     id: 8,
     title: "Residential Solutions",
     description: "Home energy storage systems for backup power and solar integration",
-    image: "/src/assets/41.jpg",
+    image: "/images/c085a098-c2c1-47b1-8445-ed1e2bed1895.jpg",
     icon: <Home className="w-8 h-8" />,
     category: "Residential",
     features: ["Smart monitoring", "Silent operation", "Space efficient"],
@@ -98,16 +82,26 @@ const applications = [
     id: 9,
     title: "Commercial Buildings",
     description: "Building energy management and backup power solutions for commercial spaces",
-    image: "/src/assets/office.png",
+    image: "/images/c12777ab-8d37-48f7-9871-a1aa69edfe83.jpg",
     icon: <Building2 className="w-8 h-8" />,
     category: "Commercial",
     features: ["Load management", "Emergency backup", "Energy optimization"],
     stats: "30% Energy Savings",
     color: "orange"
-  }
+  },
+    {
+    id: 8,
+    title: "Smart Electric Mobility",
+    description: "Robust battery solutions for forklifts, stackers, and material handling equipment",
+    image: "/images/img3.jpeg",
+    icon: <Truck className="w-8 h-8" />,
+    category: "Industrial",
+    features: ["Heavy-duty design", "Quick swap capability", "IoT monitoring"],
+    stats: "40% Cost Reduction",
+    color: "orange"
+  },
 ];
 
-const categories = ["All", "Transportation", "Industrial", "Commercial", "Defense", "Energy Storage", "Residential"];
 
 const Application = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -151,40 +145,21 @@ const Application = () => {
           <div className="flex flex-wrap justify-center gap-4">
             <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-sm font-medium text-gray-700">99.8% Uptime</span>
+              <span className="text-sm font-medium text-gray-700">6 Applications</span>
             </div>
             <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
               <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-              <span className="text-sm font-medium text-gray-700">2000+ Installations</span>
+              <span className="text-sm font-medium text-gray-700">5000+ Installations</span>
             </div>
             <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
               <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-              <span className="text-sm font-medium text-gray-700">50+ Industries</span>
+              <span className="text-sm font-medium text-gray-700">5 Industry Sectors</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white/50 backdrop-blur-sm">
-        <div className="nexus-container">
-          <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`nexus-btn transition-all duration-300 ${
-                  selectedCategory === category
-                    ? "nexus-btn-primary"
-                    : "nexus-btn-secondary"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Applications Grid */}
       <section className="nexus-section">
@@ -202,16 +177,17 @@ const Application = () => {
                   <div className="relative h-48 overflow-hidden">
                     <img
                       src={application.image}
-                      alt={application.title}
+                      alt={`${application.title} - ${application.description}`}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
+                      onError={handleImageError}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                     
                     {/* Category Badge */}
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-gray-800">
+                    {/* <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-gray-800">
                       {application.category}
-                    </div>
+                    </div> */}
                     
                     {/* Stats Badge */}
                     <div className="absolute bottom-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-medium">
@@ -237,19 +213,19 @@ const Application = () => {
                     </p>
 
                     {/* Features */}
-                    <div className="space-y-2 mb-4">
+                    {/* <div className="space-y-2 mb-4">
                       {application.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2">
                           <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
                           <span className="text-sm text-gray-700">{feature}</span>
                         </div>
                       ))}
-                    </div>
+                    </div> */}
 
                     {/* Learn More Button */}
-                    <button className="mt-auto w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                    {/* <button className="mt-auto w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
                       Learn More
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </GlowCard>
@@ -267,14 +243,14 @@ const Application = () => {
           <p className="text-xl text-blue-100 mb-8">
             Let our experts help you find the perfect battery solution for your specific needs.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
               Get Consultation
             </button>
             <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
               Download Brochure
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
 
