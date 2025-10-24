@@ -372,7 +372,7 @@ export const AboutContent = () => {
 
 const About = () => {
   return (
-    <div className="relative">
+    <div className="min-h-screen nexus-gradient-blue">
       <Navbar />
       <AboutContent />
       <Footer />

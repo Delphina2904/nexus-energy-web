@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 const navItems = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
-  { name: "Services", path: "/services" },
+  { name: "Solutions", path: "/solutions" },
   { name: "Technology", path: "/technology" },
   { name: "Application", path: "/application" },
   // { name: "Customers", path: "/customers" },
@@ -74,9 +74,9 @@ export const Navbar = ({
       "AI Agents, web development, digital solutions, business transformation";
 
     switch (path) {
-      case "/services":
+      case "/solutions":
         pageTitle =
-          "Services - Nexus Energy | Advanced Battery Storage Solutions";
+          "Solutions - Nexus Energy | Advanced Battery Storage Solutions";
         pageDescription =
           "Explore our comprehensive range of battery storage solutions including residential systems, commercial installations, and industrial energy storage";
         pageKeywords =
@@ -200,44 +200,44 @@ export const Navbar = ({
       <header
         style={{ position: "fixed" }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
           location.pathname === "/" && !scrolled
             ? "py-4 bg-transparent"
-            : "py-2 shadow-lg border-b border-blue-500/30 bg-white/95 backdrop-blur-md"
+            : "py-4 bg-white shadow-sm border-b border-gray-200"
         )}
         role="banner"
       >
         <nav
-          className="container flex items-center justify-between"
+          className="container mx-auto px-4 flex items-center justify-between max-w-7xl"
           role="navigation"
           aria-label="Main Navigation"
         >
           <Link
             to="/"
-            className="flex items-center gap-2 font-bold"
+            className="flex items-center gap-3"
             aria-label="Nexus Energy Homepage"
           >
             {/* Mobile view: Show Nexus Energy logo only */}
             <img
               src="/nexuslogo.png"
               alt="Nexus Energy Logo"
-              className="h-12 md:hidden"
-              width="48"
-              height="48"
+              className="h-10 md:hidden"
+              width="40"
+              height="40"
             />
             {/* Desktop view: Show Nexus Energy logo and text */}
-            <span className="hidden md:flex items-center gap-2">
+            <span className="hidden md:flex items-center gap-3">
               <img
                 src="/nexuslogo.png"
                 alt="Nexus Energy Logo"
-                className="h-10"
-                width="40"
-                height="40"
+                className="h-8"
+                width="32"
+                height="32"
               />
               <span
                 className={cn(
-                  "text-2xl font-bold tracking-wide transition-colors duration-300",
-                  scrolled ? "text-gray-900" : "text-white"
+                  "text-xl font-semibold transition-colors duration-300",
+                  scrolled ? "text-gray-900" : location.pathname === '/' ? "text-white" : "text-gray-900"
                 )}
               >
                 Nexus Energy
@@ -246,20 +246,22 @@ export const Navbar = ({
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-8" role="menubar">
+          <ul className="hidden md:flex items-center gap-10" role="menubar">
             {navItems.map((item) => (
               <li key={item.name} role="none">
                 <Link
                   to={item.path}
                   className={cn(
-                    "text-lg font-medium transition-colors duration-300 hover:text-blue-400 relative animated-underline",
+                    "text-sm font-normal transition-colors duration-300 hover:text-blue-600 relative py-2",
                     location.pathname === item.path
                       ? scrolled
-                        ? "text-blue-600"
-                        : "text-blue-400"
+                        ? "text-blue-600 font-medium"
+                        : "text-blue-400 font-medium"
                       : scrolled
-                      ? "text-gray-700 hover:text-blue-600"
-                      : "text-gray-200 hover:text-blue-300"
+                      ? "text-gray-900 hover:text-gray-900"
+                      : location.pathname === '/'
+                      ? "text-gray-100 hover:text-gray-600"
+                      : "text-gray-900 hover:text-gray-600"
                   )}
                   role="menuitem"
                   aria-current={
@@ -276,14 +278,14 @@ export const Navbar = ({
             <Button
               asChild
               className={cn(
-                "transition-all duration-300 shadow-lg rounded-full px-6 py-2 font-medium",
+                "transition-all duration-300 px-6 py-2 text-sm font-medium rounded-md",
                 scrolled
-                  ? "bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white hover:shadow-green-500/50"
-                  : "bg-gradient-to-r from-green-400/80 to-blue-400/80 hover:from-green-500 hover:to-blue-500 text-white hover:shadow-green-400/50 backdrop-blur-sm"
+                  ? "bg-blue-600 hover:bg-blue-700 text-white"
+                  : "bg-blue-600/90 hover:bg-blue-700 text-white backdrop-blur-sm"
               )}
               aria-label="Get in touch with us"
             >
-              <Link to="/contact">Get Contact</Link>
+              <Link to="/contact">Contact Us</Link>
             </Button>
           </div>
 
@@ -294,46 +296,46 @@ export const Navbar = ({
                 variant="ghost"
                 size="icon"
                 className={cn(
-                  "md:hidden transition-colors duration-300",
+                  "md:hidden transition-colors duration-300 p-2",
                   scrolled
-                    ? "text-gray-900 hover:text-blue-600"
-                    : "text-white hover:text-blue-300"
+                    ? "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
+                    : "text-white hover:text-gray-200 hover:bg-white/10"
                 )}
                 aria-label="Open navigation menu"
               >
-                <Menu className="h-6 w-6" aria-hidden="true" />
+                <Menu className="h-5 w-5" aria-hidden="true" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+            <SheetContent side="right" className="w-[280px] bg-white">
               <nav
-                className="flex flex-col h-full"
+                className="flex flex-col h-full pt-6"
                 aria-label="Mobile Navigation"
               >
                 <Link
                   to="/"
-                  className="flex items-center gap-2 font-bold py-4 border-b"
+                  className="flex items-center gap-3 pb-6 border-b border-gray-200"
                   aria-label="Nexus Energy Homepage"
                 >
                   <img
                     src="/nexuslogo.png"
                     alt="Nexus Energy Logo"
-                    className="h-6"
-                    width="24"
-                    height="24"
+                    className="h-8"
+                    width="32"
+                    height="32"
                   />
-                  <span className="text-lg font-bold">Nexus Energy</span>
+                  <span className="text-lg font-semibold text-gray-900">Nexus Energy</span>
                 </Link>
-                <div className="flex flex-col gap-3 py-4" role="menu">
+                <div className="flex flex-col gap-1 py-6" role="menu">
                   {navItems.map((item) => (
                     <Link
                       key={item.name}
                       to={item.path}
                       className={cn(
-                        "text-lg py-2 px-4 rounded-lg transition-colors",
+                        "text-base py-3 px-4 rounded-md transition-colors",
                         location.pathname === item.path
-                          ? "bg-blue-500/20 text-blue-500 font-medium"
-                          : "text-muted-foreground hover:bg-muted"
+                          ? "bg-blue-50 text-blue-600 font-medium"
+                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                       )}
                       role="menuitem"
                       aria-current={
@@ -344,13 +346,13 @@ export const Navbar = ({
                     </Link>
                   ))}
                 </div>
-                <div className="mt-auto">
+                <div className="mt-auto pb-6">
                   <Button
                     asChild
-                    className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white rounded-full px-6 py-2 font-medium shadow-lg hover:shadow-green-500/50 transition-all duration-300"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-sm font-medium rounded-md transition-all duration-300"
                     aria-label="Get in touch with us"
                   >
-                    <Link to="/contact">Get Contact</Link>
+                    <Link to="/contact">Contact Us</Link>
                   </Button>
                 </div>
               </nav>

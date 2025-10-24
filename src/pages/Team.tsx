@@ -76,22 +76,22 @@ const Team = () => {
         <Navbar />
 
         {/* Hero Section */}
-        <section className="pt-32 pb-16 bg-muted/30">
+        <section className="nexus-hero nexus-gradient">
           <div className="container">
             <div className="text-center max-w-3xl mx-auto">
-              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-medium mb-4">
+              <span className="nexus-badge mb-4">
                 Our Team
               </span>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Meet The Visionaries</h1>
-              <p className="text-xl text-muted-foreground">
-                The talented individuals behind Virelity.com who bring creativity, expertise, and passion to every project.
+              <h1 className="nexus-heading text-white mb-6">Meet The Visionaries</h1>
+              <p className="nexus-text-lg text-blue-100">
+                The talented individuals behind Nexus Energy who bring innovation, expertise, and passion to sustainable battery technology.
               </p>
             </div>
           </div>
         </section>
 
         {/* Team Members */}
-        <section className="py-16">
+        <section className="nexus-section">
           <div className="container">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {teamMembers.map((member, index) => (
@@ -116,22 +116,22 @@ const Team = () => {
         </section>
 
         {/* Join Our Team */}
-        <section className="py-20 bg-gradient-bg text-white clip-path-slant">
+        <section className="nexus-cta-section">
           <div className="container py-10">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-6">Join Our Team</h2>
-              <p className="text-xl mb-8">
-                We're always looking for talented individuals who are passionate about creating exceptional digital experiences.
+              <h2 className="nexus-heading text-white mb-6">Join Our Team</h2>
+              <p className="nexus-text-xl mb-8 text-blue-100">
+                We're always looking for talented individuals who are passionate about creating sustainable energy solutions and revolutionary battery technology.
               </p>
-              <Button asChild className="bg-white text-primary hover:bg-white/90">
-                <a href="#careers">View Open Positions</a>
+              <Button asChild className="nexus-btn-white">
+                <a href="/contact">View Open Positions</a>
               </Button>
             </div>
           </div>
         </section>
 
         {/* Company Culture */}
-        <section className="py-20">
+        <section className="nexus-section">
           <div className="container">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.div 
@@ -141,29 +141,29 @@ const Team = () => {
                 viewport={{ once: true }}
                 className="space-y-6"
               >
-                <h2 className="text-3xl font-bold">Our Culture</h2>
-                <p className="text-muted-foreground">
-                  At Virelity.com, we believe that great work comes from a culture that values creativity, collaboration, and continuous learning.
+                <h2 className="nexus-heading">Our Culture</h2>
+                <p className="text-slate-600">
+                  At Nexus Energy, we believe that great innovation comes from a culture that values sustainability, collaboration, and cutting-edge research.
                 </p>
-                <p className="text-muted-foreground">
-                  We foster an environment where ideas can flourish, where team members are empowered to take risks and innovate, and where we celebrate our successes together.
+                <p className="text-slate-600">
+                  We foster an environment where breakthrough ideas can flourish, where team members are empowered to push boundaries, and where we celebrate our technological achievements together.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                    <span>Flexible working environment</span>
+                    <div className="h-1.5 w-1.5 rounded-full bg-nexus-blue"></div>
+                    <span>Sustainable innovation focus</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                    <span>Continuous learning and development</span>
+                    <div className="h-1.5 w-1.5 rounded-full bg-nexus-blue"></div>
+                    <span>Advanced research and development</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                    <span>Diverse and inclusive workplace</span>
+                    <div className="h-1.5 w-1.5 rounded-full bg-nexus-blue"></div>
+                    <span>Diverse engineering excellence</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                    <span>Health and wellness initiatives</span>
+                    <div className="h-1.5 w-1.5 rounded-full bg-nexus-blue"></div>
+                    <span>Clean energy commitment</span>
                   </div>
                 </div>
               </motion.div>

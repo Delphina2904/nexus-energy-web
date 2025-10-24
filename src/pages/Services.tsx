@@ -19,7 +19,7 @@ const services = [
       "Delivery vehicles",
       "Fleet operations",
     ],
-    image: Images.eMobility,
+    image: Images.mobility2,
     stats: "99.8% Uptime",
     gradient: "from-blue-400 to-cyan-500",
   },
@@ -55,7 +55,7 @@ const services = [
       "Electric tractors",
       "Smart farming",
     ],
-    image: Images.forkLifts,
+    image: Images.truck,
     stats: "80% Diesel Reduction",
     gradient: "from-orange-400 to-yellow-500",
   },
@@ -73,7 +73,7 @@ const services = [
       "Satellite stations",
       "Submarine support",
     ],
-    image: Images.tempo,
+    image: Images.dSecurity,
     stats: "72h Endurance",
     gradient: "from-red-400 to-pink-500",
   },
@@ -91,7 +91,7 @@ const services = [
       "Foundries",
       "Robotics",
     ],
-    image: Images.forkLifts,
+    image: Images.industrial2,
     stats: "40% Cost Reduction",
     gradient: "from-purple-400 to-indigo-500",
   },
@@ -109,7 +109,7 @@ const services = [
       "Data centers",
       "Critical infrastructure",
     ],
-    image: Images.rEnergy,
+    image: Images.tempo2,
     stats: "99.9% Reliability",
     gradient: "from-indigo-400 to-blue-500",
   },
@@ -124,7 +124,7 @@ export const ServicesContent = () => {
     <div
       id="services"
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden bg-white py-12 md:py-20"
+      className="relative min-h-screen overflow-hidden nexus-gradient-blue nexus-section"
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">

@@ -12,6 +12,8 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Customers from "./pages/Customers";
+import Application from "./pages/Application";
+import Technology from "./pages/Technology";
 import WebDevelopment from "./pages/services/web-development";
 import VRARDevelopment from "./pages/services/vr-ar-development";
 import ThreeDDevelopment from "./pages/services/3d-development";
@@ -24,6 +26,7 @@ import LenisSmoothScroll from "./components/LenisSmoothScroll";
 import { AIChatbot } from "./components/custom/AIChatbot";
 import { WhatsAppBooking } from "./components/custom/WhatsAppBooking";
 import VisionMission from "./pages/VisionMission";
+import { Navbar } from "./components/Navbar";
 
 const queryClient = new QueryClient();
 
@@ -36,25 +39,28 @@ const App = () => (
   <LenisSmoothScroll />
       <BrowserRouter>
         <AnimatePresence mode="wait">
+              <Navbar />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
             <Route path="/vision-mission" element={<VisionMission />} />
             <Route path="/team" element={<Team />} />
-            <Route path="/services" element={<Services />} />
+            <Route path="/solutions" element={<Services />} />
+            <Route path="/technology" element={<Technology />} />
+            <Route path="/application" element={<Application />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/customers" element={<Customers />} />
             
-            {/* Service Routes */}
-            <Route path="/services/web-development" element={<WebDevelopment />} />
-            <Route path="/services/vr-ar-development" element={<VRARDevelopment />} />
-            <Route path="/services/3d-development" element={<ThreeDDevelopment />} />
-            <Route path="/services/video-editing" element={<VideoEditing />} />
-            <Route path="/services/design-services" element={<DesignServices />} />
-            <Route path="/services/digital-marketing" element={<DigitalMarketing />} />
-            <Route path="/services/mobile-apps" element={<MobileApps />} />
-            <Route path="/services/ui-ux-design" element={<UIUXDesign />} />
+            {/* Solution Routes */}
+            <Route path="/solutions/web-development" element={<WebDevelopment />} />
+            <Route path="/solutions/vr-ar-development" element={<VRARDevelopment />} />
+            <Route path="/solutions/3d-development" element={<ThreeDDevelopment />} />
+            <Route path="/solutions/video-editing" element={<VideoEditing />} />
+            <Route path="/solutions/design-services" element={<DesignServices />} />
+            <Route path="/solutions/digital-marketing" element={<DigitalMarketing />} />
+            <Route path="/solutions/mobile-apps" element={<MobileApps />} />
+            <Route path="/solutions/ui-ux-design" element={<UIUXDesign />} />
             
             <Route path="*" element={<NotFound />} />
           </Routes>

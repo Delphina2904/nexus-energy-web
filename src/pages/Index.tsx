@@ -1179,7 +1179,7 @@ const Index = () => {
 
   return (
     <SmoothScrollWrapper>
-      <Navbar />
+  
       <div
         className="bg-background overflow-x-hidden"
         style={{
