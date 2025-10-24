@@ -5,7 +5,6 @@ import { ServicesContent } from "./Services";
 import ServicesSection from "@/components/ServicesSection";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import BatteryAnimation from "@/components/BatteryAnimation";
-import Timer from "@/components/Timer";
 import InnovationSection from "@/components/InnovationSection";
 import EcosystemBenefits from "@/components/EcosystemBenefits";
 import QuoteSection from "@/components/QuoteSection";
@@ -1150,8 +1149,7 @@ const Interactive3DBackground = () => {
       </div>
 
       <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-transparent" />
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-4">
-        <Timer />
+      <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 flex items-center">
         <BatteryAnimation percentage={batteryPercentage} />
       </div>
     </div>

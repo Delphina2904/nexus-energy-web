@@ -178,7 +178,7 @@ export const ServicesContent = () => {
 
         {/* Services Grid */}
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
             {services.map((service, index) => {
               // Assign different glow colors based on service type
               const getGlowColor = (title: string) => {
@@ -225,7 +225,7 @@ export const ServicesContent = () => {
                       </h3>
 
                       {/* Offerings */}
-                      <div className="space-y-1.5 md:space-y-2 mb-3 md:mb-4 flex-grow">
+                      {/* <div className="space-y-1.5 md:space-y-2 mb-3 md:mb-4 flex-grow">
                         {service.offerings.map((offering, idx) => (
                           <div key={idx} className="flex items-start gap-2">
                             <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-500 rounded-full mt-1.5 md:mt-2 flex-shrink-0 group-hover:scale-125 transition-transform duration-300"></div>
@@ -234,17 +234,17 @@ export const ServicesContent = () => {
                             </p>
                           </div>
                         ))}
-                      </div>
+                      </div> */}
 
                       {/* Highlight Quote */}
-                      <div className="relative mb-3 md:mb-4">
+                      {/* <div className="relative mb-3 md:mb-4">
                         <blockquote className="text-xs md:text-sm italic text-blue-800 bg-blue-50/50 p-2 md:p-3 rounded-xl border-l-2 border-blue-500">
                           {service.highlight}
                         </blockquote>
-                      </div>
+                      </div> */}
 
                       {/* Applications */}
-                      <div className="mt-auto pt-3 md:pt-4 border-t border-gray-100">
+                      {/* <div className="mt-auto pt-3 md:pt-4 border-t border-gray-100">
                         <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1.5 md:mb-2">
                           Applications
                         </p>
@@ -258,7 +258,7 @@ export const ServicesContent = () => {
                             </span>
                           ))}
                         </div>
-                      </div>
+                      </div> */}
                     </div>
 
                     {/* Hover Effect Arrow */}
