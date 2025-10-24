@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
 import { motion } from 'framer-motion';
+import { Navbar } from '../components/Navbar';
+import { Footer } from '../components/Footer';
 
 const Technology = memo(() => {
   return (
@@ -9,18 +11,19 @@ const Technology = memo(() => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
+      <Navbar />
       <main className="pt-14">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-gray-900 via-black to-gray-800 py-20 sm:py-24 lg:py-32 relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-green-800 nexus-hero relative overflow-hidden">
+          <div className="nexus-container relative z-10">
             <motion.div
               className="text-center"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white mb-6 leading-tight">
-                Advanced Thermal <span className="text-red-500">Management</span>
+              <h1 className="nexus-hero-title text-white mb-6">
+                Advanced Thermal <span className="text-green-400">Management</span>
               </h1>
               <motion.p
                 className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-normal"
@@ -312,6 +315,7 @@ const Technology = memo(() => {
           </div>
         </section>
       </main>
+      <Footer />
     </motion.div>
   );
 });

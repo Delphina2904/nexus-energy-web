@@ -139,12 +139,12 @@ ${formData.name}
     <>
       <Navbar />
       {/* ...existing Contact page content... */}
-      <div id="contact" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white py-12 sm:py-16 md:py-20">
+      <div id="contact" ref={sectionRef} className="relative min-h-screen overflow-hidden nexus-gradient-blue nexus-section">
         {/* Enhanced Modern Background Elements */}
         <div className="absolute inset-0">
           {/* Modern gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-indigo-50/30 to-blue-50/50"></div>
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-50/20 via-transparent to-blue-50/30"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-white/30 to-green-50/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-green-50/20 via-transparent to-blue-50/30"></div>
           <div className="absolute top-16 right-8 w-96 h-96 bg-gradient-to-br from-blue-200/25 to-indigo-300/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-24 left-6 w-80 h-80 bg-gradient-to-tr from-indigo-200/30 to-blue-300/25 rounded-full blur-3xl animate-pulse delay-1000"></div>
           <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-gradient-to-r from-blue-100/35 to-indigo-200/30 rounded-full blur-2xl animate-pulse delay-500"></div>
