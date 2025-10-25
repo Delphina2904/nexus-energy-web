@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Zap, Target, Cpu, Recycle, ArrowRight } from 'lucide-react';
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { PageHero } from "@/components/PageHero";
 import hero from "../assets/herosection.png"
 
 // Export the main About content without Navbar/Footer for embedding
@@ -63,41 +64,6 @@ export const AboutContent = () => {
   return (
     <div id="about" ref={sectionRef} className="relative min-h-screen overflow-hidden bg-white py-12 md:py-20" style={{ zIndex: 10 }}>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
-        {/* Centered Header Section */}
-        <div className={`transform transition-all duration-1000 delay-200 text-center max-w-4xl mx-auto mb-12 md:mb-20 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100'}`}>
-          <div className="flex flex-col items-center mb-4 md:mb-6">
-            <div className="relative mb-3 md:mb-4">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-2xl transform hover:scale-110 transition-all duration-300">
-                <Zap className="w-8 h-8 md:w-10 md:h-10 text-white" />
-              </div>
-            </div>
-            <span className="select-none text-sm md:text-xl text-blue-600 uppercase tracking-widest font-semibold mb-2 md:mb-3 bg-blue-50 px-4 md:px-6 py-2 rounded-full border border-blue-200">
-              About Us
-            </span>
-            <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 rounded-full shadow-lg"></div>
-          </div>
-
-          <h2 className="text-3xl md:text-5xl lg:text-7xl font-semibold text-gray-800 leading-tight mb-6 md:mb-8 select-none">
-            {'Nexus Energy Solutions'.split(' ').map((word, index) => (
-              <span
-                key={index}
-                className="inline-block animate-fade-in-up hover:scale-105 transition-transform duration-300 font-normal"
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                {word}{' '}
-              </span>
-            ))}
-          </h2>
-
-          <div className="relative">
-            <p className="text-base md:text-lg lg:text-2xl text-gray-600 leading-relaxed mb-6 md:mb-8 max-w-4xl mx-auto font-medium">
-              Nexus Energy Solutions stands at the convergence of electrochemical innovation and sustainable transformation,
-              redefining energy storage paradigms since its inception. Born from a collective passion to decarbonize industrial
-              ecosystems, we engineer power solutions that transcend conventional limitations—propelling humanity toward an
-              emission-free future while honoring our Bharatiya roots in global impact.
-            </p>
-          </div>
-        </div>
 
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-12 md:mb-20">
@@ -372,8 +338,16 @@ export const AboutContent = () => {
 
 const About = () => {
   return (
-    <div className="min-h-screen nexus-gradient-blue">
+    <div className="min-h-screen bg-white">
       <Navbar />
+      <PageHero
+        title="Nexus Energy Solutions"
+        subtitle="Leading the convergence of electrochemical innovation and sustainable transformation, redefining energy storage paradigms for a decarbonized future."
+        breadcrumbs={[
+          { label: 'Home', path: '/' },
+          { label: 'About Us' }
+        ]}
+      />
       <AboutContent />
       <Footer />
     </div>

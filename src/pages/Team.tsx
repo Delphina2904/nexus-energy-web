@@ -1,5 +1,6 @@
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { PageHero } from "../components/PageHero";
 import { TeamMemberCard } from "@/components/TeamMemberCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -72,23 +73,17 @@ const Team = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-white">
         <Navbar />
 
-        {/* Hero Section */}
-        <section className="nexus-hero nexus-gradient">
-          <div className="container">
-            <div className="text-center max-w-3xl mx-auto">
-              <span className="nexus-badge mb-4">
-                Our Team
-              </span>
-              <h1 className="nexus-heading text-white mb-6">Meet The Visionaries</h1>
-              <p className="nexus-text-lg text-blue-100">
-                The talented individuals behind Nexus Energy who bring innovation, expertise, and passion to sustainable battery technology.
-              </p>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          title="Meet The Visionaries"
+          subtitle="The talented individuals behind Nexus Energy who bring innovation, expertise, and passion to sustainable battery technology."
+          breadcrumbs={[
+            { label: 'Home', path: '/' },
+            { label: 'Team' }
+          ]}
+        />
 
         {/* Team Members */}
         <section className="nexus-section">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { PageHero } from "../components/PageHero";
 import { GlowCard } from "../components/GlowCard";
 import { Battery, Truck, Building2, Home, Factory } from "lucide-react";
 
@@ -123,43 +124,17 @@ const Application = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <div className="min-h-screen bg-white">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="nexus-hero nexus-hero-bg relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-green-600/10"></div>
-        <div className="nexus-container text-center relative z-10">
-          <div className="nexus-badge nexus-badge-blue mb-6">
-            <Battery className="w-4 h-4 mr-2" />
-            Nexus Energy Applications
-          </div>
-          <h1 className="nexus-hero-title">
-            Powering the Future with
-            <span className="nexus-gradient-primary bg-clip-text text-transparent"> Advanced Battery Solutions</span>
-          </h1>
-          <p className="nexus-hero-subtitle max-w-4xl">
-            From electric mobility to industrial automation, our cutting-edge battery storage solutions 
-            drive innovation across multiple industries and applications.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-sm font-medium text-gray-700">6 Applications</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
-              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-              <span className="text-sm font-medium text-gray-700">5000+ Installations</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
-              <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-              <span className="text-sm font-medium text-gray-700">5 Industry Sectors</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
+      <PageHero
+        title="Advanced Battery Applications"
+        subtitle="From electric mobility to industrial automation, our cutting-edge battery storage solutions drive innovation across multiple industries and applications."
+        breadcrumbs={[
+          { label: 'Home', path: '/' },
+          { label: 'Applications' }
+        ]}
+      />
 
       {/* Applications Grid */}
       <section className="nexus-section">

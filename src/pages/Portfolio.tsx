@@ -1,5 +1,6 @@
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { PageHero } from "../components/PageHero";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Button } from "@/components/ui/button";
 import { PageTransition } from "@/components/PageTransition";
@@ -189,23 +190,17 @@ const Portfolio = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-white">
         <Navbar />
 
-        {/* Hero Section */}
-        <section className="pt-32 pb-16 bg-muted/30">
-          <div className="container">
-            <div className="text-center max-w-3xl mx-auto">
-              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-medium mb-4">
-                Our Work
-              </span>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Portfolio</h1>
-              <p className="text-xl text-muted-foreground">
-                Explore our latest projects and see how we've helped businesses achieve their digital goals.
-              </p>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          title="Our Portfolio"
+          subtitle="Explore our latest projects and see how we've helped businesses achieve their digital goals through innovative battery storage solutions."
+          breadcrumbs={[
+            { label: 'Home', path: '/' },
+            { label: 'Portfolio' }
+          ]}
+        />
 
         {/* Portfolio Filter */}
         <section className="py-10">
