@@ -25,6 +25,7 @@ import UIUXDesign from "./pages/services/ui-ux-design";
 import LenisSmoothScroll from "./components/LenisSmoothScroll";
 import VisionMission from "./pages/VisionMission";
 import { Navbar } from "./components/Navbar";
+import Solutions from "./pages/solutions/Solutions";
 
 const queryClient = new QueryClient();
 
@@ -44,7 +45,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/vision-mission" element={<VisionMission />} />
             <Route path="/team" element={<Team />} />
-            <Route path="/solutions" element={<Services />} />
+            <Route path="/solutions" element={<Solutions />} />
             <Route path="/technology" element={<Technology />} />
             <Route path="/application" element={<Application />} />
             <Route path="/contact" element={<Contact />} />

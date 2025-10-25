@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { PageHero } from "@/components/PageHero";
 import { Phone, Mail, MapPin, Send, Clock, MessageSquare, ArrowRight } from 'lucide-react';
 
 const Contact = () => {
@@ -136,9 +137,16 @@ ${formData.name}
   ];
 
   return (
-    <>
+    <div className="min-h-screen bg-white">
       <Navbar />
-      {/* ...existing Contact page content... */}
+      <PageHero
+        title="Get in Touch"
+        subtitle="Ready to transform your energy future? Connect with our experts to discuss your battery storage needs."
+        breadcrumbs={[
+          { label: 'Home', path: '/' },
+          { label: 'Contact' }
+        ]}
+      />
       <div id="contact" ref={sectionRef} className="relative min-h-screen overflow-hidden nexus-gradient-blue nexus-section">
         {/* Enhanced Modern Background Elements */}
         <div className="absolute inset-0">
@@ -401,7 +409,7 @@ ${formData.name}
         `}</style>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

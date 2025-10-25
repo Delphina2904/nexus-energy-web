@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Eye, Target, Lightbulb, Users, Leaf, Award, Heart, Zap } from 'lucide-react';
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { PageHero } from "@/components/PageHero";
 
 // Export the main VisionMission content without Navbar/Footer for embedding
 export const VisionMissionContent = () => {
@@ -344,11 +345,19 @@ export const VisionMissionContent = () => {
 
 const VisionMission = () => {
   return (
-    <>
+    <div className="min-h-screen bg-white">
       <Navbar />
+      <PageHero
+        title="Vision & Mission"
+        subtitle="Shaping the future of energy storage through innovation, sustainability, and global impact. Our commitment to excellence drives every solution we create."
+        breadcrumbs={[
+          { label: 'Home', path: '/' },
+          { label: 'Vision & Mission' }
+        ]}
+      />
       <VisionMissionContent />
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Images } from "../constants";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { PageHero } from "../components/PageHero";
 import { GlowCard } from "../components/GlowCard";
 
 const services = [
@@ -163,18 +164,7 @@ export const ServicesContent = () => {
         ></div>
       </div>
 
-      <div className="max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8">
-
-        {/* Header Section */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="select-none text-3xl md:text-5xl lg:text-6xl font-semibold bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 bg-clip-text text-transparent mb-8 leading-tight py-2">
-            Precision-Engineered Solutions
-          </h2>
-          <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Where Innovation Converges with Operational Excellence -
-            Transforming Industries Through Advanced Energy Solutions
-          </p>
-        </div>
+      <div className="max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8 py-12">
 
         {/* Services Grid */}
         <div className="max-w-6xl mx-auto">
@@ -196,8 +186,6 @@ export const ServicesContent = () => {
                     glowColor={getGlowColor(service.title)}
                     customSize={true}
                     className="group relative bg-white shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full flex flex-col"
-                    onMouseEnter={() => setHoveredCard(index)}
-                    onMouseLeave={() => setHoveredCard(null)}
                   >
                   {/* Card Content */}
                   <div className="flex flex-col h-full">
@@ -297,11 +285,19 @@ export const ServicesContent = () => {
 
 const Services = () => {
   return (
-    <>
+    <div className="min-h-screen bg-white">
       <Navbar />
+      <PageHero
+        title="Precision-Engineered Solutions"
+        subtitle="Where innovation converges with operational excellence - transforming industries through advanced energy solutions"
+        breadcrumbs={[
+          { label: 'Home', path: '/' },
+          { label: 'Services' }
+        ]}
+      />
       <ServicesContent />
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Menu, Calendar } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { HoverImageEffect } from "@/components/custom/HoverImageEffect";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Helmet } from "react-helmet-async";
@@ -10,13 +10,36 @@ import { Helmet } from "react-helmet-async";
 const navItems = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
-  { name: "Solutions", path: "/solutions" },
-  { name: "Technology", path: "/technology" },
-  { name: "Application", path: "/application" },
-  // { name: "Customers", path: "/customers" },
-
-  // { name: "Team", path: "/team" },
   { name: "Contact", path: "/contact" },
+];
+
+const solutionsStructure = [
+  {
+    category: "Commercial",
+    path: "/solutions",
+    subcategories: [
+      { name: "LCVs (Light Commercial Electric Vehicles)", path: "/solutions" },
+      { name: "Forklifts", path: "/solutions" },
+    ]
+  },
+  {
+    category: "Drones",
+    path: "/solutions",
+    subcategories: [
+      { name: "Agri", path: "/solutions" },
+      { name: "Defence", path: "/solutions" },
+    ]
+  },
+  {
+    category: "Energy Storage Systems",
+    path: "/solutions",
+    subcategories: []
+  },
+  {
+    category: "Railways",
+    path: "/solutions",
+    subcategories: []
+  }
 ];
 
 type NavbarProps = {
@@ -29,6 +52,11 @@ export const Navbar = ({
   description = "Leading provider of advanced battery storage solutions for residential, commercial, and industrial applications. Transform your energy future with our cutting-edge technology.",
 }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const location = useLocation();
 
   useEffect(() => {
@@ -53,6 +81,14 @@ export const Navbar = ({
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
+  }, [location.pathname]);
+
+  // Reset mobile submenu when location changes
+  useEffect(() => {
+    setMobileSubMenuOpen(false);
+    setIsDropdownOpen(false);
+    setHoveredCategory(null);
+    setExpandedCategories({});
   }, [location.pathname]);
 
   const openWhatsAppBooking = () => {
@@ -203,7 +239,7 @@ export const Navbar = ({
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
           location.pathname === "/" && !scrolled
             ? "py-4 bg-transparent"
-            : "py-4 bg-white opacity-70 shadow-sm border-b border-gray-200"
+            : "py-4 bg-white opacity-90 shadow-sm border-b border-gray-200"
         )}
         role="banner"
       >
@@ -246,35 +282,188 @@ export const Navbar = ({
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-10" role="menubar">
+          <nav className="hidden lg:flex items-center gap-8 xl:gap-10" role="menubar">
             {navItems.map((item) => (
-              <li key={item.name} role="none">
-                <Link
-                  to={item.path}
-                  className={cn(
-                    "text-sm font-normal transition-colors duration-300 hover:text-blue-600 relative py-2",
-                    location.pathname === item.path
-                      ? scrolled
-                        ? "text-blue-600 font-medium"
-                        : "text-blue-400 font-medium"
-                      : scrolled
-                      ? "text-gray-900 hover:text-gray-900"
-                      : location.pathname === '/'
-                      ? "text-gray-100 hover:text-gray-600"
-                      : "text-gray-900 hover:text-gray-600"
-                  )}
-                  role="menuitem"
-                  aria-current={
-                    location.pathname === item.path ? "page" : undefined
-                  }
-                >
-                  {item.name}
-                </Link>
-              </li>
+              <Link
+                key={item.name}
+                to={item.path}
+                className={cn(
+                  "text-sm font-medium transition-all duration-300 hover:text-blue-600 relative py-2 group",
+                  location.pathname === item.path
+                    ? scrolled
+                      ? "text-blue-600 font-semibold"
+                      : "text-blue-400 font-semibold"
+                    : scrolled
+                    ? "text-gray-900 hover:text-blue-600"
+                    : location.pathname === '/'
+                    ? "text-gray-100 hover:text-blue-300"
+                    : "text-gray-900 hover:text-blue-600"
+                )}
+                role="menuitem"
+                aria-current={location.pathname === item.path ? "page" : undefined}
+              >
+                {item.name}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+              </Link>
             ))}
-          </ul>
+            
+            {/* Solutions Dropdown */}
+            <div 
+              className="relative group"
+              onMouseEnter={() => {
+                setIsDropdownOpen(true);
+                setHoveredCategory(null);
+              }}
+              onMouseLeave={() => {
+                setIsDropdownOpen(false);
+                setHoveredCategory(null);
+              }}
+            >
+              <button
+                className={cn(
+                  "text-sm font-medium transition-all duration-300 hover:text-blue-600 relative py-2 flex items-center gap-1",
+                  location.pathname.startsWith('/solutions')
+                    ? scrolled
+                      ? "text-blue-600 font-semibold"
+                      : "text-blue-400 font-semibold"
+                    : scrolled
+                    ? "text-gray-900 hover:text-blue-600"
+                    : location.pathname === '/'
+                    ? "text-gray-100 hover:text-blue-300"
+                    : "text-gray-900 hover:text-blue-600"
+                )}
+              >
+                Solutions
+                <ChevronDown 
+                  className={cn(
+                    "h-3 w-3 transition-transform duration-300",
+                    isDropdownOpen ? "rotate-180" : ""
+                  )}
+                />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+              </button>
+              
+              {/* Dropdown Menu - CATL Style */}
+              <div
+                className={cn(
+                  "absolute top-full left-0 right-0 mt-0 bg-white shadow-lg border-t border-gray-200 z-50 transition-all duration-200 ease-out",
+                  isDropdownOpen
+                    ? "opacity-100 visible translate-y-0"
+                    : "opacity-0 invisible -translate-y-2"
+                )}
+                style={{
+                  width: "110vw",
+                  left: "50%",
+                  transform: "translateX(-50%)"
+                }}
+                onMouseLeave={() => setHoveredCategory(null)}
+              >
+                <div className="container mx-auto px-4 max-w-7xl">
+                  {/* Main Categories - Horizontal Row (CATL Style) */}
+                  <div className="flex items-center justify-center py-4">
+                    <div className="flex items-center space-x-12">
+                      {solutionsStructure.map((category) => (
+                        <div
+                          key={category.category}
+                          className="relative"
+                          onMouseEnter={() => {
+                            if (category.subcategories.length > 0) {
+                              setHoveredCategory(category.category);
+                            }
+                          }}
+                        >
+                          <Link
+                            to={category.path}
+                            className={cn(
+                              "block px-4 py-2 text-sm font-medium transition-colors duration-200",
+                              category.subcategories.length > 0
+                                ? hoveredCategory === category.category
+                                  ? "text-blue-600"
+                                  : "text-gray-700 hover:text-blue-600"
+                                : "text-gray-700 hover:text-gray-900" // No blue hover for categories without subcategories
+                            )}
+                          >
+                            {category.category}
+                          </Link>
+                          
+                          {/* Bottom border indicator for active category */}
+                          {category.subcategories.length > 0 && hoveredCategory === category.category && (
+                            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Subcategories Section - Only show if category has subcategories */}
+                  {hoveredCategory && (() => {
+                    const category = solutionsStructure.find(cat => cat.category === hoveredCategory);
+                    return category && category.subcategories.length > 0;
+                  })() && (
+                    <div 
+                      className="border-t border-gray-100 py-6"
+                      onMouseEnter={() => {
+                        // Keep the hovered category active when hovering over subcategories
+                        const category = solutionsStructure.find(cat => cat.category === hoveredCategory);
+                        if (category && category.subcategories.length > 0) {
+                          setHoveredCategory(category.category);
+                        }
+                      }}
+                    >
+                      <div className="animate-in fade-in duration-200">
+                        {(() => {
+                          const category = solutionsStructure.find(cat => cat.category === hoveredCategory);
+                          return (
+                            <div className="text-center">
+                              <div className="flex justify-center space-x-8">
+                                {category.subcategories.map((subcategory) => (
+                                  <Link
+                                    key={subcategory.name}
+                                    to={subcategory.path}
+                                    className="group block px-6 py-4 text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
+                                  >
+                                    <div className="text-center">
+                                      <div className="font-medium">
+                                        {subcategory.name}
+                                      </div>
+                                    </div>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
 
-          <div className="hidden md:flex items-center gap-4">
+            {/* Technology */}
+            <Link
+              to="/technology"
+              className={cn(
+                "text-sm font-medium transition-all duration-300 hover:text-blue-600 relative py-2 group",
+                location.pathname === "/technology"
+                  ? scrolled
+                    ? "text-blue-600 font-semibold"
+                    : "text-blue-400 font-semibold"
+                  : scrolled
+                  ? "text-gray-900 hover:text-blue-600"
+                  : location.pathname === '/'
+                  ? "text-gray-100 hover:text-blue-300"
+                  : "text-gray-900 hover:text-blue-600"
+              )}
+              role="menuitem"
+              aria-current={location.pathname === "/technology" ? "page" : undefined}
+            >
+              Technology
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          </nav>
+
+          <div className="hidden lg:flex items-center gap-4">
             <Button
               asChild
               className={cn(
@@ -296,7 +485,7 @@ export const Navbar = ({
                 variant="ghost"
                 size="icon"
                 className={cn(
-                  "md:hidden transition-colors duration-300 p-2",
+                  "lg:hidden transition-colors duration-300 p-2",
                   scrolled
                     ? "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
                     : "text-white hover:text-gray-200 hover:bg-white/10"
@@ -345,6 +534,105 @@ export const Navbar = ({
                       {item.name}
                     </Link>
                   ))}
+                  
+                  {/* Mobile Solutions Dropdown */}
+                  <div>
+                    <button
+                      onClick={() => setMobileSubMenuOpen(!mobileSubMenuOpen)}
+                      className={cn(
+                        "w-full text-left text-base py-3 px-4 rounded-md transition-colors flex items-center justify-between",
+                        location.pathname.startsWith('/solutions')
+                          ? "bg-blue-50 text-blue-600 font-medium"
+                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                      )}
+                    >
+                      <span>Solutions</span>
+                      <ChevronDown 
+                        className={cn(
+                          "h-4 w-4 transition-transform duration-200",
+                          mobileSubMenuOpen ? "rotate-180" : ""
+                        )}
+                      />
+                    </button>
+                    {mobileSubMenuOpen && (
+                      <div className="ml-4 mt-2 space-y-2 border-l-2 border-blue-100 pl-4 animate-in slide-in-from-left-2 duration-200">
+                        {solutionsStructure.map((category) => (
+                          <div key={category.category} className="space-y-1">
+                            {/* Main Category */}
+                            <div className="flex flex-col">
+                              <Link
+                                to={category.path}
+                                className={cn(
+                                  "block text-sm py-2 px-3 rounded-md transition-all duration-200 border-l-2 border-transparent hover:border-blue-300 font-medium",
+                                  location.pathname === category.path
+                                    ? "bg-blue-50 text-blue-600 border-blue-500"
+                                    : "text-gray-700 hover:text-gray-900 hover:bg-blue-50/50"
+                                )}
+                              >
+                                {category.category}
+                              </Link>
+                              
+                              {/* Subcategories Toggle */}
+                              {category.subcategories.length > 0 && (
+                                <button
+                                  onClick={() => setExpandedCategories(prev => ({
+                                    ...prev,
+                                    [category.category]: !prev[category.category]
+                                  }))}
+                                  className="flex items-center justify-between text-xs text-gray-500 py-1 px-3 hover:text-gray-700 transition-colors"
+                                >
+                                  <span>View subcategories</span>
+                                  <ChevronDown 
+                                    className={cn(
+                                      "h-3 w-3 transition-transform duration-200",
+                                      expandedCategories[category.category] ? "rotate-180" : ""
+                                    )}
+                                  />
+                                </button>
+                              )}
+                            </div>
+                            
+                            {/* Subcategories */}
+                            {category.subcategories.length > 0 && expandedCategories[category.category] && (
+                              <div className="ml-3 space-y-1 border-l border-gray-200 pl-3">
+                                {category.subcategories.map((subcategory) => (
+                                  <Link
+                                    key={subcategory.name}
+                                    to={subcategory.path}
+                                    className={cn(
+                                      "block text-xs py-1.5 px-2 rounded-md transition-all duration-200 border-l-2 border-transparent hover:border-blue-300",
+                                      location.pathname === subcategory.path
+                                        ? "bg-blue-50 text-blue-600 font-medium border-blue-500"
+                                        : "text-gray-600 hover:text-gray-800 hover:bg-blue-50/30"
+                                    )}
+                                  >
+                                    {subcategory.name}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Technology */}
+                  <Link
+                    to="/technology"
+                    className={cn(
+                      "text-base py-3 px-4 rounded-md transition-colors",
+                      location.pathname === "/technology"
+                        ? "bg-blue-50 text-blue-600 font-medium"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                    )}
+                    role="menuitem"
+                    aria-current={
+                      location.pathname === "/technology" ? "page" : undefined
+                    }
+                  >
+                    Technology
+                  </Link>
                 </div>
                 <div className="mt-auto pb-6">
                   <Button
