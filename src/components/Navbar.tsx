@@ -18,8 +18,13 @@ const solutionsStructure = [
     category: "Commercial",
     path: "/solutions",
     subcategories: [
-      { name: "LCVs (Light Commercial Electric Vehicles)", path: "/solutions" },
-      { name: "Forklifts", path: "/solutions" },
+      { name: "Road Passenger Transport", path: "/solutions" },
+      { name: "Urban Delivery", path: "/solutions" },
+      { name: "Heavy-duty Transport", path: "/solutions" },
+      { name: "Urban Street Cleaning", path: "/solutions" },
+      { name: "Construction", path: "/solutions" },
+      { name: "Two-wheeled Vehicle", path: "/solutions" },
+      { name: "Special Vehicle", path: "/solutions" },
     ]
   },
   {
@@ -360,8 +365,8 @@ export const Navbar = ({
               >
                 <div className="container mx-auto px-4 max-w-7xl">
                   {/* Main Categories - Horizontal Row (CATL Style) */}
-                  <div className="flex items-center justify-center py-4">
-                    <div className="flex items-center space-x-12">
+                  <div className="flex items-center justify-center py-3">
+                    <div className="flex items-center space-x-6">
                       {solutionsStructure.map((category) => (
                         <div
                           key={category.category}
@@ -375,12 +380,12 @@ export const Navbar = ({
                           <Link
                             to={category.path}
                             className={cn(
-                              "block px-4 py-2 text-sm font-medium transition-colors duration-200",
+                              "flex items-center justify-center px-4 text-sm font-medium transition-colors duration-200 min-h-[28px] min-w-[120px]",
                               category.subcategories.length > 0
                                 ? hoveredCategory === category.category
-                                  ? "text-blue-600"
-                                  : "text-gray-700 hover:text-blue-600"
-                                : "text-gray-700 hover:text-gray-900" // No blue hover for categories without subcategories
+                                  ? "text-blue-600 bg-blue-50"
+                                  : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                                : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                             )}
                           >
                             {category.category}
@@ -401,7 +406,7 @@ export const Navbar = ({
                     return category && category.subcategories.length > 0;
                   })() && (
                     <div 
-                      className="border-t border-gray-100 py-6"
+                      className="border-t border-gray-100 py-[6px] bg-gray-50/50"
                       onMouseEnter={() => {
                         // Keep the hovered category active when hovering over subcategories
                         const category = solutionsStructure.find(cat => cat.category === hoveredCategory);
@@ -415,12 +420,12 @@ export const Navbar = ({
                           const category = solutionsStructure.find(cat => cat.category === hoveredCategory);
                           return (
                             <div className="text-center">
-                              <div className="flex justify-center space-x-8">
+                              <div className="flex justify-center space-x-3">
                                 {category.subcategories.map((subcategory) => (
                                   <Link
                                     key={subcategory.name}
                                     to={subcategory.path}
-                                    className="group block px-6 py-4 text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
+                                    className="group flex items-center justify-center px-6 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-white transition-all duration-200 min-h-[32px] min-w-[160px] rounded-md border border-transparent hover:border-blue-200 hover:shadow-sm"
                                   >
                                     <div className="text-center">
                                       <div className="font-medium">
