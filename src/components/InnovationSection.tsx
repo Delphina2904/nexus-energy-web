@@ -41,7 +41,7 @@ const InnovationSection: React.FC = () => {
                 {/* Battery Image */}
                 <div className="flex items-center justify-center group">
                     <video 
-                      src="/public/images/video-vmake.mp4" 
+                      src="./images/video-vmake.mp4" 
                       autoPlay 
                       loop 
                       muted 

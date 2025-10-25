@@ -1,13 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Images } from "../constants";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { PageHero } from "../components/PageHero";
 import { GlowCard } from "../components/GlowCard";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 const services = [
   {
-    title: "E-Mobility Revolution",
+    title: "E-Mobility Revolution....",
     offerings: [
       "High-density propulsion systems for L3/L5 EVs",
       "Ultra-fast charging infrastructure (0-100% in 12-20 mins)",
@@ -61,7 +62,7 @@ const services = [
     gradient: "from-orange-400 to-yellow-500",
   },
   {
-    title: "Defense & Aerospace Power Systems",
+    title: "Defense Power Systems",
     offerings: [
       "Extreme-temperature batteries (-40°C to 65°C)",
       "EMP-hardened power units for surveillance systems",
@@ -119,163 +120,230 @@ const services = [
 // Export the main Services content without Navbar/Footer for embedding
 export const ServicesContent = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const sectionRef = useRef(null);
+  const intervalRef = useRef(null);
+
+  // Get slides to show based on screen size
+  const getSlidesToShow = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 1024) return 3; // lg and above
+      if (window.innerWidth >= 768) return 2;  // md and above
+      return 1; // mobile
+    }
+    return 3; // default
+  };
+
+  const [slidesToShow, setSlidesToShow] = useState(getSlidesToShow());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSlidesToShow(getSlidesToShow());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxSlides = Math.max(0, services.length - slidesToShow);
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (isAutoPlaying) {
+      intervalRef.current = setInterval(() => {
+        setCurrentSlide((prev) => {
+          const nextSlide = prev + 1;
+          return nextSlide > maxSlides ? 0 : nextSlide;
+        });
+      }, 4000); // Change slide every 4 seconds
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isAutoPlaying, maxSlides]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => Math.min(prev + 1, maxSlides));
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => Math.max(prev - 1, 0));
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(Math.min(index, maxSlides));
+  };
+
+  const handleMouseEnter = () => {
+    setIsAutoPlaying(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsAutoPlaying(true);
+  };
 
   return (
     <div
       id="services"
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden nexus-gradient-blue nexus-section"
+      className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 py-20"
     >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Subtle dot pattern */}
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #3b82f6 1px, transparent 0)`,
-            backgroundSize: "50px 50px",
-          }}
-        ></div>
-
-        {/* More floating orbs with varied sizes and colors */}
-        <div className="absolute top-32 left-1/4 w-8 h-8 bg-blue-300/50 rounded-full animate-bounce delay-300"></div>
-        <div className="absolute bottom-48 right-1/3 w-5 h-5 bg-indigo-300/60 rounded-full animate-bounce delay-700"></div>
-        <div className="absolute top-2/3 left-1/8 w-4 h-4 bg-blue-200/70 rounded-full animate-bounce delay-1000"></div>
-        <div className="absolute top-1/3 right-1/6 w-6 h-6 bg-indigo-200/55 rounded-full animate-bounce delay-500"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-blue-300/65 rounded-full animate-bounce delay-1200"></div>
-
-        {/* Enhanced gradient overlays */}
-        <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-white/90 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white/70 to-transparent"></div>
-
-        {/* Subtle animated lines */}
-        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-300/30 to-transparent animate-pulse"></div>
-        <div className="absolute bottom-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-300/30 to-transparent animate-pulse delay-1000"></div>
-
-        {/* Modern mesh gradient effect */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: `radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 40%, rgba(147, 197, 253, 0.05) 0%, transparent 50%)`,
-          }}
-        ></div>
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-blue-200/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-purple-200/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-200/10 rounded-full blur-2xl"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-blue-100/80 backdrop-blur-sm border border-blue-200/50 px-6 py-3 rounded-full shadow-lg mb-6">
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+            <span className="text-blue-700 font-semibold text-sm tracking-wide uppercase">Technology Applications</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              Powering Innovation
+            </span>
+            <br />
+            <span className="text-gray-800">Across Industries</span>
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Our advanced battery solutions drive transformation across diverse sectors, 
+            delivering exceptional performance and reliability that powers the future.
+          </p>
+        </div>
 
-        {/* Services Grid */}
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {services.map((service, index) => {
-              // Assign different glow colors based on service type
-              const getGlowColor = (title: string) => {
-                if (title.includes("E-Mobility")) return "blue";
-                if (title.includes("Renewable Energy")) return "green";
-                if (title.includes("Agricultural")) return "orange";
-                if (title.includes("Defense")) return "red";
-                if (title.includes("Industrial")) return "purple";
-                return "blue";
-              };
+        {/* Carousel Container */}
+        <div 
+          className="relative"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          {/* Carousel Wrapper */}
+          <div className="overflow-hidden rounded-3xl">
+            <div 
+              className="flex transition-transform duration-700 ease-in-out gap-3"
+              style={{ transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)` }}
+            >
+              {services.map((service, index) => {
+                // Assign different gradient colors based on service type
+                const getGradientStyle = (title: string) => {
+                  if (title.includes("E-Mobility")) return "from-blue-400/20 to-cyan-400/20";
+                  if (title.includes("Renewable Energy")) return "from-green-400/20 to-emerald-400/20";
+                  if (title.includes("Agricultural")) return "from-orange-400/20 to-yellow-400/20";
+                  if (title.includes("Defense")) return "from-red-400/20 to-pink-400/20";
+                  if (title.includes("Industrial")) return "from-purple-400/20 to-indigo-400/20";
+                  return "from-indigo-400/20 to-blue-400/20";
+                };
 
-              return (
-                <div key={index} className="h-full">
-                  <GlowCard
-                    glowColor={getGlowColor(service.title)}
-                    customSize={true}
-                    className="group relative bg-white shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full flex flex-col"
+                const getGlowColor = (title: string) => {
+                  if (title.includes("E-Mobility")) return "blue";
+                  if (title.includes("Renewable Energy")) return "green";
+                  if (title.includes("Agricultural")) return "orange";
+                  if (title.includes("Defense")) return "red";
+                  if (title.includes("Industrial")) return "purple";
+                  return "blue";
+                };
+
+                return (
+                  <div 
+                    key={index} 
+                    className="flex-shrink-0"
+                    style={{ width: `${100 / slidesToShow}%` }}
                   >
-                  {/* Card Content */}
-                  <div className="flex flex-col h-full">
-                    {/* Image Section */}
-                    <div className="relative h-48 md:h-56 overflow-hidden">
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div
+                      className="group cursor-pointer h-full"
+                      onClick={() => window.location.href = 'http://localhost:8080/technology'}
+                      onMouseEnter={() => setHoveredCard(index)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                    >
+                      <div className={`relative bg-gradient-to-br ${getGradientStyle(service.title)} backdrop-blur-sm rounded-2xl p-1 h-full transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20`}>
+                        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 h-full flex flex-col">
+                          {/* Image Section */}
+                          <div className="relative h-48 md:h-52 overflow-hidden rounded-xl mb-6">
+                            <img
+                              src={service.image}
+                              alt={service.title}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                            
+                            {/* Stats Badge */}
+                            <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full text-sm font-bold text-gray-800 shadow-lg border border-white/20">
+                              {service.stats}
+                            </div>
 
+                        
+                          </div>
 
-                      {/* Stats Badge */}
-                      <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 bg-white/95 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium text-gray-800 shadow-lg">
-                        {service.stats}
+                          {/* Content Section */}
+                          <div className="flex flex-col flex-grow">
+                            <h3 className="text-xl md:text-2xl mb-0 font-bold text-gray-900 group-hover:text-blue-700 transition-colors duration-300">
+                              {service.title}
+                            </h3>
+
+                   
+                          </div>
+                        </div>
                       </div>
                     </div>
-
-                    {/* Content Section */}
-                    <div className="p-4 md:p-6 flex flex-col flex-grow">
-                      <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-3 md:mb-4 group-hover:text-blue-700 transition-colors duration-300">
-                        {service.title}
-                      </h3>
-
-                      {/* Offerings */}
-                      {/* <div className="space-y-1.5 md:space-y-2 mb-3 md:mb-4 flex-grow">
-                        {service.offerings.map((offering, idx) => (
-                          <div key={idx} className="flex items-start gap-2">
-                            <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-500 rounded-full mt-1.5 md:mt-2 flex-shrink-0 group-hover:scale-125 transition-transform duration-300"></div>
-                            <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
-                              {offering}
-                            </p>
-                          </div>
-                        ))}
-                      </div> */}
-
-                      {/* Highlight Quote */}
-                      {/* <div className="relative mb-3 md:mb-4">
-                        <blockquote className="text-xs md:text-sm italic text-blue-800 bg-blue-50/50 p-2 md:p-3 rounded-xl border-l-2 border-blue-500">
-                          {service.highlight}
-                        </blockquote>
-                      </div> */}
-
-                      {/* Applications */}
-                      {/* <div className="mt-auto pt-3 md:pt-4 border-t border-gray-100">
-                        <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1.5 md:mb-2">
-                          Applications
-                        </p>
-                        <div className="flex flex-wrap gap-1 md:gap-1.5">
-                          {service.applications.map((app, idx) => (
-                            <span
-                              key={idx}
-                              className="px-1.5 md:px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded-full font-normal hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200"
-                            >
-                              {app}
-                            </span>
-                          ))}
-                        </div>
-                      </div> */}
-                    </div>
-
-                    {/* Hover Effect Arrow */}
-                    <div
-                      className={`absolute bottom-3 md:bottom-4 right-3 md:right-4 w-6 h-6 md:w-8 md:h-8 bg-blue-500 rounded-full flex items-center justify-center text-white transition-all duration-300 ${
-                        hoveredCard === index
-                          ? "opacity-100 translate-x-0"
-                          : "opacity-0 translate-x-4"
-                      }`}
-                    >
-                      <svg
-                        className="w-3 h-3 md:w-4 md:h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
                   </div>
-                  </GlowCard>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Navigation Arrows */}
+          {currentSlide > 0 && (
+            <button
+              onClick={prevSlide}
+              className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white shadow-xl hover:shadow-2xl rounded-full p-4 transition-all duration-300 group z-10 backdrop-blur-sm border border-white/20"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-6 h-6 text-gray-600 group-hover:text-blue-600 transition-colors duration-300" />
+            </button>
+          )}
+
+          {currentSlide < maxSlides && (
+            <button
+              onClick={nextSlide}
+              className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white shadow-xl hover:shadow-2xl rounded-full p-4 transition-all duration-300 group z-10 backdrop-blur-sm border border-white/20"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-6 h-6 text-gray-600 group-hover:text-blue-600 transition-colors duration-300" />
+            </button>
+          )}
+
+          {/* Dot Indicators */}
+          <div className="flex justify-center space-x-3 mt-12">
+            {Array.from({ length: maxSlides + 1 }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`transition-all duration-300 ${
+                  index === currentSlide
+                    ? "w-8 h-3 bg-blue-600 rounded-full"
+                    : "w-3 h-3 bg-gray-300 hover:bg-gray-400 rounded-full"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Slide Counter */}
+          <div className="text-center mt-6">
+            <span className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-gray-600 shadow-lg border border-white/20">
+              <span className="font-semibold text-blue-600">{currentSlide + 1}</span>
+              <span>of</span>
+              <span className="font-semibold">{maxSlides + 1}</span>
+            </span>
           </div>
         </div>
       </div>

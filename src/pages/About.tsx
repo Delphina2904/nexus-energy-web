@@ -78,7 +78,7 @@ export const AboutContent = () => {
                 <div className="aspect-[4/5] w-full bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl flex items-center justify-center overflow-hidden relative">
                   <div className="flex items-center justify-center group">
                     <video
-                      src="/public/images/video-vmake.mp4"
+                      src="./images/video-vmake.mp4"
                       autoPlay
                       loop
                       muted
