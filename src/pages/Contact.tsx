@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { ChevronRight, Send, RefreshCw } from 'lucide-react';
+import { PageHero } from "@/components/PageHero";
+import { ChevronRight, Send, RefreshCw, MapPin, Phone, Mail, MessageSquare, Clock, Building } from 'lucide-react';
 
 const Contact = () => {
   const [activeTab, setActiveTab] = useState('customer');
@@ -17,22 +18,6 @@ const Contact = () => {
       applicationArea: '',
       requirements: ''
     },
-    media: {},
-    activity: {
-      exhibitionName: '',
-      organizer: '',
-      website: '',
-      venue: '',
-      registrationStart: '',
-      registrationEnd: '',
-      eventStart: '',
-      eventEnd: '',
-      name: '',
-      tel: '',
-      email: '',
-      themeContents: '',
-      purpose: ''
-    },
     feedback: {
       name: '',
       tel: '',
@@ -45,10 +30,8 @@ const Contact = () => {
   });
 
   const tabs = [
-    { id: 'customer', label: 'Customer', description: 'For purchasing CATL\'s products, please leave a message' },
-    { id: 'media', label: 'Media', description: 'Contact us' },
-    { id: 'activity', label: 'Event Organizer', description: 'For exhibitions or conference invitations, please leave a message:' },
-    { id: 'feedback', label: 'Suggestions and Feedbacks', description: 'If you have any questions or suggestions about CATL products, technical support, cooperation, etc., please contact us' }
+    { id: 'customer', label: 'Customer', description: 'For purchasing Nexus Energy\'s products, please leave a message' },
+    { id: 'feedback', label: 'Suggestions and Feedbacks', description: 'If you have any questions or suggestions about Nexus Energy products, technical support, cooperation, etc., please contact us' }
   ];
 
   const applicationScenarios = [
@@ -136,36 +119,135 @@ const Contact = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
       
-      {/* Breadcrumb Hero Section */}
-      <div className="bg-gray-50 py-12 border-b">
-        <div className="max-w-7xl mx-auto px-6">
-          {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
-            <a href="/" className="hover:text-blue-600 transition-colors">Home</a>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900">Contact</span>
-          </nav>
-          
-          {/* Page Title */}
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Message</h1>
-          
-          {/* Tab Description */}
-          <p className="text-lg text-gray-700 max-w-3xl">
-            {tabs.find(tab => tab.id === activeTab)?.description}
+      <PageHero
+        title="Contact Us"
+        subtitle="Get in touch with our team for inquiries, quotes, or to discuss your energy storage needs."
+        breadcrumbs={[
+          { label: 'Home', path: '/' },
+          { label: 'Contact' }
+        ]}
+      />
+
+      {/* Contact Information Section */}
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Get In Touch With Us</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Ready to power your future? Connect with our energy experts through any of these channels.
           </p>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {/* Address Card */}
+          <div className="group relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-2xl border border-blue-100 hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/10 rounded-full -mr-10 -mt-10"></div>
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <MapPin className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Visit Our Office</h3>
+              <a
+                href="https://maps.google.com/?q=508+Rosa+Bella+Towers+Waghbil+Ghodbunder+Road+Thane+West+Mumbai+400815"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 hover:text-blue-600 transition-colors duration-300 block"
+              >
+                508, Rosa Bella Towers,<br />
+                Waghbil, Thane West,<br />
+                Mumbai - 400815
+              </a>
+            </div>
+          </div>
+
+          {/* Phone Numbers Card */}
+          <div className="group relative overflow-hidden bg-gradient-to-br from-green-50 to-emerald-100 p-8 rounded-2xl border border-green-100 hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -mr-10 -mt-10"></div>
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Phone className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Call Us Directly</h3>
+              <div className="space-y-2">
+                <a
+                  href="tel:+916280602341"
+                  className="block text-gray-600 hover:text-green-600 transition-colors duration-300 font-medium"
+                >
+                  +91 6280 602 341
+                </a>
+                <a
+                  href="tel:+919650661636"
+                  className="block text-gray-600 hover:text-green-600 transition-colors duration-300 font-medium"
+                >
+                  +91 9650661636
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Email Card */}
+          <div className="group relative overflow-hidden bg-gradient-to-br from-purple-50 to-violet-100 p-8 rounded-2xl border border-purple-100 hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/10 rounded-full -mr-10 -mt-10"></div>
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Mail className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Email Us</h3>
+              <div className="space-y-2">
+                <a
+                  href="mailto:sales@nexusenergy.in"
+                  className="block text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium"
+                >
+                  sales@nexusenergy.in
+                </a>
+                <a
+                  href="mailto:info@nexusenergy.in"
+                  className="block text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium"
+                >
+                  info@nexusenergy.in
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* WhatsApp Support Banner */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-8 text-white">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full -ml-12 -mb-12"></div>
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between">
+            <div className="flex items-center mb-4 md:mb-0">
+              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-6">
+                <MessageSquare className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-2">Need Instant Support?</h3>
+                <p className="text-green-100">Chat with us on WhatsApp for quick assistance</p>
+              </div>
+            </div>
+            <a
+              href="https://wa.me/916280602341"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-green-600 px-8 py-4 rounded-full font-semibold hover:bg-green-50 transition-all duration-300 hover:scale-105 shadow-lg"
+            >
+              Start WhatsApp Chat
+            </a>
+          </div>
+        </div>
+
+       
       </div>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Tab Navigation */}
-        <div className="bg-[#001e5a] rounded-t-lg overflow-hidden mb-8">
+        <div className="bg-[#001e5a] rounded-t-lg overflow-hidden h-20 mb-8">
           <div className="flex flex-wrap">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 px-6 py-4 font-medium text-sm transition-all duration-300 ${
+                className={`flex-1 px-6 py-4 font-medium text-sm transition-all duration-300 h-20 ${
                   activeTab === tab.id
                     ? 'bg-[#0028AA] text-white'
                     : 'bg-[#001e5a] text-blue-100 hover:bg-[#0028AA] hover:text-white'
@@ -294,206 +376,6 @@ const Contact = () => {
                   onChange={(e) => handleInputChange('customer', 'requirements', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 resize-none"
                 />
-              </div>
-            </div>
-          )}
-
-          {/* Media Tab */}
-          {activeTab === 'media' && (
-            <div className="text-center py-16">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Contact us</h3>
-              <div className="space-y-2">
-                <p className="text-lg text-gray-700">
-                  <a 
-                    href="mailto:sales@nexusenergy.in" 
-                    className="text-blue-600 hover:text-blue-800 underline"
-                  >
-                    sales@nexusenergy.in
-                  </a>
-                </p>
-                <p className="text-lg text-gray-700">
-                  <a 
-                    href="mailto:info@nexusenergy.in" 
-                    className="text-blue-600 hover:text-blue-800 underline"
-                  >
-                    info@nexusenergy.in
-                  </a>
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Event Organizer Tab */}
-          {activeTab === 'activity' && (
-            <div className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Full name of exhibition/conference*
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.activity.exhibitionName}
-                    onChange={(e) => handleInputChange('activity', 'exhibitionName', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Organizer
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.activity.organizer}
-                    onChange={(e) => handleInputChange('activity', 'organizer', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Website
-                  </label>
-                  <input
-                    type="url"
-                    value={formData.activity.website}
-                    onChange={(e) => handleInputChange('activity', 'website', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Exhibition/conference venue*
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.activity.venue}
-                    onChange={(e) => handleInputChange('activity', 'venue', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Start and end time of registration*
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <input
-                      type="date"
-                      required
-                      value={formData.activity.registrationStart}
-                      onChange={(e) => handleInputChange('activity', 'registrationStart', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                    <input
-                      type="date"
-                      required
-                      value={formData.activity.registrationEnd}
-                      onChange={(e) => handleInputChange('activity', 'registrationEnd', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Start and end time of event*
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <input
-                      type="date"
-                      required
-                      value={formData.activity.eventStart}
-                      onChange={(e) => handleInputChange('activity', 'eventStart', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                    <input
-                      type="date"
-                      required
-                      value={formData.activity.eventEnd}
-                      onChange={(e) => handleInputChange('activity', 'eventEnd', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Name*
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.activity.name}
-                    onChange={(e) => handleInputChange('activity', 'name', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Tel.*
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    value={formData.activity.tel}
-                    onChange={(e) => handleInputChange('activity', 'tel', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    E-mail*
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.activity.email}
-                    onChange={(e) => handleInputChange('activity', 'email', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Theme contents (core information, scale, influence, etc.)*
-                </label>
-                <textarea
-                  required
-                  rows={6}
-                  value={formData.activity.themeContents}
-                  onChange={(e) => handleInputChange('activity', 'themeContents', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 resize-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Purpose of the letter
-                </label>
-                <div className="flex flex-wrap gap-4">
-                  {purposeOptions.map((purpose) => (
-                    <label key={purpose} className="flex items-center space-x-2">
-                      <input
-                        type="radio"
-                        name="purpose"
-                        value={purpose}
-                        checked={formData.activity.purpose === purpose}
-                        onChange={(e) => handleInputChange('activity', 'purpose', e.target.value)}
-                        className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                      />
-                      <span className="text-gray-700">{purpose}</span>
-                    </label>
-                  ))}
-                </div>
               </div>
             </div>
           )}
