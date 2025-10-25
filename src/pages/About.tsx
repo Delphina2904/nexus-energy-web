@@ -8,7 +8,7 @@ import hero from "../assets/herosection.png"
 // Export the main About content without Navbar/Footer for embedding
 export const AboutContent = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [animatedItems, setAnimatedItems] = useState<{[key: string]: boolean}>({});
+  const [animatedItems, setAnimatedItems] = useState<{ [key: string]: boolean }>({});
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -76,22 +76,22 @@ export const AboutContent = () => {
 
                 {/* Image */}
                 <div className="aspect-[4/5] w-full bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl flex items-center justify-center overflow-hidden relative">
-                  <img src={hero} alt="hero section" className='h-full w-full object-cover' />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-100/20 to-transparent rounded-2xl"></div>
+                  <div className="flex items-center justify-center group">
+                    <video
+                      src="/public/images/video-vmake.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-[620px] object-cover transition-all duration-300 group-hover:brightness-110 group-hover:drop-shadow-lg rounded-lg"
+                    />
+                  </div>
                 </div>
 
-                <div className="absolute -bottom-4 -left-4 w-6 h-6 md:w-8 md:h-8 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full shadow-lg"></div>
-                <div className="absolute -top-2 left-1/4 w-3 h-3 md:w-4 md:h-4 bg-blue-100 rounded-full shadow-sm"></div>
+
               </div>
 
-              {/* Additional floating elements */}
-              <div className="absolute top-6 md:top-8 lg:top-10 -left-4 md:-left-6 lg:-left-8 bg-white p-2 md:p-3 rounded-xl shadow-xl border border-gray-200">
-                <Zap className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-500" />
-              </div>
 
-              <div className="absolute bottom-12 md:bottom-16 lg:bottom-20 -right-4 md:-right-6 lg:-right-8 bg-white p-2 md:p-3 rounded-xl shadow-xl border border-gray-200">
-                <Target className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-indigo-500" />
-              </div>
             </div>
           </div>
 
@@ -100,8 +100,8 @@ export const AboutContent = () => {
             {/* Innovation section */}
             <div className={`transform transition-all duration-1000 delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100'
               }`}>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-6 md:mb-8 text-center">
-                Our innovation hub houses India's foremost electrochemistry research facility, where cross-disciplinary teams pioneer breakthroughs in:
+              <h3 className="text-lg sm:text-xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8 text-center">
+                Lorem ipsum dolor sit amet.
               </h3>
 
               <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
@@ -151,12 +151,12 @@ export const AboutContent = () => {
               <div className="absolute top-4 left-4 text-blue-600 text-2xl font-bold leading-none">
                 "
               </div>
-              
+
               {/* Bottom-right quotation marks */}
               <div className="absolute bottom-4 right-4 text-blue-600 text-2xl font-bold leading-none">
                 "
               </div>
-              
+
               {/* Quote text */}
               <div className="text-center px-6">
                 <p className="text-slate-700 text-lg md:text-xl lg:text-2xl font-medium italic leading-relaxed">
@@ -243,7 +243,7 @@ export const AboutContent = () => {
           <p className="text-base md:text-lg text-gray-700 mb-6 text-center max-w-4xl mx-auto font-normal">
             Nexus Energy's product ecosystem is engineered to accelerate the transition to a net-zero future, delivering next-generation battery-powered solutions across diverse sectors—including quick commerce, mobility, and scalable energy storage. Our integrated approach harnesses the power of our unique technological innovations:
           </p>
-          
+
           <div className="bg-white rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 mb-8">
             <h4 className="text-xl font-semibold text-indigo-700 mb-4">Core Technology Enablers</h4>
             <ul className="list-disc pl-6 space-y-3 font-normal text-gray-700">
@@ -288,7 +288,7 @@ export const AboutContent = () => {
               </ul>
             </div>
           </div>
-          
+
           <div className="bg-white rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 mb-8">
             <h4 className="text-xl font-semibold text-indigo-700 mb-4">Ecosystem Benefits</h4>
             <ul className="list-disc pl-6 space-y-3 font-normal text-gray-700">
@@ -298,7 +298,7 @@ export const AboutContent = () => {
               <li><span className="font-semibold text-gray-800">Versatility:</span> Solutions are chemistry-agnostic, supporting innovations from LFP to solid-state.</li>
             </ul>
           </div>
-          
+
           <div className="bg-white rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 mb-8">
             <h4 className="text-xl font-semibold text-indigo-700 mb-4">End-to-End Platform</h4>
             <p className="text-base md:text-lg text-gray-700 mb-4 font-normal">
@@ -310,12 +310,12 @@ export const AboutContent = () => {
               <li>Circularity & Second-Life Programs</li>
             </ul>
           </div>
-          
+
           <div className="text-center bg-gradient-to-r from-blue-50 to-indigo-50 rounded-3xl p-6 md:p-8 border border-blue-200">
             <p className="text-lg md:text-xl font-semibold text-blue-900">Nexus Energy ecosystem: innovating today, powering tomorrow's sustainable, electrified world.</p>
           </div>
         </div>
-        
+
         <style>{`
           @keyframes fade-in-up {
             from {
