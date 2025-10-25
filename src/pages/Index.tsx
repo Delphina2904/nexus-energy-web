@@ -1198,6 +1198,115 @@ const Index = () => {
           <Interactive3DBackground />
         </section>
 
+        {/* New Image Section - Unique Layout */}
+        <section className="relative z-10 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 py-20 md:py-28 overflow-hidden">
+          {/* Background decorative elements */}
+          <div className="absolute inset-0">
+            <div className="absolute top-10 left-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-20 right-20 w-96 h-96 bg-indigo-200/20 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-200/10 rounded-full blur-2xl"></div>
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              
+              {/* Left Content Column */}
+              <div className="lg:col-span-5 space-y-8">
+                {/* Floating badge */}
+                <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-blue-200/50 px-4 py-2 rounded-full shadow-lg">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                  <span className="text-blue-700 font-medium text-sm">Industry Leadership</span>
+                </div>
+                
+                {/* Main heading */}
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                  <span className="text-gray-900">Pioneering the</span>
+                  <br />
+                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                    Future of Energy
+                  </span>
+                  <br />
+                  <span className="text-gray-700">Storage</span>
+                </h2>
+                
+                {/* Description */}
+                <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+                  At the forefront of battery technology innovation, we're transforming how the world stores, 
+                  manages, and utilizes energy.
+                </p>
+                
+                {/* Stats */}
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center lg:text-left">
+                    <div className="text-2xl md:text-3xl font-bold text-blue-600">500+</div>
+                    <div className="text-sm text-gray-500">Projects Delivered</div>
+                  </div>
+                  <div className="text-center lg:text-left">
+                    <div className="text-2xl md:text-3xl font-bold text-indigo-600">25k+</div>
+                    <div className="text-sm text-gray-500">Battery Cycles</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Image Column */}
+              <div className="lg:col-span-7">
+                <div className="relative">
+                  {/* Main image container with unique shape */}
+                  <div className="relative">
+                    {/* Decorative background shape */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500 rounded-[3rem] transform rotate-3 scale-105 opacity-10"></div>
+                    
+                    {/* Image container */}
+                    <div className="relative bg-white rounded-[2.5rem] p-3 shadow-2xl">
+                      <div className="relative overflow-hidden rounded-[2rem]">
+                        <img
+                          src="https://images.financialexpressdigital.com/2023/09/1-267.jpg"
+                          alt="Energy Innovation"
+                          className="w-full h-auto object-cover transition-all duration-700 hover:scale-110"
+                          loading="lazy"
+                        />
+                        {/* Image overlay with gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 via-transparent to-purple-600/20"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Floating elements */}
+                    <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl shadow-xl flex items-center justify-center transform rotate-12 hover:rotate-0 transition-transform duration-500">
+                      <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    
+                    <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg flex items-center justify-center transform -rotate-12 hover:rotate-0 transition-transform duration-500">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      </svg>
+                    </div>
+                    
+                    {/* Pulse circles */}
+                    <div className="absolute top-1/4 right-8 w-4 h-4 bg-blue-400 rounded-full animate-ping"></div>
+                    <div className="absolute bottom-1/3 left-8 w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom decorative section */}
+            <div className="mt-20 text-center">
+              <div className="inline-flex items-center gap-4 bg-white/60 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg border border-gray-200/50">
+                <div className="flex -space-x-2">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full border-2 border-white"></div>
+                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full border-2 border-white"></div>
+                  <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full border-2 border-white"></div>
+                </div>
+                <span className="text-gray-700 font-medium">Trusted by leading energy companies worldwide</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      
+
         {/* Product Ecosystem Section */}
         <ProductEcosystem />
 
@@ -1219,9 +1328,8 @@ const Index = () => {
         </div>
 
         {/* Railway Applications Section */}
-        <div className="relative z-10 bg-white py-16 md:py-20">
+        {/* <div className="relative z-10 bg-white py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Header */}
             <div className="text-center mb-8 md:mb-12">
               <div className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-4">
                 Railway Applications
@@ -1230,8 +1338,6 @@ const Index = () => {
                 Vande Bharat (T-18) Train Coach Battery System
               </h3>
             </div>
-            
-            {/* Full-width Image */}
             <div className="relative">
               <GlowCard
                 glowColor="blue"
@@ -1247,7 +1353,7 @@ const Index = () => {
               </GlowCard>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Services Content (Precision-Engineered Solutions) */}
         <div
