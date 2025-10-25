@@ -13,7 +13,7 @@ export const Footer = () => {
   return (
     <footer className="bg-slate-800 text-white pt-16 pb-8">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <div>
             <div className="mb-4">
               <div className="flex items-center gap-3 mb-2">
@@ -58,59 +58,6 @@ export const Footer = () => {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start text-slate-300">
-                <Home className="w-5 h-5 mr-3 mt-1 text-blue-500" />
-
-                <a
-                  href="https://maps.google.com/?q=508+Rosa+Bella+Towers+Waghbil+Ghodbunder+Road+Thane+West+Mumbai+400815"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-slate-100 transition-colors duration-300"
-                >
-                  508, Rosa Bella Towers, Waghbil, Thane West, Mumbai - 400815
-                </a>
-              </li>
-              <li className="flex items-center text-slate-300">
-                <Phone className="w-5 h-5 mr-3 text-blue-500" />
-                <span>+91 6280 602 341</span>
-              </li>
-              <li className="flex items-center text-slate-300">
-                <Phone className="w-5 h-5 mr-3 text-blue-500" />
-                <span>+91 9650661636</span>
-              </li>
-              <li className="flex items-center text-slate-300">
-                <Mail className="w-5 h-5 mr-3 text-blue-500" />
-                <a
-                  href="mailto:sales@nexusenergy.in"
-                  className="hover:text-slate-100 transition-colors duration-300"
-                >
-                  sales@nexusenergy.in
-                </a>
-              </li>
-              <li className="flex items-center text-slate-300">
-                <Mail className="w-5 h-5 mr-3 text-blue-500" />
-                <a
-                  href="mailto:info@nexusenergy.in"
-                  className="hover:text-slate-100 transition-colors duration-300"
-                >
-                  info@nexusenergy.in
-                </a>
-              </li>
-              <li className="flex items-center text-slate-300">
-                <MessageSquare className="w-5 h-5 mr-3 text-blue-500" />
-                <a
-                  href={`https://wa.me/916280602341`}
-                  className="hover:text-slate-100 transition-colors duration-300"
-                >
-                  WhatsApp Support
-                </a>
-              </li>
             </ul>
           </div>
 
