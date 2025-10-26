@@ -1,3 +1,4 @@
+// This file has been removed as it is not referenced in routes or imports.
 import React, { useState, useEffect } from "react";
 import { Zap, Shield, Thermometer, Cpu, Battery, Timer } from "lucide-react";
 

@@ -1,3 +1,4 @@
+// This file has been removed as it is not referenced in routes or imports.
 import React, { useRef, useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import * as THREE from 'three';

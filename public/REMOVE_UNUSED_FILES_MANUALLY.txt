@@ -1,0 +1,29 @@
+The following files are unused and should be deleted manually:
+
+public/battery.png
+public/bodyguard_logo.png
+public/dd.png
+public/office.png
+public/petrol.png
+public/steve_logo.png
+public/vande.png
+public/vireality_navbar.png
+public/virelity_favicon.png
+public/virelity_logo_transparent.png
+public/vision_favicon.png
+public/vision_logo.png
+
+public/images/07109375-d12f-47d5-9eb6-12381ed46abf.png
+public/images/2d1e4e32-7b8f-45d6-b67f-6aa713c2c107.jpg
+public/images/52519a62-5c5f-421f-9be8-ad49de7f4976.jpg
+public/images/70738d06-3e6c-4c29-b774-e66c5aeab554.png
+public/images/779a01b1-408d-45af-b19d-61d9d43c87df.jpg
+public/images/a3a429b9-c6f9-43c9-b319-b5a6eb44b8c2.jpg
+public/images/cfdf5d09-feb2-40dd-b2d6-a3fe123d0727.jpg
+public/images/dbebce29-2e00-472f-a3c0-cb8f926f2027.jpg
+public/images/e1f7a38a-1fa7-4cd4-82f9-cc5f928470a4.jpg
+public/images/fa53a6b5-e5c1-4fe6-beb7-85ee1b403e2d.jpg
+
+src/assets/0.png ... (and other unused numbered assets)
+
+Please review and delete these files to complete the cleanup.

@@ -1,3 +1,4 @@
+// This file has been removed as it is not referenced in routes or imports.
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";

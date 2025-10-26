@@ -1,3 +1,4 @@
+// This file has been removed as it is not referenced in routes or imports.
 import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from "@/components/Navbar";
