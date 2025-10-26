@@ -26,6 +26,10 @@ import LenisSmoothScroll from "./components/LenisSmoothScroll";
 import VisionMission from "./pages/VisionMission";
 import { Navbar } from "./components/Navbar";
 import Solutions from "./pages/solutions/Solutions";
+import Commercial from "./pages/solutions/Commercial";
+import Drones from "./pages/solutions/Drones";
+import EnergyStorage from "./pages/solutions/EnergyStorage";
+import Railways from "./pages/solutions/Railways";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +50,10 @@ const App = () => (
             <Route path="/vision-mission" element={<VisionMission />} />
             <Route path="/team" element={<Team />} />
             <Route path="/solutions" element={<Solutions />} />
+            <Route path="/solutions/commercial" element={<Commercial />} />
+            <Route path="/solutions/drones" element={<Drones />} />
+            <Route path="/solutions/energystorage" element={<EnergyStorage />} />
+            <Route path="/solutions/railways" element={<Railways />} />
             <Route path="/technology" element={<Technology />} />
             <Route path="/application" element={<Application />} />
             <Route path="/contact" element={<Contact />} />

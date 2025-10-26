@@ -16,34 +16,39 @@ const navItems = [
 const solutionsStructure = [
   {
     category: "Commercial",
-    path: "/solutions",
+    path: "/solutions/commercial",
     subcategories: [
-      { name: "Road Passenger Transport", path: "/solutions" },
-      { name: "Urban Delivery", path: "/solutions" },
-      { name: "Heavy-duty Transport", path: "/solutions" },
-      { name: "Urban Street Cleaning", path: "/solutions" },
-      { name: "Construction", path: "/solutions" },
-      { name: "Two-wheeled Vehicle", path: "/solutions" },
-      { name: "Special Vehicle", path: "/solutions" },
+      { name: "Road Passenger Transport", path: "/solutions/commercial#road-passenger-transport" },
+      { name: "Urban Delivery", path: "/solutions/commercial#urban-delivery" },
+      { name: "Heavy-duty Transport", path: "/solutions/commercial#heavy-duty" },
+      { name: "Urban Street Cleaning", path: "/solutions/commercial#street-cleaning" },
+      { name: "Construction", path: "/solutions/commercial#construction-machinery" },
+      { name: "Two-wheeled Vehicle", path: "/solutions/commercial#two-wheeled" },
+      { name: "Special Vehicle", path: "/solutions/commercial#special-vehicle" },
     ]
   },
   {
     category: "Drones",
-    path: "/solutions",
+    path: "/solutions/drones",
     subcategories: [
-      { name: "Agri", path: "/solutions" },
-      { name: "Defence", path: "/solutions" },
+      { name: "Agricultural Drones", path: "/solutions/drones#agri" },
+      { name: "Defence Drones", path: "/solutions/drones#defence" },
     ]
   },
   {
     category: "Energy Storage Systems",
-    path: "/solutions",
-    subcategories: []
+    path: "/solutions/energystorage",
+    subcategories: [
+      { name: "BESS", path: "/solutions/energystorage#bess" },
+      { name: "UPS", path: "/solutions/energystorage#ups" },
+    ]
   },
   {
     category: "Railways",
-    path: "/solutions",
-    subcategories: []
+    path: "/solutions/railways",
+    subcategories: [
+      { name: "Vande Bharat", path: "/solutions/railways#vande-bharat" },
+    ]
   }
 ];
 
@@ -421,19 +426,33 @@ export const Navbar = ({
                           return (
                             <div className="text-center">
                               <div className="flex justify-center space-x-3">
-                                {category.subcategories.map((subcategory) => (
-                                  <Link
-                                    key={subcategory.name}
-                                    to={subcategory.path}
-                                    className="group flex items-center justify-center px-6 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-white transition-all duration-200 min-h-[32px] min-w-[160px] rounded-md border border-transparent hover:border-blue-200 hover:shadow-sm"
-                                  >
-                                    <div className="text-center">
-                                      <div className="font-medium">
-                                        {subcategory.name}
+                                {category.subcategories.map((subcategory) => {
+                                  const isCurrentPage = location.pathname + location.hash === subcategory.path || (location.pathname === subcategory.path.split('#')[0] && location.hash === '#' + subcategory.path.split('#')[1]);
+                                  return (
+                                    <a
+                                      key={subcategory.name}
+                                      href={subcategory.path}
+                                      onClick={e => {
+                                        const [base, hash] = subcategory.path.split('#');
+                                        if (location.pathname === base && hash) {
+                                          e.preventDefault();
+                                          const el = document.getElementById(hash);
+                                          if (el) {
+                                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                          }
+                                          setIsDropdownOpen(false);
+                                        }
+                                      }}
+                                      className="group flex items-center justify-center px-6 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-white transition-all duration-200 min-h-[32px] min-w-[160px] rounded-md border border-transparent hover:border-blue-200 hover:shadow-sm"
+                                    >
+                                      <div className="text-center">
+                                        <div className="font-medium">
+                                          {subcategory.name}
+                                        </div>
                                       </div>
-                                    </div>
-                                  </Link>
-                                ))}
+                                    </a>
+                                  );
+                                })}
                               </div>
                             </div>
                           );

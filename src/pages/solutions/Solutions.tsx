@@ -34,43 +34,43 @@ const Solutions = () => {
     {
       icon: Bus,
       title: "Commercial EVs – Electric Bus",
-      description: "Focusing on the high-frequency and high-stability requirements of road passenger transport, CATL provides multi-scenario solutions that are safe, reliable, durable, and widely used in various urban public transport scenarios, passenger line, tourism passenger transport, commuter, etc.",
+  description: "Focusing on the high-frequency and high-stability requirements of road passenger transport, Nexus Energy provides multi-scenario solutions that are safe, reliable, durable, and widely used in various urban public transport scenarios, passenger line, tourism passenger transport, commuter, etc.",
       image: "https://www.catl.com/en/uploads/1/image/public/202101/20210113152613_a5bukbvsgp.png"
     },
     {
       icon: TramFront,
       title: "Railways – Vande Bharat ",
-      description: "CATL's traction batteries are suitable for light trucks, mini buses, and minivans, and are widely used in express delivery, supermarket delivery, fresh food delivery and other scenarios. CATL provides customers with safe, reliable and comprehensive battery solutions.",
+  description: "Nexus Energy's traction batteries are suitable for light trucks, mini buses, and minivans, and are widely used in express delivery, supermarket delivery, fresh food delivery and other scenarios. Nexus Energy provides customers with safe, reliable and comprehensive battery solutions.",
       image: "https://t4.ftcdn.net/jpg/05/18/35/41/360_F_518354199_t3WVv6zkDC9nuGi9v2T9kMPUuG41G5nQ.jpg"
     },
     {
       icon: Truck,
       title: "LCVs (Light Commercial Electric Vehicles) ",
-      description: "CATL provides strong and clean power to heavy-duty vehicles for meeting the working conditions of mining areas, ports, short-haul transportation in urban areas and construction sites, to satisfy the requirements of industrialization and transport electrification.",
+  description: "Nexus Energy provides strong and clean power to heavy-duty vehicles for meeting the working conditions of mining areas, ports, short-haul transportation in urban areas and construction sites, to satisfy the requirements of industrialization and transport electrification.",
       image: "https://www.catl.com/en/uploads/1/image/public/202009/20200922002526_p2a62ythil.png"
     },
     {
       icon: Zap,
       title: "BESS (Battery Energy Storage System)",
-      description: "CATL provides customized solutions that meet the demands of various street cleaning vehicles. CATL's batteries feature great safety, long life and strong environmental adaptability, covering a variety of vehicle types including electric washing vehicles, electric washing and sweeping vehicles, electric garbage trucks.",
+  description: "Nexus Energy provides customized solutions that meet the demands of various street cleaning vehicles. Nexus Energy's batteries feature great safety, long life and strong environmental adaptability, covering a variety of vehicle types including electric washing vehicles, electric washing and sweeping vehicles, electric garbage trucks.",
       image: "https://www.ess-news.com/wp-content/uploads/2025/06/agilitas.jpg"
     },
     {
       icon: Plane,
       title: "Drones Agri",
-      description: "The battery product solution provided by CATL for the field of construction machinery are widely adapted to special vehicles such as forklifts and slag trucks. It's easy to adapt to specific working conditions and create a comfortable and safe working environment.",
+  description: "The battery product solution provided by Nexus Energy for the field of construction machinery are widely adapted to special vehicles such as forklifts and slag trucks. It's easy to adapt to specific working conditions and create a comfortable and safe working environment.",
       image: "https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/179e614f3edadd3d5c5b8f0db25a3139/large.jpg"
     },
     {
       icon: Package,
       title: "Material Handling Equipments",
-      description: "CATL offers green, intelligent and safe battery solutions for two-wheeled vehicles which can be applied to multiple scenarios such as commuting, food delivery, express delivery, etc. The rechargeable and replaceable batteries make your travel experience easy and seamless.",
+  description: "Nexus Energy offers green, intelligent and safe battery solutions for two-wheeled vehicles which can be applied to multiple scenarios such as commuting, food delivery, express delivery, etc. The rechargeable and replaceable batteries make your travel experience easy and seamless.",
       image: "https://www.catl.com/en/uploads/1/image/public/202102/20210223123235_x6wkw3ieu8.png"
     },
     {
       icon: Server,
       title: "UPS – Energy Storage Solutions ",
-      description: "CATL offers green, intelligent and safe battery solutions for two-wheeled vehicles which can be applied to multiple scenarios such as commuting, food delivery, express delivery, etc. The rechargeable and replaceable batteries make your travel experience easy and seamless.",
+  description: "Nexus Energy offers green, intelligent and safe battery solutions for two-wheeled vehicles which can be applied to multiple scenarios such as commuting, food delivery, express delivery, etc. The rechargeable and replaceable batteries make your travel experience easy and seamless.",
       image: "https://media.istockphoto.com/id/1430070088/photo/server-room-server-data-center-backup-mining-hosting-mainframe-farm-and-computer-rack-with.jpg?s=612x612&w=0&k=20&c=UwKrotQBmf80MIh2ACuNXPpQrszbnNLTrvzJNK99njw="
     }
   ];

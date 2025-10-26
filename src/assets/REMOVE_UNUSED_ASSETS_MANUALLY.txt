@@ -1,0 +1,8 @@
+Many files in src/assets/ are unused. Please review the following for deletion:
+
+- 0.png, 1.png, 10.png, ... (all numbered files not referenced in code)
+- Logo.png, NexusEnergy.png, clients.png, fonts/ (if not used)
+
+Only keep files referenced in code or imported in src/constants/images.js, Customers.tsx, About.tsx, etc.
+
+This list is not exhaustive. Please double-check before deleting.
