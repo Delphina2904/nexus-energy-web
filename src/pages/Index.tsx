@@ -1143,7 +1143,7 @@ const Interactive3DBackground = () => {
               WebkitTextStroke: "0.5px rgba(0, 221, 255, 0.2)",
             }}
           >
-            ELECTROCHEMICAL SUSTAINABLE ENERGY TRANSFORMATION
+            ENERGY TRANSFORMATION
           </p>
         </div>
       </div>
@@ -1157,8 +1157,25 @@ const Interactive3DBackground = () => {
 };
 
 const Index = () => {
-  // Scroll to top on mount
+  // Simple 2-image slider state
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Two images: b1.png and the existing train image
+  const sliderImages = [
+    "/images/b1.png",
+    "https://images.financialexpressdigital.com/2023/09/1-267.jpg"
+  ];
 
+  // Auto-play slider with animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
+    }, 5000); // Change every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [sliderImages.length]);
+
+  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 
@@ -1212,72 +1229,154 @@ const Index = () => {
               
               {/* Left Content Column */}
               <div className="lg:col-span-5 space-y-8">
-                {/* Floating badge */}
-                <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-blue-200/50 px-4 py-2 rounded-full shadow-lg">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                  <span className="text-blue-700 font-medium text-sm">Industry Leadership</span>
+                {/* Enhanced Floating badge */}
+                <div className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-50 to-amber-50 backdrop-blur-sm border border-orange-200/70 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full animate-pulse"></div>
+                  <span className="text-orange-700 font-semibold text-sm tracking-wide">Railway Excellence</span>
                 </div>
                 
-                {/* Main heading */}
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                  <span className="text-gray-900">Pioneering the</span>
-                  <br />
-                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                    Future of Energy
-                  </span>
-                  <br />
-                  <span className="text-gray-700">Storage</span>
-                </h2>
-                
-                {/* Description */}
-                <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                  At the forefront of battery technology innovation, we're transforming how the world stores, 
-                  manages, and utilizes energy.
-                </p>
-                
-                {/* Stats */}
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="text-center lg:text-left">
-                    <div className="text-2xl md:text-3xl font-bold text-blue-600">500+</div>
-                    <div className="text-sm text-gray-500">Projects Delivered</div>
+                {/* Enhanced Main heading with better styling */}
+                <div className="space-y-2">
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
+                    <span className="text-gray-900 block mb-1 hover:text-gray-800 transition-colors duration-300">
+                      Supplying Emergency
+                    </span>
+                    <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent block mb-1 hover:from-orange-600 hover:via-red-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105">
+                      Back-up Solutions
+                    </span>
+                    <span className="text-gray-700 block text-2xl md:text-3xl lg:text-4xl hover:text-gray-600 transition-colors duration-300">
+                      to T-18 Vande Bharat Trainsets
+                    </span>
+                  </h2>
+                  
+                  {/* Decorative underline */}
+                  <div className="flex items-center gap-2 mt-4">
+                    <div className="h-1 w-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
+                    <div className="h-1 w-8 bg-gradient-to-r from-red-500 to-pink-500 rounded-full opacity-75"></div>
+                    <div className="h-1 w-4 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full opacity-50"></div>
                   </div>
-                  <div className="text-center lg:text-left">
-                    <div className="text-2xl md:text-3xl font-bold text-indigo-600">25k+</div>
-                    <div className="text-sm text-gray-500">Battery Cycles</div>
+                </div>
+                
+                {/* Enhanced Description */}
+                <div className="space-y-4">
+                  <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium">
+                    Powering India's fastest trains with cutting-edge emergency backup systems.
+                  </p>
+                  <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+                    Our advanced battery technology ensures uninterrupted power supply for critical safety systems, 
+                    communication networks, and passenger comfort in T-18 Vande Bharat Express trainsets.
+                  </p>
+                  
+                  {/* Key features */}
+                  <div className="flex flex-wrap gap-3 mt-6">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800 border border-orange-200">
+                      ⚡ Instant Backup
+                    </span>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                      🚄 High-Speed Ready
+                    </span>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-pink-100 text-pink-800 border border-pink-200">
+                      🔋 Long-lasting
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Enhanced Railway Stats */}
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center lg:text-left group">
+                    <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-4 border border-orange-100 group-hover:shadow-lg transition-all duration-300">
+                      <div className="text-2xl md:text-3xl font-bold text-transparent bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text">18+</div>
+                      <div className="text-sm text-gray-600 font-medium">Trainsets Equipped</div>
+                    </div>
+                  </div>
+                  <div className="text-center lg:text-left group">
+                    <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-4 border border-pink-100 group-hover:shadow-lg transition-all duration-300">
+                      <div className="text-2xl md:text-3xl font-bold text-transparent bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text">99.9%</div>
+                      <div className="text-sm text-gray-600 font-medium">Reliability Rate</div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Right Image Column */}
+              {/* Right Image Slider Column */}
               <div className="lg:col-span-7">
                 <div className="relative">
-                  {/* Main image container with unique shape */}
+                  {/* Main slider container with unique shape */}
                   <div className="relative">
                     {/* Decorative background shape */}
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500 rounded-[3rem] transform rotate-3 scale-105 opacity-10"></div>
                     
-                    {/* Image container */}
-                    <div className="relative bg-white rounded-[2.5rem] p-3 shadow-2xl">
-                      <div className="relative overflow-hidden rounded-[2rem]">
-                        <img
-                          src="https://images.financialexpressdigital.com/2023/09/1-267.jpg"
-                          alt="Energy Innovation"
-                          className="w-full h-auto object-cover transition-all duration-700 hover:scale-110"
-                          loading="lazy"
-                        />
-                        {/* Image overlay with gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 via-transparent to-purple-600/20"></div>
+                    {/* Animated Slider container */}
+                    <div className="relative bg-white rounded-[2.5rem] p-3 shadow-2xl overflow-hidden">
+                      <div className="relative overflow-hidden rounded-[2rem] h-[400px] md:h-[500px]">
+                        {/* Slider with crossfade animation */}
+                        {sliderImages.map((image, index) => (
+                          <div
+                            key={index}
+                            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                              index === currentSlide 
+                                ? 'opacity-100 transform scale-100' 
+                                : 'opacity-0 transform scale-105'
+                            }`}
+                          >
+                            <img
+                              src={image}
+                              alt={`Energy Innovation ${index + 1}`}
+                              className="w-full h-full object-cover transition-transform duration-1000"
+                              loading="lazy"
+                              style={{
+                                filter: index === currentSlide ? 'brightness(1)' : 'brightness(0.8)',
+                                transform: index === currentSlide ? 'scale(1)' : 'scale(1.05)',
+                              }}
+                            />
+                            {/* Dynamic overlay with gradient animation */}
+                            <div 
+                              className={`absolute inset-0 transition-all duration-1000 ${
+                                index === currentSlide 
+                                  ? 'bg-gradient-to-tr from-blue-600/20 via-transparent to-purple-600/20' 
+                                  : 'bg-gradient-to-tr from-blue-600/40 via-transparent to-purple-600/40'
+                              }`}
+                            ></div>
+                            
+                            {/* Animated particles during transition */}
+                            {index === currentSlide && (
+                              <>
+                                <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400/60 rounded-full animate-ping"></div>
+                                <div className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-purple-400/60 rounded-full animate-pulse"></div>
+                                <div className="absolute top-2/3 left-3/4 w-1.5 h-1.5 bg-indigo-400/60 rounded-full animate-bounce"></div>
+                              </>
+                            )}
+                          </div>
+                        ))}
+                        
+                        {/* Subtle slide change animation overlay */}
+                        <div className="absolute inset-0 pointer-events-none">
+                          <div 
+                            className={`absolute inset-0 bg-white/20 transition-opacity duration-500 ${
+                              currentSlide === 0 ? 'opacity-0' : 'opacity-100'
+                            }`}
+                            style={{
+                              background: 'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)',
+                              transform: 'translateX(-100%)',
+                              animation: currentSlide === 1 ? 'slideShimmer 1s ease-out' : 'none',
+                            }}
+                          ></div>
+                        </div>
                       </div>
                     </div>
                     
-                    {/* Floating elements */}
-                    <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl shadow-xl flex items-center justify-center transform rotate-12 hover:rotate-0 transition-transform duration-500">
+                    {/* Floating elements with enhanced animations */}
+                    <div className={`absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl shadow-xl flex items-center justify-center transform transition-all duration-1000 ${
+                      currentSlide === 0 ? 'rotate-12 scale-100' : 'rotate-0 scale-110'
+                    }`}>
                       <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
                     </div>
                     
-                    <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg flex items-center justify-center transform -rotate-12 hover:rotate-0 transition-transform duration-500">
+                    <div className={`absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg flex items-center justify-center transform transition-all duration-1000 ${
+                      currentSlide === 0 ? '-rotate-12 scale-100' : 'rotate-0 scale-110'
+                    }`}>
                       <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                       </svg>
@@ -1367,6 +1466,45 @@ const Index = () => {
         <div className="relative z-10" style={{ transform: "translateZ(0)" }}>
           <Footer />
         </div>
+        
+        {/* Slider Animation Styles */}
+        <style>{`
+          @keyframes slideShimmer {
+            0% {
+              transform: translateX(-100%);
+              opacity: 0;
+            }
+            50% {
+              opacity: 1;
+            }
+            100% {
+              transform: translateX(100%);
+              opacity: 0;
+            }
+          }
+          
+          @keyframes fadeInScale {
+            0% {
+              opacity: 0;
+              transform: scale(1.1);
+            }
+            100% {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+          
+          @keyframes slideUp {
+            0% {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}</style>
       </div>
     </SmoothScrollWrapper>
   );
