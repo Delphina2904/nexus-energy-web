@@ -10,7 +10,7 @@ const subcategories = [
     id: 'agri',
     title: 'Agricultural Drones',
     description: 'Advanced battery solutions for agricultural drones, enabling efficient crop monitoring, spraying, and mapping.',
-    image: 'https://5.imimg.com/data5/SELLER/Default/2023/8/335431223/TD/TY/GX/112841464/drone-500x500.jpeg',
+    image: 'https://www.garudaaerospace.com/_next/image?url=%2Fimages%2Fagriculture%2Ffind-services%2Fplanting.png&w=750&q=75',
   },
   {
     id: 'defence',

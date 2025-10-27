@@ -39,8 +39,9 @@ const solutionsStructure = [
     category: "Energy Storage Systems",
     path: "/solutions/energystorage",
     subcategories: [
-      { name: "BESS", path: "/solutions/energystorage#bess" },
-      { name: "UPS", path: "/solutions/energystorage#ups" },
+      { name: "Power Generation", path: "/solutions/energystorage#bess" },
+      { name: "Transmission & Distribution", path: "/solutions/energystorage#ups" },
+      { name: "Power Consumption", path: "/solutions/energystorage#ups" },
     ]
   },
   {
