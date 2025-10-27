@@ -47,7 +47,8 @@ const solutionsStructure = [
     category: "Railways",
     path: "/solutions/railways",
     subcategories: [
-      { name: "Vande Bharat", path: "/solutions/railways#vande-bharat" },
+      { name: "Vande Bharat Coach", path: "/solutions/railways#vande-bharat-coach" },
+      { name: "Shunt Locomotive", path: "/solutions/railways#shunt-locomotive" },
     ]
   }
 ];
