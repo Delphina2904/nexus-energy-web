@@ -8,113 +8,65 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 const services = [
   {
-    title: "E-Mobility Revolution....",
-    offerings: [
-      "High-density propulsion systems for L3/L5 EVs",
-      "Ultra-fast charging infrastructure (0-100% in 12-20 mins)",
-      "Battery-swapping networks for fleet operators",
-    ],
-    highlight:
-      "ASIL-D-rated BMS with IoT telemetry enabling predictive maintenance and 99.8% operational uptime for last-mile delivery fleets.",
-    applications: [
-      "Electric buses",
-      "Delivery vehicles",
-      "Fleet operations",
-    ],
-    image: Images.mobility2,
-    stats: "99.8% Uptime",
-    gradient: "from-blue-400 to-cyan-500",
+    id: 'bess',
+    title: 'Energy Storage on Power Generation',
+    description: 'Nexus Energy’s energy storage systems provide energy storage and output management in power generation. The electrochemical technology and renewable energy power generation technology form a joint system. Through the high-level consistency of cells and the powerful computing of BMS, Nexus Energy enables the power generation to restore a stable power grid, optimize the power output curve, reduce solar and wind curtailment, provide system inertia and the functions of frequency and peak modulation, increase the proportion of renewable energy in total power generation, and optimize the energy structure.',
+    image: '/images/s8.png',
   },
   {
-    title: "Renewable Energy Integration",
-    offerings: [
-      "Containerized BESS (Battery Energy Storage Systems)",
-      "Solar-wind hybrid microgrid controllers",
-      "Hydrogen fuel cell integration platforms",
-    ],
-    highlight:
-      "20MWh modular BESS installations storing daytime solar energy to power nocturnal industrial operations.",
-    applications: [
-      "Solar farms",
-      "Wind parks",
-      "Off-grid communities",
-    ],
-    image: Images.rEnergy,
-    stats: "4,200 tons CO₂ saved",
-    gradient: "from-green-400 to-emerald-500",
+    id: 'ups',
+    title: 'Energy Storage on Power Transmission and Distribution',
+    description: 'Nexus Energy’s energy storage systems provide smart load management for power transmission and distribution, and modulate frequency and peak in time according to power grid loads. The Nexus Energy electrochemical energy storage system has the functions of capacity increasing and  expansion, backup power supply, etc. It can adopt more renewable energy in power transmission and distribution in order to ensure the safe, stable, efficient and low-cost operation of the power grid.',
+    image: '/images/s9.png',
   },
   {
-    title: "Agricultural Electrification",
-    offerings: [
-      "Solar-powered irrigation systems",
-      "Electric tractor battery packs",
-      "Smart farming energy management",
-    ],
-    highlight:
-      "Solar-powered irrigation systems reducing diesel consumption by 80% while increasing crop yield by 25%.",
-    applications: [
-      "Irrigation systems",
-      "Electric tractors",
-      "Smart farming",
-    ],
-    image: Images.truck,
-    stats: "80% Diesel Reduction",
-    gradient: "from-orange-400 to-yellow-500",
+    id: 'ups',
+    title: 'Energy Storage on Power Consumption',
+    description: 'Nexus Energy’s energy storage systems provide users with a  peak-valley electricity price arbitrage mode and stable power quality management. Nexus Energy’s electrochemical energy storage products have been successfully applied in large-scale industrial, commercial and residential areas, and been expanded to emerging scenarios such as base stations, UPS backup power, off-grid and island/isolate systems, intelligent charging stations for optical storage charging and testing, etc. Such applications help regions that have a lack of power grids to have access to electricity, reduce electricity costs, ensure a  stable power network, and achieve maximum social and economic benefits by using renewable energy to its greatest extent.',
+    image: '/images/s10.png',
+  }, {
+    title: "Road Passenger Transport Solutions",
+    description: "Focusing on the high-frequency and high-stability requirements of road passenger transport, Nexus Energy provides multi-scenario solutions that are safe, reliable, durable, and widely used in various urban public transport scenarios, passenger line, tourism passenger transport, commuter, etc.",
+    image: "/images/s1.png",
+    link: "/solutions/commercial/passenger-transport"
   },
   {
-    title: "Defense Power Systems",
-    offerings: [
-      "Extreme-temperature batteries (-40°C to 65°C)",
-      "EMP-hardened power units for surveillance systems",
-      "Lightweight energy packs for UAVs/VTOL drones",
-    ],
-    highlight:
-      "Thermal-runaway-proof lithium-titanate systems powering high-altitude border logistics with 72-hour endurance.",
-    applications: [
-      "Military drones",
-      "Satellite stations",
-      "Submarine support",
-    ],
-    image: Images.dSecurity,
-    stats: "72h Endurance",
-    gradient: "from-red-400 to-pink-500",
+    title: "Urban Delivery Solutions",
+    description: "Nexus Energy's traction batteries are suitable for light trucks, mini buses, and minivans, and are widely used in express delivery, supermarket delivery, fresh food delivery and other scenarios. Nexus Energy provides customers with safe, reliable and comprehensive battery solutions.",
+    image: "/images/s2.png",
+    link: "/solutions/commercial/urban-delivery"
   },
   {
-    title: "Industrial Electrification",
-    offerings: [
-      "Heavy-machinery batteries for forklifts/stackers/BOPTs",
-      "Smart energy controllers for manufacturing lines",
-      "Peak-load shaving systems",
-    ],
-    highlight:
-      "40% reduction in energy costs for automotive OEMs through regenerative braking integration in material handling.",
-    applications: [
-      "Warehousing",
-      "Foundries",
-      "Robotics",
-    ],
-    image: Images.industrial2,
-    stats: "40% Cost Reduction",
-    gradient: "from-purple-400 to-indigo-500",
+    title: "Heavy-duty Transport Solutions",
+    description: "Nexus Energy provides strong and clean power to heavy-duty vehicles for meeting the working conditions of mining areas, ports, short-haul transportation in urban areas and construction sites, to satisfy the requirements of industrialization and transport electrification.",
+    image: "/images/s3.png",
+    link: "/solutions/commercial/heavy-duty"
   },
   {
-    title: "Grid-Scale Energy Storage",
-    offerings: [
-      "Utility-scale battery storage systems",
-      "Grid stabilization and frequency regulation",
-      "Renewable energy time-shifting solutions",
-    ],
-    highlight:
-      "100MW/400MWh grid-scale installations providing 99.9% reliability for critical infrastructure backup power.",
-    applications: [
-      "Power grids",
-      "Data centers",
-      "Critical infrastructure",
-    ],
-    image: Images.tempo2,
-    stats: "99.9% Reliability",
-    gradient: "from-indigo-400 to-blue-500",
+    title: "Urban Street Cleaning Solutions",
+    description: "Nexus Energy provides customized solutions that meet the demands of various street cleaning vehicles. Nexus Energy's batteries feature great safety, long life and strong environmental adaptability, covering a variety of vehicle types including electric washing vehicles, electric washing and sweeping vehicles, electric garbage trucks.",
+    image: "/images/s4.png",
+    link: "/solutions/commercial/street-cleaning"
   },
+  {
+    title: "Construction Machinery",
+    description: "The battery product solution provided by Nexus Energy for the field of construction machinery are widely adapted to special vehicles such as forklifts and slag trucks. It's easy to adapt to specific working conditions and create a comfortable and safe working environment.",
+    image: "/images/s5.png",
+    link: "/solutions/commercial/construction-machinery"
+  },
+  {
+    title: "Two-wheeled Vehicle Solutions",
+    description: "Nexus Energy offers green, intelligent and safe battery solutions for two-wheeled vehicles which can be applied to multiple scenarios such as commuting, food delivery, express delivery, etc. The rechargeable and replaceable batteries make your travel experience easy and seamless.",
+    image: "/images/s6.png",
+    link: "/solutions/commercial/two-wheeled"
+  },
+
+  {
+    title: "Special Vehicle Solutions",
+    description: "Nexus Energy provides customized product solutions for special vehicles which can be easily adapted to specific working conditions, thereby improving economic benefits, reducing environmental pollution and creating a comfortable and safe working environment.",
+    image: "/images/s7.png",
+    link: "/solutions/commercial/special-vehicle"
+  }
 ];
 
 // Export the main Services content without Navbar/Footer for embedding
@@ -214,20 +166,20 @@ export const ServicesContent = () => {
             <span className="text-gray-800">Across Industries</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Our advanced battery solutions drive transformation across diverse sectors, 
+            Our advanced battery solutions drive transformation across diverse sectors,
             delivering exceptional performance and reliability that powers the future.
           </p>
         </div>
 
         {/* Carousel Container */}
-        <div 
+        <div
           className="relative"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           {/* Carousel Wrapper */}
           <div className="overflow-hidden rounded-3xl">
-            <div 
+            <div
               className="flex transition-transform duration-700 ease-in-out gap-3"
               style={{ transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)` }}
             >
@@ -252,14 +204,13 @@ export const ServicesContent = () => {
                 };
 
                 return (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className="flex-shrink-0"
                     style={{ width: `${100 / slidesToShow}%` }}
                   >
                     <div
                       className="group cursor-pointer h-full"
-                      onClick={() => window.location.href = 'http://localhost:8080/technology'}
                       onMouseEnter={() => setHoveredCard(index)}
                       onMouseLeave={() => setHoveredCard(null)}
                     >
@@ -274,13 +225,13 @@ export const ServicesContent = () => {
                               loading="lazy"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                            
+
                             {/* Stats Badge */}
                             <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full text-sm font-bold text-gray-800 shadow-lg border border-white/20">
                               {service.stats}
                             </div>
 
-                        
+
                           </div>
 
                           {/* Content Section */}
@@ -289,7 +240,7 @@ export const ServicesContent = () => {
                               {service.title}
                             </h3>
 
-                   
+
                           </div>
                         </div>
                       </div>
@@ -327,11 +278,10 @@ export const ServicesContent = () => {
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`transition-all duration-300 ${
-                  index === currentSlide
+                className={`transition-all duration-300 ${index === currentSlide
                     ? "w-8 h-3 bg-blue-600 rounded-full"
                     : "w-3 h-3 bg-gray-300 hover:bg-gray-400 rounded-full"
-                }`}
+                  }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}

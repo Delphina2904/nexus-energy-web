@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { 
-  Shield, 
-  Clock, 
-  Thermometer, 
-  Settings, 
+import {
+  Shield,
+  Clock,
+  Thermometer,
+  Settings,
   BarChart3,
   Truck,
   Bus,
@@ -37,7 +37,7 @@ const Commercial = () => {
     {
       icon: Clock,
       title: "Standing the Test of Time",
-  description: "Through a futuristic tech combination in software and hardware, and the material mechanism of self and external maintenance, Nexus Energy batteries achieve more cycles, longer life, better long-term performance and higher economic benefits."
+      description: "Through a futuristic tech combination in software and hardware, and the material mechanism of self and external maintenance, Nexus Energy batteries achieve more cycles, longer life, better long-term performance and higher economic benefits."
     },
     {
       icon: Shield,
@@ -65,64 +65,64 @@ const Commercial = () => {
     {
       icon: Bus,
       title: "Road Passenger Transport Solutions",
-  description: "Focusing on the high-frequency and high-stability requirements of road passenger transport, Nexus Energy provides multi-scenario solutions that are safe, reliable, durable, and widely used in various urban public transport scenarios, passenger line, tourism passenger transport, commuter, etc.",
-      image: "https://www.catl.com/en/uploads/1/image/public/202101/20210113152613_a5bukbvsgp.png",
+      description: "Focusing on the high-frequency and high-stability requirements of road passenger transport, Nexus Energy provides multi-scenario solutions that are safe, reliable, durable, and widely used in various urban public transport scenarios, passenger line, tourism passenger transport, commuter, etc.",
+      image: "/images/s1.png",
       link: "/solutions/commercial/passenger-transport"
     },
     {
       icon: Package,
       title: "Urban Delivery Solutions",
-  description: "Nexus Energy's traction batteries are suitable for light trucks, mini buses, and minivans, and are widely used in express delivery, supermarket delivery, fresh food delivery and other scenarios. Nexus Energy provides customers with safe, reliable and comprehensive battery solutions.",
-      image: "https://www.catl.com/en/uploads/1/image/public/202009/20200922002526_p2a62ythil.png",
+      description: "Nexus Energy's traction batteries are suitable for light trucks, mini buses, and minivans, and are widely used in express delivery, supermarket delivery, fresh food delivery and other scenarios. Nexus Energy provides customers with safe, reliable and comprehensive battery solutions.",
+      image: "/images/s2.png",
       link: "/solutions/commercial/urban-delivery"
     },
     {
       icon: Truck,
       title: "Heavy-duty Transport Solutions",
-  description: "Nexus Energy provides strong and clean power to heavy-duty vehicles for meeting the working conditions of mining areas, ports, short-haul transportation in urban areas and construction sites, to satisfy the requirements of industrialization and transport electrification.",
-      image: "https://www.catl.com/en/uploads/1/image/public/202012/20201216173849_yjsnak6d0y.png",
+      description: "Nexus Energy provides strong and clean power to heavy-duty vehicles for meeting the working conditions of mining areas, ports, short-haul transportation in urban areas and construction sites, to satisfy the requirements of industrialization and transport electrification.",
+      image: "/images/s3.png",
       link: "/solutions/commercial/heavy-duty"
     },
     {
       icon: Trash2,
       title: "Urban Street Cleaning Solutions",
-  description: "Nexus Energy provides customized solutions that meet the demands of various street cleaning vehicles. Nexus Energy's batteries feature great safety, long life and strong environmental adaptability, covering a variety of vehicle types including electric washing vehicles, electric washing and sweeping vehicles, electric garbage trucks.",
-      image: "https://www.catl.com/en/uploads/1/image/public/202009/20200921234217_73wje6y35f.png",
+      description: "Nexus Energy provides customized solutions that meet the demands of various street cleaning vehicles. Nexus Energy's batteries feature great safety, long life and strong environmental adaptability, covering a variety of vehicle types including electric washing vehicles, electric washing and sweeping vehicles, electric garbage trucks.",
+      image: "/images/s4.png",
       link: "/solutions/commercial/street-cleaning"
     },
     {
       icon: Forklift,
       title: "Construction Machinery",
-  description: "The battery product solution provided by Nexus Energy for the field of construction machinery are widely adapted to special vehicles such as forklifts and slag trucks. It's easy to adapt to specific working conditions and create a comfortable and safe working environment.",
-      image: "https://www.catl.com/en/uploads/1/image/public/202102/20210223123235_x6wkw3ieu8.png",
+      description: "The battery product solution provided by Nexus Energy for the field of construction machinery are widely adapted to special vehicles such as forklifts and slag trucks. It's easy to adapt to specific working conditions and create a comfortable and safe working environment.",
+      image: "/images/s5.png",
       link: "/solutions/commercial/construction-machinery"
     },
     {
       icon: Bike,
       title: "Two-wheeled Vehicle Solutions",
-  description: "Nexus Energy offers green, intelligent and safe battery solutions for two-wheeled vehicles which can be applied to multiple scenarios such as commuting, food delivery, express delivery, etc. The rechargeable and replaceable batteries make your travel experience easy and seamless.",
-      image: "https://www.catl.com/en/uploads/1/image/public/202009/20200922001832_aqcxvvb50r.png",
+      description: "Nexus Energy offers green, intelligent and safe battery solutions for two-wheeled vehicles which can be applied to multiple scenarios such as commuting, food delivery, express delivery, etc. The rechargeable and replaceable batteries make your travel experience easy and seamless.",
+      image: "/images/s6.png",
       link: "/solutions/commercial/two-wheeled"
     },
-    
+
     {
       icon: Plane,
       title: "Special Vehicle Solutions",
-  description: "Nexus Energy provides customized product solutions for special vehicles which can be easily adapted to specific working conditions, thereby improving economic benefits, reducing environmental pollution and creating a comfortable and safe working environment.",
-      image: "https://www.catl.com/en/uploads/1/image/public/202009/20200922001116_3rl3y5fs35.png",
+      description: "Nexus Energy provides customized product solutions for special vehicles which can be easily adapted to specific working conditions, thereby improving economic benefits, reducing environmental pollution and creating a comfortable and safe working environment.",
+      image: "/images/s7.png",
       link: "/solutions/commercial/special-vehicle"
     }
   ];
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar 
+      <Navbar
         title="Commercial Application Solutions - Nexus Energy"
         description="Comprehensive commercial battery solutions for electric vehicles, heavy-duty transport, urban delivery, and specialized applications. Earn more money with each mile."
       />
-        {/* Removed old breadcrumb and hero section, now handled by PageHero */}
-      
-      
+      {/* Removed old breadcrumb and hero section, now handled by PageHero */}
+
+
       <PageHero
         title="Commercial Application Solutions"
         subtitle="Comprehensive commercial battery solutions for electric vehicles, heavy-duty transport, urban delivery, and specialized applications."
@@ -166,10 +166,10 @@ const Commercial = () => {
                   {/* Image */}
                   <div className="w-full lg:w-1/2">
                     <div className="relative overflow-hidden rounded-2xl  group">
-                      <img 
-                        src={solution.image} 
+                      <img
+                        src={solution.image}
                         alt={solution.title}
-                        className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="w-full  h-80 object-contain bg-transparent transition-transform duration-700 group-hover:scale-105"
                       />
                     </div>
                   </div>
@@ -192,7 +192,7 @@ const Commercial = () => {
         </div>
       </section>
 
-   
+
 
       <Footer />
     </div>

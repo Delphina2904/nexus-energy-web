@@ -10,19 +10,19 @@ const subcategories = [
     id: 'bess',
     title: 'Energy Storage on Power Generation',
   description: 'Nexus Energy’s energy storage systems provide energy storage and output management in power generation. The electrochemical technology and renewable energy power generation technology form a joint system. Through the high-level consistency of cells and the powerful computing of BMS, Nexus Energy enables the power generation to restore a stable power grid, optimize the power output curve, reduce solar and wind curtailment, provide system inertia and the functions of frequency and peak modulation, increase the proportion of renewable energy in total power generation, and optimize the energy structure.',
-    image: 'https://www.catl.com/en/uploads/1/image/public/202101/20210113131737_7rvp4j120h.png',
+    image: '/images/s8.png',
   },
   {
     id: 'ups',
     title: 'Energy Storage on Power Transmission and Distribution',
   description: 'Nexus Energy’s energy storage systems provide smart load management for power transmission and distribution, and modulate frequency and peak in time according to power grid loads. The Nexus Energy electrochemical energy storage system has the functions of capacity increasing and  expansion, backup power supply, etc. It can adopt more renewable energy in power transmission and distribution in order to ensure the safe, stable, efficient and low-cost operation of the power grid.',
-    image: 'https://www.catl.com/en/uploads/1/image/public/202101/20210113131938_prudpg4hew.png',
+    image: '/images/s9.png',
   },
   {
     id: 'ups',
     title: 'Energy Storage on Power Consumption',
   description: 'Nexus Energy’s energy storage systems provide users with a  peak-valley electricity price arbitrage mode and stable power quality management. Nexus Energy’s electrochemical energy storage products have been successfully applied in large-scale industrial, commercial and residential areas, and been expanded to emerging scenarios such as base stations, UPS backup power, off-grid and island/isolate systems, intelligent charging stations for optical storage charging and testing, etc. Such applications help regions that have a lack of power grids to have access to electricity, reduce electricity costs, ensure a  stable power network, and achieve maximum social and economic benefits by using renewable energy to its greatest extent.',
-    image: 'https://www.catl.com/en/uploads/1/image/public/202101/20210113132041_hbkr0snbr0.png',
+    image: '/images/s10.png',
   },
   
 ];

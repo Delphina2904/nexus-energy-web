@@ -6,6 +6,7 @@ import { Menu, ChevronDown } from "lucide-react";
 import { HoverImageEffect } from "@/components/custom/HoverImageEffect";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Helmet } from "react-helmet-async";
+import { div } from "three/src/nodes/TSL.js";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -306,10 +307,10 @@ export const Navbar = ({
                       ? "text-blue-600 font-semibold"
                       : "text-blue-400 font-semibold"
                     : scrolled
-                    ? "text-gray-900 hover:text-blue-600"
-                    : location.pathname === '/'
-                    ? "text-gray-100 hover:text-blue-300"
-                    : "text-gray-900 hover:text-blue-600"
+                      ? "text-gray-900 hover:text-blue-600"
+                      : location.pathname === '/'
+                        ? "text-gray-100 hover:text-blue-300"
+                        : "text-gray-900 hover:text-blue-600"
                 )}
                 role="menuitem"
                 aria-current={location.pathname === item.path ? "page" : undefined}
@@ -318,9 +319,9 @@ export const Navbar = ({
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
-            
+
             {/* Solutions Dropdown */}
-            <div 
+            <div
               className="relative group"
               onMouseEnter={() => {
                 setIsDropdownOpen(true);
@@ -339,14 +340,14 @@ export const Navbar = ({
                       ? "text-blue-600 font-semibold"
                       : "text-blue-400 font-semibold"
                     : scrolled
-                    ? "text-gray-900 hover:text-blue-600"
-                    : location.pathname === '/'
-                    ? "text-gray-100 hover:text-blue-300"
-                    : "text-gray-900 hover:text-blue-600"
+                      ? "text-gray-900 hover:text-blue-600"
+                      : location.pathname === '/'
+                        ? "text-gray-100 hover:text-blue-300"
+                        : "text-gray-900 hover:text-blue-600"
                 )}
               >
                 Solutions
-                <ChevronDown 
+                <ChevronDown
                   className={cn(
                     "h-3 w-3 transition-transform duration-300",
                     isDropdownOpen ? "rotate-180" : ""
@@ -354,7 +355,7 @@ export const Navbar = ({
                 />
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
               </button>
-              
+
               {/* Dropdown Menu - CATL Style */}
               <div
                 className={cn(
@@ -397,7 +398,7 @@ export const Navbar = ({
                           >
                             {category.category}
                           </Link>
-                          
+
                           {/* Bottom border indicator for active category */}
                           {category.subcategories.length > 0 && hoveredCategory === category.category && (
                             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
@@ -406,62 +407,62 @@ export const Navbar = ({
                       ))}
                     </div>
                   </div>
-                  
+
                   {/* Subcategories Section - Only show if category has subcategories */}
                   {hoveredCategory && (() => {
                     const category = solutionsStructure.find(cat => cat.category === hoveredCategory);
                     return category && category.subcategories.length > 0;
                   })() && (
-                    <div 
-                      className="border-t border-gray-100 py-[6px] bg-gray-50/50"
-                      onMouseEnter={() => {
-                        // Keep the hovered category active when hovering over subcategories
-                        const category = solutionsStructure.find(cat => cat.category === hoveredCategory);
-                        if (category && category.subcategories.length > 0) {
-                          setHoveredCategory(category.category);
-                        }
-                      }}
-                    >
-                      <div className="animate-in fade-in duration-200">
-                        {(() => {
+                      <div
+                        className="border-t border-gray-100 py-[6px] bg-gray-50/50"
+                        onMouseEnter={() => {
+                          // Keep the hovered category active when hovering over subcategories
                           const category = solutionsStructure.find(cat => cat.category === hoveredCategory);
-                          return (
-                            <div className="text-center">
-                              <div className="flex justify-center space-x-3">
-                                {category.subcategories.map((subcategory) => {
-                                  const isCurrentPage = location.pathname + location.hash === subcategory.path || (location.pathname === subcategory.path.split('#')[0] && location.hash === '#' + subcategory.path.split('#')[1]);
-                                  return (
-                                    <a
-                                      key={subcategory.name}
-                                      href={subcategory.path}
-                                      onClick={e => {
-                                        const [base, hash] = subcategory.path.split('#');
-                                        if (location.pathname === base && hash) {
-                                          e.preventDefault();
-                                          const el = document.getElementById(hash);
-                                          if (el) {
-                                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          if (category && category.subcategories.length > 0) {
+                            setHoveredCategory(category.category);
+                          }
+                        }}
+                      >
+                        <div className="animate-in fade-in duration-200">
+                          {(() => {
+                            const category = solutionsStructure.find(cat => cat.category === hoveredCategory);
+                            return (
+                              <div className="text-center">
+                                <div className="flex justify-center space-x-3">
+                                  {category.subcategories.map((subcategory) => {
+                                    const isCurrentPage = location.pathname + location.hash === subcategory.path || (location.pathname === subcategory.path.split('#')[0] && location.hash === '#' + subcategory.path.split('#')[1]);
+                                    return (
+                                      <a
+                                        key={subcategory.name}
+                                        href={subcategory.path}
+                                        onClick={e => {
+                                          const [base, hash] = subcategory.path.split('#');
+                                          if (location.pathname === base && hash) {
+                                            e.preventDefault();
+                                            const el = document.getElementById(hash);
+                                            if (el) {
+                                              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                            }
+                                            setIsDropdownOpen(false);
                                           }
-                                          setIsDropdownOpen(false);
-                                        }
-                                      }}
-                                      className="group flex items-center justify-center px-6 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-white transition-all duration-200 min-h-[32px] min-w-[160px] rounded-md border border-transparent hover:border-blue-200 hover:shadow-sm"
-                                    >
-                                      <div className="text-center">
-                                        <div className="font-medium">
-                                          {subcategory.name}
+                                        }}
+                                        className="group flex items-center justify-center px-6 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-white transition-all duration-200 min-h-[32px] min-w-[160px] rounded-md border border-transparent hover:border-blue-200 hover:shadow-sm"
+                                      >
+                                        <div className="text-center">
+                                          <div className="font-medium">
+                                            {subcategory.name}
+                                          </div>
                                         </div>
-                                      </div>
-                                    </a>
-                                  );
-                                })}
+                                      </a>
+                                    );
+                                  })}
+                                </div>
                               </div>
-                            </div>
-                          );
-                        })()}
+                            );
+                          })()}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                 </div>
               </div>
             </div>
@@ -476,10 +477,10 @@ export const Navbar = ({
                     ? "text-blue-600 font-semibold"
                     : "text-blue-400 font-semibold"
                   : scrolled
-                  ? "text-gray-900 hover:text-blue-600"
-                  : location.pathname === '/'
-                  ? "text-gray-100 hover:text-blue-300"
-                  : "text-gray-900 hover:text-blue-600"
+                    ? "text-gray-900 hover:text-blue-600"
+                    : location.pathname === '/'
+                      ? "text-gray-100 hover:text-blue-300"
+                      : "text-gray-900 hover:text-blue-600"
               )}
               role="menuitem"
               aria-current={location.pathname === "/technology" ? "page" : undefined}
@@ -511,14 +512,14 @@ export const Navbar = ({
                 variant="ghost"
                 size="icon"
                 className={cn(
-                  "lg:hidden transition-colors duration-300 p-2",
+                  "lg:hidden duration-300 p-2 w-full justify-between flex items-center gap-2",
                   scrolled
                     ? "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
                     : "text-white hover:text-gray-200 hover:bg-white/10"
                 )}
                 aria-label="Open navigation menu"
               >
-                <Menu className="h-5 w-5" aria-hidden="true" />
+                <h1 className=" font-bold text-xl">Nexus Energy</h1><Menu className="h-5 w-5" aria-hidden="true" /> 
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
@@ -532,13 +533,7 @@ export const Navbar = ({
                   className="flex items-center gap-3 pb-6 border-b border-gray-200"
                   aria-label="Nexus Energy Homepage"
                 >
-                  <img
-                    src="/nexuslogo.png"
-                    alt="Nexus Energy Logo"
-                    className="h-8"
-                    width="32"
-                    height="32"
-                  />
+                
                   <span className="text-lg font-semibold text-gray-900">Nexus Energy</span>
                 </Link>
                 <div className="flex flex-col gap-1 py-6" role="menu">
@@ -560,7 +555,7 @@ export const Navbar = ({
                       {item.name}
                     </Link>
                   ))}
-                  
+
                   {/* Mobile Solutions Dropdown */}
                   <div>
                     <button
@@ -573,7 +568,7 @@ export const Navbar = ({
                       )}
                     >
                       <span>Solutions</span>
-                      <ChevronDown 
+                      <ChevronDown
                         className={cn(
                           "h-4 w-4 transition-transform duration-200",
                           mobileSubMenuOpen ? "rotate-180" : ""
@@ -596,28 +591,34 @@ export const Navbar = ({
                                 )}
                               >
                                 {category.category}
-                              </Link>
-                              
-                              {/* Subcategories Toggle */}
-                              {category.subcategories.length > 0 && (
-                                <button
-                                  onClick={() => setExpandedCategories(prev => ({
-                                    ...prev,
-                                    [category.category]: !prev[category.category]
-                                  }))}
-                                  className="flex items-center justify-between text-xs text-gray-500 py-1 px-3 hover:text-gray-700 transition-colors"
-                                >
-                                  <span>View subcategories</span>
-                                  <ChevronDown 
+
+                                 {category.subcategories.length > 0 && (
+                                <div onClick={() => setExpandedCategories(prev => ({
+                                  ...prev,
+                                  [category.category]: !prev[category.category]
+                                }))} className="flex justify-between flex-row items-center">
+                                  <button
+
+                                    className="flex w-[90%] items-center justify-between text-xs text-gray-500 py-1 px-3 hover:text-gray-700 transition-colors"
+                                  >
+
+
+                                  </button>
+                                  <ChevronDown
                                     className={cn(
                                       "h-3 w-3 transition-transform duration-200",
                                       expandedCategories[category.category] ? "rotate-180" : ""
                                     )}
                                   />
-                                </button>
+                                </div>
+
                               )}
+                              </Link>
+
+                              {/* Subcategories Toggle */}
+                             
                             </div>
-                            
+
                             {/* Subcategories */}
                             {category.subcategories.length > 0 && expandedCategories[category.category] && (
                               <div className="ml-3 space-y-1 border-l border-gray-200 pl-3">
