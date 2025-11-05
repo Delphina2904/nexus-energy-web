@@ -1230,8 +1230,8 @@ const Index = () => {
               {/* Left Content Column */}
               <div className="lg:col-span-5 space-y-8">
                 {/* Enhanced Floating badge */}
-                <div className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-50 to-amber-50 backdrop-blur-sm border border-orange-200/70 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full animate-pulse"></div>
+                <div className="inline-flex items-center gap-3 bg-[#E8E8F5] border border-orange-200/70 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                  {/* <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full animate-pulse"></div> */}
                   <span className="text-orange-700 font-semibold text-sm tracking-wide">Railway Excellence</span>
                 </div>
                 
@@ -1245,7 +1245,7 @@ const Index = () => {
                       Back-up Solutions
                     </span>
                     <span className="text-gray-700 block text-2xl md:text-3xl lg:text-4xl hover:text-gray-600 transition-colors duration-300">
-                      to T-18 Vande Bharat Trainsets
+                      For T-18 Vande Bharat Trainsets
                     </span>
                   </h2>
                   
@@ -1269,13 +1269,13 @@ const Index = () => {
                   
                   {/* Key features */}
                   <div className="flex flex-wrap gap-3 mt-6">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800 border border-orange-200">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#E8E8F5] border">
                       ⚡ Instant Backup
                     </span>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#E8E8F5] border">
                       🚄 High-Speed Ready
                     </span>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-pink-100 text-pink-800 border border-pink-200">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#E8E8F5] border">
                       🔋 Long-lasting
                     </span>
                   </div>
@@ -1285,7 +1285,7 @@ const Index = () => {
                 <div className="grid grid-cols-2 gap-6">
                   <div className="text-center lg:text-left group">
                     <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-4 border border-orange-100 group-hover:shadow-lg transition-all duration-300">
-                      <div className="text-2xl md:text-3xl font-bold text-transparent bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text">18+</div>
+                      <div className="text-2xl md:text-3xl font-bold text-transparent bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text">10+</div>
                       <div className="text-sm text-gray-600 font-medium">Trainsets Equipped</div>
                     </div>
                   </div>
@@ -1308,7 +1308,7 @@ const Index = () => {
                     
                     {/* Animated Slider container */}
                     <div className="relative bg-white rounded-[2.5rem] p-3 shadow-2xl overflow-hidden">
-                      <div className="relative overflow-hidden rounded-[2rem] h-[400px] md:h-[500px]">
+                      <div className="relative overflow-hidden rounded-[2rem] h-[400px] md:h-[400px]">
                         {/* Slider with crossfade animation */}
                         {sliderImages.map((image, index) => (
                           <div
@@ -1322,7 +1322,7 @@ const Index = () => {
                             <img
                               src={image}
                               alt={`Energy Innovation ${index + 1}`}
-                              className="w-full h-full object-cover transition-transform duration-1000"
+                              className="w-full h-full object-fill transition-transform duration-1000"
                               loading="lazy"
                               style={{
                                 filter: index === currentSlide ? 'brightness(1)' : 'brightness(0.8)',
@@ -1366,32 +1366,32 @@ const Index = () => {
                     </div>
                     
                     {/* Floating elements with enhanced animations */}
-                    <div className={`absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl shadow-xl flex items-center justify-center transform transition-all duration-1000 ${
+                    {/* <div className={`absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl shadow-xl flex items-center justify-center transform transition-all duration-1000 ${
                       currentSlide === 0 ? 'rotate-12 scale-100' : 'rotate-0 scale-110'
                     }`}>
                       <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
-                    </div>
+                    </div> */}
                     
-                    <div className={`absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg flex items-center justify-center transform transition-all duration-1000 ${
+                    {/* <div className={`absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg flex items-center justify-center transform transition-all duration-1000 ${
                       currentSlide === 0 ? '-rotate-12 scale-100' : 'rotate-0 scale-110'
                     }`}>
                       <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                       </svg>
-                    </div>
+                    </div> */}
                     
                     {/* Pulse circles */}
-                    <div className="absolute top-1/4 right-8 w-4 h-4 bg-blue-400 rounded-full animate-ping"></div>
-                    <div className="absolute bottom-1/3 left-8 w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+                    {/* <div className="absolute top-1/4 right-8 w-4 h-4 bg-blue-400 rounded-full animate-ping"></div>
+                    <div className="absolute bottom-1/3 left-8 w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div> */}
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Bottom decorative section */}
-            <div className="mt-20 text-center">
+            {/* <div className="mt-20 text-center">
               <div className="inline-flex items-center gap-4 bg-white/60 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg border border-gray-200/50">
                 <div className="flex -space-x-2">
                   <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full border-2 border-white"></div>
@@ -1400,7 +1400,7 @@ const Index = () => {
                 </div>
                 <span className="text-gray-700 font-medium">Trusted by leading energy companies worldwide</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
 

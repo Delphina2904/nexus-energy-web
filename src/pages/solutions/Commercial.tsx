@@ -137,7 +137,7 @@ const Commercial = () => {
 
 
       {/* Solutions Grid */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="space-y-20">
             {solutions.map((solution, index) => {
@@ -157,7 +157,7 @@ const Commercial = () => {
                 <motion.div
                   key={solution.title}
                   id={anchorId}
-                  className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12`}
+                  className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row ' : 'lg:flex-row-reverse'} items-center gap-12`}
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
